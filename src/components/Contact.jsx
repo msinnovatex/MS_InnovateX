@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, User, MessageSquare, AlertCircle, Loader2 } from 'lucide-react';
 import globeBg from '../assets/globe-bg.jpg';
-<<<<<<< HEAD
-import { isValidEmail, normalizeSubmission } from '../lib/validation';
-=======
 import dottedFlightImg from '../assets/dotted-flight.png';
->>>>>>> 6d5cf0a (Update)
+import { isValidEmail, isValidPhone, normalizeSubmission } from '../lib/validation';
 
 const Contact = ({ darkMode }) => {
   const [formData, setFormData] = useState({
@@ -50,9 +47,8 @@ const Contact = ({ darkMode }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-<<<<<<< HEAD
     const normalized = normalizeSubmission(formData);
-    if (!normalized.name || !normalized.email || !normalized.subject || !normalized.message) {
+    if (!normalized.name || !normalized.email || !normalized.phone || !normalized.subject || !normalized.message) {
       setError('Please fill in all required fields.');
       return;
     }
@@ -60,22 +56,11 @@ const Contact = ({ darkMode }) => {
       setError('Please enter a valid email address.');
       return;
     }
-    setFormData(normalized);
-=======
-
-    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.subject.trim() || !formData.message.trim()) {
-      setError('Please fill in all required fields.');
-      return;
-    }
-
-    // Validate 10-digit mobile number
-    const phoneDigits = formData.phone.replace(/\D/g, '').replace(/^91/, '');
-    if (phoneDigits.length !== 10) {
+    if (!isValidPhone(normalized.phone)) {
       setError('Please enter a valid 10-digit mobile number.');
       return;
     }
-
->>>>>>> 6d5cf0a (Update)
+    setFormData(normalized);
     setLoading(true);
     try {
       const apiBase = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
