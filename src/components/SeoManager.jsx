@@ -28,6 +28,16 @@ function customMeta(tags) {
     document.head.appendChild(node);
   });
 }
+function structuredData(data) {
+  let node = document.getElementById('msix-structured-data');
+  if (!node) {
+    node = document.createElement('script');
+    node.id = 'msix-structured-data';
+    node.type = 'application/ld+json';
+    document.head.appendChild(node);
+  }
+  node.textContent = JSON.stringify(data);
+}
 
 export default function SeoManager() {
   const { pathname } = useLocation();
@@ -42,6 +52,7 @@ export default function SeoManager() {
       const title = page.title || global.title || 'MS InnovateX';
       const description = page.description || global.description || '';
       const keywords = page.keywords || global.keywords || '';
+      const canonicalUrl = `${window.location.origin}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`;
       document.title = title;
       meta('description', description);
       meta('keywords', keywords);
@@ -53,11 +64,24 @@ export default function SeoManager() {
       property('og:description', description);
       property('og:image', global.ogImage || '');
       property('og:type', 'website');
-      property('og:url', window.location.href);
+      property('og:url', canonicalUrl);
       customMeta([...(global.custom || []), ...(page.custom || [])]);
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
-      canonical.href = window.location.href;
+      canonical.href = canonicalUrl;
+      structuredData({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: title,
+        description,
+        url: canonicalUrl,
+        isPartOf: { '@type': 'WebSite', name: 'MS InnovateX Pvt. Ltd.', url: window.location.origin },
+        publisher: {
+          '@type': 'Organization',
+          name: 'MS InnovateX Pvt. Ltd.',
+          logo: { '@type': 'ImageObject', url: new URL('/assets/logo.png', window.location.origin).href }
+        }
+      });
     }).catch(() => {});
     return () => { alive = false; };
   }, [pathname]);

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ms-innovate-x-livid.vercel.app/sitemap.xml

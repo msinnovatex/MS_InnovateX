@@ -28,6 +28,14 @@ const ScrollToTop = () => {
 function App() {
   const [darkMode, setDarkMode] = useState(false);
 
+  useEffect(() => {
+    const images = Array.from(document.images);
+    images.forEach((img, index) => {
+      img.decoding = 'async';
+      if (index > 2 && !img.loading) img.loading = 'lazy';
+    });
+  }, []);
+
   return (
     <div className={`min-h-screen font-sans selection:bg-blue-500 selection:text-white transition-colors duration-300 ${
       darkMode ? 'bg-[#031126] text-white dark' : 'bg-white text-slate-900'
@@ -55,6 +63,16 @@ function App() {
         {/* Careers & Contact */}
         <Route path="/careers" element={<Careers darkMode={darkMode} />} />
         <Route path="/contact" element={<ContactPage darkMode={darkMode} />} />
+        <Route path="*" element={
+          <div className="min-h-[60vh] flex items-center justify-center px-6 text-center">
+            <div>
+              <div className="text-sm font-extrabold uppercase tracking-widest text-[#1264FF]">404</div>
+              <h1 className="text-4xl font-black mt-2">Page not found</h1>
+              <p className="text-slate-500 dark:text-slate-300 mt-3 max-w-md">The page you requested does not exist or may have moved.</p>
+              <a href="/" className="inline-flex mt-6 px-6 py-3 rounded-full bg-[#1264FF] text-white font-bold">Back to Home</a>
+            </div>
+          </div>
+        } />
       </Routes>
 
       <AdvertisementPopup />

@@ -79,6 +79,11 @@ img, video, canvas, svg {
   max-width: 100%;
 }
 
+img {
+  height: auto;
+  content-visibility: auto;
+}
+
 button, a, input, textarea, select {
   max-width: 100%;
 }
