@@ -14,6 +14,20 @@ function property(name, content) {
   if (!node) { node = document.createElement('meta'); node.setAttribute('property', name); document.head.appendChild(node); }
   node.content = content;
 }
+function customMeta(tags) {
+  document.querySelectorAll('meta[data-msix-custom="true"]').forEach((node) => node.remove());
+  (Array.isArray(tags) ? tags : []).forEach((tag) => {
+    const type = ['name', 'property', 'http-equiv'].includes(tag?.type) ? tag.type : 'name';
+    const key = String(tag?.key || '').trim();
+    const content = String(tag?.content || '').trim();
+    if (!key || !content) return;
+    const node = document.createElement('meta');
+    node.setAttribute(type, key);
+    node.content = content;
+    node.dataset.msixCustom = 'true';
+    document.head.appendChild(node);
+  });
+}
 
 export default function SeoManager() {
   const { pathname } = useLocation();
@@ -40,6 +54,7 @@ export default function SeoManager() {
       property('og:image', global.ogImage || '');
       property('og:type', 'website');
       property('og:url', window.location.href);
+      customMeta([...(global.custom || []), ...(page.custom || [])]);
       let canonical = document.querySelector('link[rel="canonical"]');
       if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
       canonical.href = window.location.href;
