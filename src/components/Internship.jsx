@@ -1,64 +1,102 @@
 import React from 'react';
-import { ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
+import { ArrowRight, Laptop, GraduationCap, Award, Briefcase } from 'lucide-react';
+import internshipImg from '../assets/internship-bg.jpg';
+import waveBg from '../assets/wave-bg.jpg';
 
-const Internship = () => {
-  const tracks = [
-    { title: 'Web Development', desc: 'HTML, CSS, JavaScript, React.js, Tailwind' },
-    { title: 'Mobile App Development', desc: 'Flutter, React Native, Android, iOS' },
-    { title: 'AI & Machine Learning', desc: 'Python, ML Algorithms, Data Science' },
-    { title: 'Software Development', desc: 'Node.js, Express, Databases, Git, APIs' },
-  ];
-
+const Internship = ({ darkMode }) => {
   return (
-    <section id="internship" className="relative bg-internship-section py-16 lg:py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-[#030914] via-[#030914]/90 to-transparent lg:to-transparent/30 pointer-events-none" />
+    <section id="internship" className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
+      <div className="relative rounded-3xl overflow-hidden bg-[#061A3A] text-white p-8 sm:p-12 lg:p-16 border border-blue-900/50 shadow-2xl">
+        
+        {/* Background Wave Image Overlay */}
+        <div 
+          className="absolute inset-0 opacity-15 pointer-events-none bg-cover bg-center mix-blend-overlay"
+          style={{ backgroundImage: `url(${waveBg})` }}
+        />
 
-      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        {/* Background Decorative Glow */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Top Right "Learn Build Grow" Overlay Graphic */}
+        <div className="absolute top-6 right-8 pointer-events-none hidden md:block text-right">
+          <span className="font-serif italic text-2xl lg:text-3xl text-white font-bold drop-shadow-md tracking-wide block">
+            Learn
+          </span>
+          <span className="font-serif italic text-2xl lg:text-3xl text-cyan-300 font-bold drop-shadow-md tracking-wide block -mt-1">
+            Build
+          </span>
+          <span className="font-serif italic text-2xl lg:text-3xl text-blue-300 font-bold drop-shadow-md tracking-wide block -mt-1">
+            Grow
+          </span>
+        </div>
+
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center z-10">
           
-          <div className="lg:col-span-7 space-y-5">
+          {/* Left Content Area (60% width) */}
+          <div className="lg:col-span-7 space-y-6">
             
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-bold text-xs uppercase tracking-widest backdrop-blur-md">
-              <Sparkles className="w-3.5 h-3.5" />
-              Internship Program
+            {/* Small uppercase label */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-extrabold text-xs uppercase tracking-widest backdrop-blur-md">
+              <span>INTERNSHIP PROGRAM</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Learn. Build. <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400">Grow.</span>
+            {/* Main Heading */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+              Kickstart Your Career <br />
+              with <span className="text-cyan-300">Industry Experience</span>
             </h2>
 
-            <p className="text-base sm:text-lg text-slate-200 leading-relaxed font-normal">
-              Build practical technology skills through project-based learning, real-world development projects and 1-on-1 professional mentorship.
+            {/* Description */}
+            <p className="text-base sm:text-lg text-slate-200 max-w-xl leading-relaxed font-normal">
+              Learn from experts, work on real projects and build practical skills for a successful career.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              {tracks.map((track, idx) => (
-                <div 
-                  key={idx}
-                  className="p-4 rounded-xl bg-[#07132b]/90 border border-cyan-500/25 hover:border-cyan-400 transition-all duration-300 backdrop-blur-md"
-                >
-                  <div className="flex items-center gap-2.5 mb-1">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
-                    <h3 className="font-bold text-white text-base">{track.title}</h3>
-                  </div>
-                  <p className="text-xs text-cyan-300/80 pl-6 font-medium">{track.desc}</p>
-                </div>
-              ))}
+            {/* Feature Pills */}
+            <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm font-bold text-slate-200 py-1">
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-950/80 border border-blue-800/50 backdrop-blur-sm">
+                <Laptop className="w-4 h-4 text-cyan-400" />
+                <span>Live Projects</span>
+              </div>
+
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-950/80 border border-blue-800/50 backdrop-blur-sm">
+                <GraduationCap className="w-4 h-4 text-cyan-400" />
+                <span>Expert Guidance</span>
+              </div>
+
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-950/80 border border-blue-800/50 backdrop-blur-sm">
+                <Award className="w-4 h-4 text-cyan-400" />
+                <span>Certificate</span>
+              </div>
+
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-950/80 border border-blue-800/50 backdrop-blur-sm">
+                <Briefcase className="w-4 h-4 text-cyan-400" />
+                <span>Career Support</span>
+              </div>
             </div>
 
-            <div className="pt-3">
+            {/* Explore Internship Button */}
+            <div className="pt-2">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-base font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 rounded-full shadow-lg shadow-cyan-500/30 transition-all hover:-translate-y-0.5 group"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 text-base font-bold text-slate-900 bg-white hover:bg-cyan-50 rounded-full shadow-xl transition-all transform hover:-translate-y-0.5"
               >
-                Explore Internship
-                <ArrowRight className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1" />
+                <span>Explore Internship</span>
+                <ArrowRight className="w-5 h-5 text-[#1264FF]" />
               </a>
             </div>
 
           </div>
 
-          <div className="lg:col-span-5 relative hidden lg:block">
+          {/* Right Visual Image */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative rounded-2xl overflow-hidden border border-cyan-400/30 shadow-2xl">
+              <img
+                src={internshipImg}
+                alt="MS InnovateX Internship Program Team"
+                className="w-full h-auto object-cover"
+              />
+            </div>
           </div>
 
         </div>

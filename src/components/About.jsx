@@ -1,86 +1,146 @@
-import React from 'react';
-import { ArrowRight, Target, Zap, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Play, MapPin, Globe2, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import officeImg from '../assets/office.jpg';
+import VideoModal from './VideoModal';
 
-const About = () => {
+const About = ({ darkMode }) => {
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+
   return (
-    <section id="about" className="relative bg-[#050e21] text-white py-16 lg:py-20 overflow-hidden">
-      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+    <section id="about" className={`py-16 lg:py-24 transition-colors ${
+      darkMode ? 'bg-[#031126] text-white' : 'bg-white text-slate-900'
+    }`}>
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          <div className="lg:col-span-7 space-y-5">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-400/30 text-cyan-300 font-bold text-xs uppercase tracking-widest">
-              About Us
+          {/* Left Column (55% width) */}
+          <div className="lg:col-span-7 space-y-6">
+            
+            {/* Small uppercase label */}
+            <div className="flex items-center gap-3">
+              <span className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${
+                darkMode ? 'text-cyan-400' : 'text-[#1264FF]'
+              }`}>
+                ABOUT MS INNOVATEX
+              </span>
+              <span className={`h-0.5 w-12 rounded-full ${darkMode ? 'bg-cyan-400' : 'bg-[#1264FF]'}`}></span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Building Innovative Digital Solutions <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400">
-                for a Smarter Future
+            {/* Heading */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+              Turning Ideas Into <br />
+              <span className="text-[#1264FF] dark:text-cyan-400">
+                Real-World Solutions
               </span>
             </h2>
 
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
-              MS InnovateX Pvt. Ltd. is a technology company based in Bhubaneswar, Odisha, focused on delivering practical, innovative and scalable digital solutions. We help businesses, organizations and institutions turn their ideas into real-world technology products.
+            {/* Description */}
+            <p className={`text-base sm:text-lg leading-relaxed ${
+              darkMode ? 'text-slate-300' : 'text-slate-600'
+            }`}>
+              MS InnovateX is a technology company focused on delivering practical, innovative and scalable digital solutions for businesses, organizations and growing enterprises.
             </p>
 
+            {/* Bullet points & locations */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0">
-                  <Target className="w-4 h-4 text-cyan-400" />
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                  darkMode ? 'bg-blue-900/40 text-cyan-400' : 'bg-blue-50 text-[#1264FF]'
+                }`}>
+                  <MapPin className="w-5 h-5" />
                 </div>
-                <span className="text-sm sm:text-base font-semibold text-slate-200">Result-Oriented Approach</span>
+                <span className={`text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                  Bhubaneswar, Odisha, India
+                </span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0">
-                  <Zap className="w-4 h-4 text-cyan-400" />
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                  darkMode ? 'bg-blue-900/40 text-cyan-400' : 'bg-blue-50 text-[#1264FF]'
+                }`}>
+                  <Globe2 className="w-5 h-5" />
                 </div>
-                <span className="text-sm sm:text-base font-semibold text-slate-200">Modern Architecture</span>
+                <span className={`text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                  Pan India Support
+                </span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-4 h-4 text-cyan-400" />
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                  darkMode ? 'bg-blue-900/40 text-cyan-400' : 'bg-blue-50 text-[#1264FF]'
+                }`}>
+                  <ShieldCheck className="w-5 h-5" />
                 </div>
-                <span className="text-sm sm:text-base font-semibold text-slate-200">Transparent Communication</span>
+                <span className={`text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                  Transparent & Secure
+                </span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center shrink-0">
-                  <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                  darkMode ? 'bg-blue-900/40 text-cyan-400' : 'bg-blue-50 text-[#1264FF]'
+                }`}>
+                  <CheckCircle2 className="w-5 h-5" />
                 </div>
-                <span className="text-sm sm:text-base font-semibold text-slate-200">100% Quality Commitment</span>
+                <span className={`text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                  100% Quality Commitment
+                </span>
               </div>
             </div>
 
+            {/* Watch Our Video Button */}
             <div className="pt-2">
-              <a
-                href="#services"
-                className="inline-flex items-center gap-2 px-7 py-3.5 text-base font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 rounded-full shadow-lg shadow-cyan-500/30 transition-all hover:-translate-y-0.5"
+              <button
+                onClick={() => setIsVideoModalOpen(true)}
+                className="inline-flex items-center gap-3 px-7 py-3.5 text-base font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-full shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 group"
               >
-                Learn More
-                <ArrowRight className="w-5 h-5" />
-              </a>
+                <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Play className="w-4 h-4 fill-white text-white translate-x-0.5" />
+                </div>
+                <span>Watch Our Video</span>
+              </button>
             </div>
+
           </div>
 
+          {/* Right Column: Office Image with Overlay Play Button */}
           <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl overflow-hidden border border-cyan-500/30 shadow-2xl">
+            <div 
+              onClick={() => setIsVideoModalOpen(true)}
+              className="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-blue-900/50 shadow-2xl group cursor-pointer"
+            >
+              {/* Office Image */}
               <img
                 src={officeImg}
                 alt="MS InnovateX Corporate Office"
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute bottom-5 left-5 right-5 p-4 rounded-xl bg-[#07132b]/95 backdrop-blur-md border border-cyan-500/30 shadow-xl">
-                <h4 className="text-base font-bold text-white">MS InnovateX Corporate Office</h4>
-                <p className="text-xs text-cyan-300 font-medium">Bhubaneswar, Odisha • Serving Clients Across India</p>
+
+              {/* Overlay Tint */}
+              <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/10 transition-colors" />
+
+              {/* Centered Large Circular Play Button */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <button
+                  onClick={() => setIsVideoModalOpen(true)}
+                  className="w-20 h-20 rounded-full bg-white/95 dark:bg-[#1264FF]/95 backdrop-blur-md shadow-2xl flex items-center justify-center border-4 border-white/80 dark:border-blue-300/40 transform transition-all group-hover:scale-110 group-hover:shadow-blue-500/50"
+                  title="Play Corporate Video"
+                >
+                  <Play className="w-9 h-9 text-[#1264FF] dark:text-white fill-[#1264FF] dark:fill-white translate-x-1" />
+                </button>
               </div>
+
             </div>
           </div>
 
         </div>
       </div>
+
+      {/* Video Popup Modal */}
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+      />
     </section>
   );
 };

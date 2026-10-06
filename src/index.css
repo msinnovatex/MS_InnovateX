@@ -1,128 +1,66 @@
 @import "tailwindcss";
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: #0f172a;
-    background-color: #030914;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
   }
 }
 
-/* Direct Section Background Mappings to src/assets */
+/* Background image mappings */
 .bg-hero-section {
   background-image: url('./assets/hero-bg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  image-rendering: -webkit-optimize-contrast;
 }
 
-.bg-services-section {
-  background-image: url('./assets/wave-bg.jpg');
+.bg-about-hero {
+  background-image: url('./assets/about.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.bg-industries-section {
-  background-image: url('./assets/city-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.bg-process-section {
-  background-image: url('./assets/wave-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.bg-why-us-section {
-  background-image: url('./assets/why-us-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.bg-internship-section {
-  background-image: url('./assets/internship-bg.jpg');
-  background-size: 100% 100%;
-  background-position: center right;
-  background-repeat: no-repeat;
-}
-
-.bg-stats-section {
-  background-image: url('./assets/stats-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.bg-cta-section {
-  background-image: url('./assets/globe-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.bg-footer-section {
-  background-image: url('./assets/footer-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* Premium Animations & Micro-Interactions */
-@keyframes fadeInUp {
+/* Modal and Fade Animations */
+@keyframes modalScale {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: scale(0.95) translateY(12px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
   }
 }
 
-@keyframes floatSlow {
-  0%, 100% {
-    transform: translateY(0px);
+@keyframes backdropFade {
+  from {
+    opacity: 0;
   }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    opacity: 0.5;
-    filter: drop-shadow(0 0 12px rgba(0, 210, 255, 0.3));
-  }
-  50% {
-    opacity: 0.9;
-    filter: drop-shadow(0 0 24px rgba(0, 210, 255, 0.6));
+  to {
+    opacity: 1;
   }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.animate-modal-scale {
+  animation: modalScale 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-float-slow {
-  animation: floatSlow 5s ease-in-out infinite;
+.animate-backdrop-fade {
+  animation: backdropFade 0.2s ease-out forwards;
 }
 
-.animate-pulse-glow {
-  animation: pulseGlow 3.5s ease-in-out infinite;
-}
-
+/* Card hover animation */
 .card-hover-effect {
-  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .card-hover-effect:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px -15px rgba(0, 198, 255, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px -8px rgba(18, 100, 255, 0.18);
 }
