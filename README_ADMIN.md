@@ -45,8 +45,9 @@ If Vercel hosts the React frontend separately, set `VITE_API_BASE_URL` to the Re
 
 ## Admin credentials
 
-On the first startup, if `MSINNOVATEX/adminAuth` does not exist, the server uses `ADMIN_USERNAME` and `ADMIN_PASSWORD` once to create a Firebase admin credential record. The password is never stored as plaintext: the server stores a random salt and a scrypt password hash.
+The admin credential record is stored at `MSINNOVATEX/adminAuth` with `username` and `password` fields. This is intentionally plaintext so you can directly change the credentials in Firebase when needed.
 
-After logging in, open **Security** and change the username/password. From that point, the Firebase record is authoritative and changing the old environment admin credentials will not replace it. Keep the Firebase server credentials (`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`, `FIREBASE_DATABASE_URL`) configured on the Node/Render server because they are required to access the database.
+On the first startup, if `MSINNOVATEX/adminAuth` does not exist, the server uses `ADMIN_USERNAME` and `ADMIN_PASSWORD` to create it. After that, the Firebase record is authoritative. To change credentials, edit `MSINNOVATEX/adminAuth/username` and `MSINNOVATEX/adminAuth/password` in Firebase, then use the new credentials to log in.
 
-If the admin credential record is ever intentionally removed, the bootstrap environment credentials can create it again on the next login/startup.
+**Security warning:** plaintext passwords in a database are less secure than hashed passwords. Restrict Firebase access to trusted administrators and never expose this node through public client-side Firebase access.
+
