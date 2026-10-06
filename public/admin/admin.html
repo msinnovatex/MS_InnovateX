@@ -14,8 +14,37 @@ const BASE=(new URLSearchParams(location.search).get('api')||window.ADMIN_API_BA
 const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 async function api(p,o={}){const method=String(o.method||'GET').toUpperCase();const busy=method!=='GET'&&!o.noLoading;if(busy)setBusy(true,method==='DELETE'?'Deleting...':p.includes('/login')?'Signing in...':p.includes('/advertisement')?'Publishing...':'Saving...');try{const r=await fetch(BASE+p,{credentials:'include',headers:{'Content-Type':'application/json',...(o.headers||{})},...o});let d=null;try{d=await r.json()}catch{}if(!r.ok)throw Error(d?.error||('Request failed '+r.status));return d}finally{if(busy)setBusy(false)}}
 function note(msg,bad=false){document.querySelectorAll('.notice').forEach(x=>x.remove());const n=document.createElement('div');n.className='notice'+(bad?' error':'');n.textContent=msg;document.querySelector('.card')?.prepend(n)}
-async function start(){try{if(!(await api('/api/admin/me')).ok)return login();C=await api('/api/admin/config');S=(await api('/api/admin/submissions')).submissions;panel()}catch(e){login(e.message)}}
-function login(err=''){root.innerHTML='<div class="card login"><div class="title">MS InnovateX Admin</div><p class="muted">Secure control panel</p>'+(err?'<div class="notice error">'+esc(err)+'</div>':'')+'<form id="lf"><label class="label">Username</label><input class="input" id="u" autocomplete="username" required><label class="label">Password</label><input class="input" id="p" type="password" autocomplete="current-password" required><button class="btn" style="width:100%;margin-top:16px">Sign in</button></form></div>';lf.onsubmit=async e=>{e.preventDefault();try{await api('/api/admin/login',{method:'POST',body:JSON.stringify({username:u.value,password:p.value})});C=await api('/api/admin/config');S=(await api('/api/admin/submissions')).submissions;panel()}catch(x){login(x.message)}}}
+async function start(){
+  try {
+    const me=await api('/api/admin/me');
+    if (!me?.ok) return login();
+    C=await api('/api/admin/config');
+    S=(await api('/api/admin/submissions')).submissions;
+    panel();
+  } catch (e) {
+    console.error('[Admin start]',e);
+    login('Unable to load the admin session. Please sign in again.');
+  }
+}
+function login(err=''){
+  const rootEl=document.getElementById('root');
+  rootEl.innerHTML='<div class="card login"><div class="title">MS InnovateX Admin</div><p class="muted">Secure control panel</p>'+(err?'<div class="notice error">'+esc(err)+'</div>':'')+'<form id="lf"><label class="label">Username</label><input class="input" id="u" autocomplete="username" required><label class="label">Password</label><input class="input" id="p" type="password" autocomplete="current-password" required><button class="btn" style="width:100%;margin-top:16px">Sign in</button></form></div>';
+  const form=document.getElementById('lf');
+  const username=document.getElementById('u');
+  const password=document.getElementById('p');
+  form.onsubmit=async e=>{
+    e.preventDefault();
+    try{
+      await api('/api/admin/login',{method:'POST',body:JSON.stringify({username:username.value,password:password.value})});
+      C=await api('/api/admin/config');
+      S=(await api('/api/admin/submissions')).submissions;
+      panel();
+    }catch(error){
+      console.error('[Admin login]',error);
+      login(error?.message||'Unable to sign in. Please try again.');
+    }
+  };
+}
 function panel(){root.innerHTML='<div class="wrap"><div class="top"><div><div class="title">MS InnovateX Control Panel</div><div class="muted">Firebase RTDB root: <b>MSINNOVATEX</b></div></div><button class="btn gray" id="lo">Logout</button></div><div class="tabs"><button class="tab active" data-x="dashboard">Dashboard</button><button class="tab" data-x="stats">Stats</button><button class="tab" data-x="meta">SEO / Meta</button><button class="tab" data-x="ad">Advertisement</button><button class="tab" data-x="sub">Submissions</button><button class="tab" data-x="security">Security</button></div><div id="content"></div></div>';document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.x)});lo.onclick=async()=>{await api('/api/admin/logout',{method:'POST'});login()};render('dashboard')}
 function render(x){if(x==='dashboard')dashboard();if(x==='stats')stats();if(x==='meta')meta();if(x==='ad')ad();if(x==='sub')sub();if(x==='security')security()}
 function dashboard(){
