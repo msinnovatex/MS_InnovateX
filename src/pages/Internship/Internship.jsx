@@ -26,22 +26,31 @@ const Internship = ({ darkMode }) => {
     message: ''
   });
 
-  const handleRegistrationSubmit = (e) => {
+  const handleRegistrationSubmit = async (e) => {
     e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        college: '',
-        qualification: 'B.Tech / BE',
-        domain: 'Full Stack Web Development',
-        duration: '3 Months Industrial Training',
-        message: ''
+    try {
+      const apiBase = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+      const response = await fetch(`${apiBase}/api/submissions/internship`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
       });
-    }, 4000);
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || 'Unable to submit registration.');
+      setFormSubmitted(true);
+      setTimeout(() => {
+        setFormSubmitted(false);
+        setFormData({
+          fullName: '', email: '', phone: '', college: '',
+          qualification: 'B.Tech / BE',
+          domain: 'Full Stack Web Development',
+          duration: '3 Months Industrial Training',
+          message: ''
+        });
+      }, 4000);
+    } catch (err) {
+      alert(err.message || 'Unable to submit registration.');
+    }
   };
 
   const courses = [
