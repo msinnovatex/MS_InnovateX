@@ -35,11 +35,10 @@ const Home = ({ darkMode }) => {
           <div className="max-w-2xl space-y-5">
             
             {/* Small Subtitle Label */}
-            <div className="flex items-center gap-2.5">
-              <span className="text-xs font-extrabold uppercase tracking-widest text-cyan-400">
+            <div>
+              <span className="text-xs font-extrabold uppercase tracking-widest text-white">
                 DIGITAL SOLUTIONS | EMAIL MARKETING | STUDENT INTERNSHIP
               </span>
-              <span className="h-0.5 w-10 rounded-full bg-cyan-400"></span>
             </div>
 
             {/* Main Headline */}
