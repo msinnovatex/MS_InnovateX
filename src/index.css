@@ -66,3 +66,95 @@
   transform: translateY(-6px);
   box-shadow: 0 16px 32px -8px rgba(18, 100, 255, 0.18);
 }
+
+
+/* Responsive safety layer */
+html, body, #root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+img, video, canvas, svg {
+  max-width: 100%;
+}
+
+button, a, input, textarea, select {
+  max-width: 100%;
+}
+
+input, textarea, select {
+  min-width: 0;
+}
+
+p, h1, h2, h3, h4, h5, h6, a, span, li {
+  overflow-wrap: anywhere;
+}
+
+table {
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  section {
+    scroll-margin-top: 76px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 9vw, 3rem);
+    line-height: 1.12;
+  }
+
+  h2 {
+    font-size: clamp(1.65rem, 7vw, 2.35rem);
+    line-height: 1.18;
+  }
+
+  h3 {
+    line-height: 1.22;
+  }
+
+  /* Prevent long cards, forms and media from creating horizontal overflow. */
+  .overflow-x-auto {
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Keep floating advertisement clear of the mobile viewport edges. */
+  [class*="fixed"][class*="right-5"] {
+    right: 0.75rem;
+  }
+
+  [class*="fixed"][class*="bottom-5"] {
+    bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .max-w-\[1400px\] {
+    max-width: 100%;
+  }
+
+  .rounded-3xl {
+    border-radius: 1.25rem;
+  }
+
+  /* Avoid oversized hero/CTA controls on very small phones. */
+  a[class*="px-7"][class*="py-3.5"],
+  button[class*="px-7"][class*="py-3.5"] {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
