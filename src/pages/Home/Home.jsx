@@ -16,10 +16,7 @@ import StatsCounter from '../../components/StatsCounter';
 
 const Home = ({ darkMode }) => {
   return (
-    <div 
-      className="min-h-screen font-sans bg-cover bg-top bg-no-repeat text-slate-900 dark:text-white transition-colors"
-      style={{ backgroundImage: `url(${mainBg})` }}
-    >
+    <div className="min-h-screen font-sans text-slate-900 dark:text-white transition-colors">
       
       {/* 1. HERO SECTION WITH CRISP BACKGROUND IMAGE & ELEGANT DARK OVERLAY */}
       <section 
@@ -108,7 +105,12 @@ const Home = ({ darkMode }) => {
         </div>
       </section>
 
-      {/* 2. THREE PILLARS / OUR FOCUS SECTION */}
+      {/* MAIN BACKGROUND IMAGE CONTAINER STARTING FROM OUR FOCUS SECTION */}
+      <div 
+        className="w-full bg-cover bg-top bg-no-repeat"
+        style={{ backgroundImage: `url(${mainBg})` }}
+      >
+        {/* 2. THREE PILLARS / OUR FOCUS SECTION */}
       <section className={`py-14 lg:py-20 transition-colors ${darkMode ? 'bg-[#061A3A]/80' : 'bg-transparent'}`}>
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -462,6 +464,7 @@ const Home = ({ darkMode }) => {
 
       {/* 8. CONTACT SECTION */}
       <Contact darkMode={darkMode} />
+      </div>
 
     </div>
   );
