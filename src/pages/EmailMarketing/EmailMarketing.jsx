@@ -293,7 +293,7 @@ const EmailMarketing = ({ darkMode }) => {
             <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#1264FF] dark:text-cyan-400">
               SOLUTIONS WE PROVIDE
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black mt-2">
+            <h2 className="text-3xl sm:text-4xl font-black mt-2 text-slate-900 dark:text-white">
               Our Email Marketing Services
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">
@@ -314,7 +314,7 @@ const EmailMarketing = ({ darkMode }) => {
                   <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/50 text-[#1264FF] dark:text-cyan-400 flex items-center justify-center mb-4">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-extrabold mb-2">{item.title}</h3>
+                  <h3 className="text-base font-extrabold mb-2 text-slate-900 dark:text-white">{item.title}</h3>
                   <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-400">{item.desc}</p>
                 </div>
               );
@@ -345,7 +345,7 @@ const EmailMarketing = ({ darkMode }) => {
                 <div className="w-10 h-10 rounded-full bg-[#1264FF] text-white font-black text-sm flex items-center justify-center mb-4 shadow-lg">
                   {s.num}
                 </div>
-                <h3 className="text-sm font-extrabold mb-2">{s.title}</h3>
+                <h3 className="text-sm font-extrabold mb-2 text-white">{s.title}</h3>
                 <p className="text-xs text-slate-300 leading-relaxed">{s.desc}</p>
               </div>
             ))}
@@ -361,7 +361,7 @@ const EmailMarketing = ({ darkMode }) => {
               <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#1264FF] dark:text-cyan-400">
                 CAMPAIGN TYPES
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black mt-1">
+              <h2 className="text-3xl sm:text-4xl font-black mt-1 text-slate-900 dark:text-white">
                 Campaigns That Keep Your Audience Connected
               </h2>
             </div>
@@ -383,7 +383,7 @@ const EmailMarketing = ({ darkMode }) => {
                   <div className="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/50 text-[#1264FF] dark:text-cyan-400 flex items-center justify-center mb-4">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-extrabold mb-2">{c.title}</h3>
+                  <h3 className="text-lg font-extrabold mb-2 text-slate-900 dark:text-white">{c.title}</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{c.desc}</p>
                 </div>
               );
@@ -401,7 +401,7 @@ const EmailMarketing = ({ darkMode }) => {
               <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#1264FF] dark:text-cyan-400">
                 ANALYTICS & REPORTING
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
                 Measure. Understand. Improve.
               </h2>
               <p className="text-base text-slate-600 dark:text-slate-300">
@@ -433,30 +433,30 @@ const EmailMarketing = ({ darkMode }) => {
 
             <div className="lg:col-span-6">
               <div className={`p-6 rounded-3xl border shadow-xl ${darkMode ? 'bg-[#031126] border-blue-900/50' : 'bg-white border-slate-200/80'}`}>
-                <h4 className="text-sm font-extrabold mb-4 flex items-center justify-between">
+                <h4 className="text-sm font-extrabold mb-4 flex items-center justify-between text-slate-900 dark:text-white">
                   <span>Campaign Performance Summary</span>
                   <span className="text-xs font-normal text-slate-400">Last 30 Days</span>
                 </h4>
                 
                 <div className="space-y-3">
                   <div className="flex justify-between items-center text-xs font-bold py-2 border-b border-slate-100 dark:border-blue-900/40">
-                    <span className="text-slate-500">Total Sent</span>
-                    <span className="font-mono text-sm">12,500</span>
+                    <span className="text-slate-500 dark:text-slate-400">Total Sent</span>
+                    <span className="font-mono text-sm text-slate-900 dark:text-white">12,500</span>
                   </div>
                   <div className="flex justify-between items-center text-xs font-bold py-2 border-b border-slate-100 dark:border-blue-900/40">
-                    <span className="text-slate-500">Delivered</span>
+                    <span className="text-slate-500 dark:text-slate-400">Delivered</span>
                     <span className="font-mono text-sm text-emerald-500">11,850</span>
                   </div>
                   <div className="flex justify-between items-center text-xs font-bold py-2 border-b border-slate-100 dark:border-blue-900/40">
-                    <span className="text-slate-500">Opened</span>
-                    <span className="font-mono text-sm text-[#1264FF]">1,970</span>
+                    <span className="text-slate-500 dark:text-slate-400">Opened</span>
+                    <span className="font-mono text-sm text-[#1264FF] dark:text-cyan-400">1,970</span>
                   </div>
                   <div className="flex justify-between items-center text-xs font-bold py-2 border-b border-slate-100 dark:border-blue-900/40">
-                    <span className="text-slate-500">Bounced</span>
+                    <span className="text-slate-500 dark:text-slate-400">Bounced</span>
                     <span className="font-mono text-sm text-amber-500">263</span>
                   </div>
                   <div className="flex justify-between items-center text-xs font-bold py-2">
-                    <span className="text-slate-500">Unsubscribed</span>
+                    <span className="text-slate-500 dark:text-slate-400">Unsubscribed</span>
                     <span className="font-mono text-sm text-rose-500">42</span>
                   </div>
                 </div>
@@ -474,7 +474,7 @@ const EmailMarketing = ({ darkMode }) => {
             <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#1264FF] dark:text-cyan-400">
               INDUSTRIES WE HELP
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black mt-2">
+            <h2 className="text-3xl sm:text-4xl font-black mt-2 text-slate-900 dark:text-white">
               Email Marketing for Growing Businesses
             </h2>
           </div>
@@ -492,7 +492,7 @@ const EmailMarketing = ({ darkMode }) => {
                   <div className="w-12 h-12 mx-auto rounded-full bg-blue-100 dark:bg-blue-900/50 text-[#1264FF] dark:text-cyan-400 flex items-center justify-center mb-3">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-sm font-extrabold">{ind.title}</h3>
+                  <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">{ind.title}</h3>
                 </div>
               );
             })}
@@ -504,7 +504,7 @@ const EmailMarketing = ({ darkMode }) => {
       <section className={`py-16 lg:py-24 transition-colors ${darkMode ? 'bg-[#061A3A]' : 'bg-white'}`}>
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-black">
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
               Why Choose MS InnovateX?
             </h2>
           </div>
@@ -522,7 +522,7 @@ const EmailMarketing = ({ darkMode }) => {
                   <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-extrabold mb-2">{w.title}</h3>
+                  <h3 className="text-base font-extrabold mb-2 text-slate-900 dark:text-white">{w.title}</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{w.desc}</p>
                 </div>
               );
@@ -538,7 +538,7 @@ const EmailMarketing = ({ darkMode }) => {
             <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#1264FF] dark:text-cyan-400">
               CLIENT TESTIMONIALS
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black mt-2">
+            <h2 className="text-3xl sm:text-4xl font-black mt-2 text-slate-900 dark:text-white">
               What Our Clients Say
             </h2>
           </div>
@@ -560,7 +560,7 @@ const EmailMarketing = ({ darkMode }) => {
                   "{t.text}"
                 </p>
                 <div>
-                  <div className="text-sm font-extrabold">{t.name}</div>
+                  <div className="text-sm font-extrabold text-slate-900 dark:text-white">{t.name}</div>
                   <div className="text-xs text-slate-400">{t.role}</div>
                 </div>
               </div>

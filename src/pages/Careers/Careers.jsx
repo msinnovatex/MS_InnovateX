@@ -47,7 +47,7 @@ const Careers = ({ darkMode }) => {
 
       {/* Openings Grid */}
       <section className="py-16 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-black mb-8 text-center">Open Positions</h2>
+        <h2 className="text-3xl font-black mb-8 text-center text-slate-900 dark:text-white">Open Positions</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {positions.map((pos, idx) => (
             <div 
@@ -63,7 +63,7 @@ const Careers = ({ darkMode }) => {
                   </span>
                   <span className="text-xs font-semibold text-slate-400">{pos.experience}</span>
                 </div>
-                <h3 className="text-xl font-black mb-2">{pos.title}</h3>
+                <h3 className="text-xl font-black mb-2 text-slate-900 dark:text-white">{pos.title}</h3>
                 <div className="text-xs font-semibold text-cyan-500 mb-4">{pos.location}</div>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                   {pos.desc}

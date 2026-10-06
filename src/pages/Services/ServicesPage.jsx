@@ -104,7 +104,7 @@ const ServicesPage = ({ darkMode }) => {
                   <div className={`w-14 h-14 rounded-2xl ${service.color} text-white flex items-center justify-center mb-6 shadow-md`}>
                     <Icon className="w-7 h-7" />
                   </div>
-                  <h3 className="text-2xl font-black mb-3">{service.title}</h3>
+                  <h3 className="text-2xl font-black mb-3 text-slate-900 dark:text-white">{service.title}</h3>
                   <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                     {service.shortDesc}
                   </p>

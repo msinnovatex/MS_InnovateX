@@ -240,7 +240,7 @@ const Internship = ({ darkMode }) => {
             <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#1264FF] dark:text-cyan-400">
               AVAILABLE TRACKS
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black mt-2">
+            <h2 className="text-3xl sm:text-4xl font-black mt-2 text-slate-900 dark:text-white">
               Technology Training Domains
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">
@@ -267,7 +267,7 @@ const Internship = ({ darkMode }) => {
                     </span>
                   </div>
                   
-                  <h3 className="text-lg font-extrabold mb-2">{c.title}</h3>
+                  <h3 className="text-lg font-extrabold mb-2 text-slate-900 dark:text-white">{c.title}</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">{c.desc}</p>
 
                   <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100 dark:border-blue-900/40">
@@ -291,7 +291,7 @@ const Internship = ({ darkMode }) => {
             <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#1264FF] dark:text-cyan-400">
               OUR METHODOLOGY
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black mt-2">
+            <h2 className="text-3xl sm:text-4xl font-black mt-2 text-slate-900 dark:text-white">
               How You Will Learn & Practice
             </h2>
           </div>
@@ -309,7 +309,7 @@ const Internship = ({ darkMode }) => {
                   <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-extrabold mb-2">{m.title}</h3>
+                  <h3 className="text-base font-extrabold mb-2 text-slate-900 dark:text-white">{m.title}</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{m.desc}</p>
                 </div>
               );
@@ -326,7 +326,7 @@ const Internship = ({ darkMode }) => {
             <div className={`p-8 rounded-3xl border ${darkMode ? 'bg-[#061A3A] border-blue-900/50' : 'bg-slate-50 border-slate-200/80'}`}>
               <div className="flex items-center gap-3 mb-4">
                 <Laptop className="w-8 h-8 text-[#1264FF] dark:text-cyan-400" />
-                <h3 className="text-2xl font-black">Practical Projects & Mentorship</h3>
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white">Practical Projects & Mentorship</h3>
               </div>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                 Work on real client projects under the supervision of senior developers. Get weekly code reviews, refactoring advice, and architectural feedback.
@@ -350,7 +350,7 @@ const Internship = ({ darkMode }) => {
             <div className={`p-8 rounded-3xl border ${darkMode ? 'bg-[#061A3A] border-blue-900/50' : 'bg-slate-50 border-slate-200/80'}`}>
               <div className="flex items-center gap-3 mb-4">
                 <Award className="w-8 h-8 text-emerald-500" />
-                <h3 className="text-2xl font-black">Certificate & Career Guidance</h3>
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white">Certificate & Career Guidance</h3>
               </div>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                 Receive an official, verifiable Internship Certificate and Letter of Recommendation upon program completion, paired with resume & interview preparation.
@@ -386,7 +386,7 @@ const Internship = ({ darkMode }) => {
             <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-cyan-400">
               STEP-BY-STEP ROADMAP
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black mt-2">
+            <h2 className="text-3xl sm:text-4xl font-black mt-2 text-white">
               Our 6-Step Internship Process
             </h2>
           </div>
@@ -397,7 +397,7 @@ const Internship = ({ darkMode }) => {
                 <div className="w-10 h-10 rounded-full bg-cyan-400 text-slate-900 font-black text-sm flex items-center justify-center mb-4 shadow-lg">
                   {p.step}
                 </div>
-                <h3 className="text-sm font-extrabold mb-2">{p.title}</h3>
+                <h3 className="text-sm font-extrabold mb-2 text-white">{p.title}</h3>
                 <p className="text-xs text-slate-300 leading-relaxed">{p.desc}</p>
               </div>
             ))}
@@ -412,7 +412,7 @@ const Internship = ({ darkMode }) => {
             <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#1264FF] dark:text-cyan-400">
               PROGRAM DURATIONS
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black mt-2">
+            <h2 className="text-3xl sm:text-4xl font-black mt-2 text-slate-900 dark:text-white">
               Available Training Programs
             </h2>
           </div>
@@ -429,7 +429,7 @@ const Internship = ({ darkMode }) => {
                   <div className="inline-block px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-400 text-xs font-black mb-4">
                     {prog.duration}
                   </div>
-                  <h3 className="text-xl font-black mb-3">{prog.title}</h3>
+                  <h3 className="text-xl font-black mb-3 text-slate-900 dark:text-white">{prog.title}</h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">{prog.target}</p>
 
                   <ul className="space-y-3 mb-8">
@@ -611,7 +611,7 @@ const Internship = ({ darkMode }) => {
       <section className={`py-16 lg:py-24 transition-colors ${darkMode ? 'bg-[#031126]' : 'bg-slate-50'}`}>
         <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-black">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white">Frequently Asked Questions</h2>
           </div>
 
           <div className="space-y-4">
@@ -623,7 +623,7 @@ const Internship = ({ darkMode }) => {
                   darkMode ? 'bg-[#061A3A] border-blue-900/50' : 'bg-white border-slate-200/80 shadow-sm'
                 }`}
               >
-                <div className="flex items-center justify-between font-extrabold text-sm">
+                <div className="flex items-center justify-between font-extrabold text-sm text-slate-900 dark:text-white">
                   <span>{faq.q}</span>
                   {activeFaq === idx ? <ChevronUp className="w-5 h-5 text-cyan-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
                 </div>
