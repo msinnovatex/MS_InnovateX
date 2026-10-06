@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, User, MessageSquare, AlertCircle, SendHorizontal, Loader2 } from 'lucide-react';
 import globeBg from '../assets/globe-bg.jpg';
+import { isValidEmail, normalizeSubmission } from '../lib/validation';
 
 const Contact = ({ darkMode }) => {
   const [formData, setFormData] = useState({
@@ -17,17 +18,23 @@ const Contact = ({ darkMode }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
+    const normalized = normalizeSubmission(formData);
+    if (!normalized.name || !normalized.email || !normalized.subject || !normalized.message) {
       setError('Please fill in all required fields.');
       return;
     }
+    if (!isValidEmail(normalized.email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    setFormData(normalized);
     setLoading(true);
     try {
       const apiBase = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
       const response = await fetch(`${apiBase}/api/submissions/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(normalized)
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || 'Unable to send your message.');
