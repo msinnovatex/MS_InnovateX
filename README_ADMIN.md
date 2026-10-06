@@ -6,6 +6,8 @@ The repository now contains a Node API server and a Firebase Realtime Database a
 
 Create a Realtime Database and a server service account. The server uses a Google OAuth access token generated from the service-account private key, so the service-account key must stay on the server and must never be placed in React code.
 
+For production, use the included `database.rules.json` so browser clients cannot read or write the database. The Node server uses a Google OAuth service-account token, which can bypass Realtime Database Rules for server-side access.
+
 The application automatically creates its configuration under:
 
 `MSINNOVATEX/siteConfig`
