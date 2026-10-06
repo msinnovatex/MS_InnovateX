@@ -114,10 +114,14 @@ const Home = ({ darkMode }) => {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
             <div>
-              <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#1264FF] dark:text-cyan-400">
+              <span className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${
+                darkMode ? 'text-cyan-400' : 'text-[#1264FF]'
+              }`}>
                 OUR FOCUS
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mt-1 text-slate-900 dark:text-white">
+              <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-black mt-1 ${
+                darkMode ? 'text-white' : 'text-slate-900'
+              }`}>
                 Three Pillars for a Brighter <span className="text-[#1264FF] dark:text-cyan-400">Tomorrow</span>
               </h2>
             </div>
@@ -133,7 +137,7 @@ const Home = ({ darkMode }) => {
             
             {/* Pillar 1: Email Marketing */}
             <div className={`group rounded-3xl overflow-hidden border transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col justify-between ${
-              darkMode ? 'bg-[#031126] border-blue-900/40 hover:border-cyan-400/50 shadow-lg shadow-black/20' : 'bg-white border-slate-200/80 shadow-md hover:shadow-blue-500/10'
+              darkMode ? 'bg-[#031126] border-blue-900/40 hover:border-cyan-400/50 shadow-lg shadow-black/20 text-white' : 'bg-white border-slate-200/80 shadow-md hover:shadow-blue-500/10 text-slate-900'
             }`}>
               <div>
                 {/* Image Banner Header */}
@@ -151,8 +155,8 @@ const Home = ({ darkMode }) => {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-black mb-2 text-slate-900 dark:text-white">Email Marketing</h3>
-                  <p className="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300 mb-2">
+                  <h3 className={`text-xl font-black mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>Email Marketing</h3>
+                  <p className={`text-xs sm:text-sm leading-relaxed mb-2 ${darkMode ? 'text-slate-200' : 'text-slate-600'}`}>
                     Reach the right audience, engage customers and grow your business with professional email marketing solutions.
                   </p>
                 </div>
@@ -171,7 +175,7 @@ const Home = ({ darkMode }) => {
 
             {/* Pillar 2: Student Internship */}
             <div className={`group rounded-3xl overflow-hidden border transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col justify-between ${
-              darkMode ? 'bg-[#031126] border-blue-900/40 hover:border-emerald-400/50 shadow-lg shadow-black/20' : 'bg-white border-slate-200/80 shadow-md hover:shadow-emerald-500/10'
+              darkMode ? 'bg-[#031126] border-blue-900/40 hover:border-emerald-400/50 shadow-lg shadow-black/20 text-white' : 'bg-white border-slate-200/80 shadow-md hover:shadow-emerald-500/10 text-slate-900'
             }`}>
               <div>
                 {/* Image Banner Header */}
@@ -189,8 +193,8 @@ const Home = ({ darkMode }) => {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-black mb-2 text-slate-900 dark:text-white">Student Internship</h3>
-                  <p className="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300 mb-2">
+                  <h3 className={`text-xl font-black mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>Student Internship</h3>
+                  <p className={`text-xs sm:text-sm leading-relaxed mb-2 ${darkMode ? 'text-slate-200' : 'text-slate-600'}`}>
                     Learn real-world skills, work on live projects and build your career with expert mentorship and recognized certification.
                   </p>
                 </div>
@@ -209,7 +213,7 @@ const Home = ({ darkMode }) => {
 
             {/* Pillar 3: Client Solutions & Support */}
             <div className={`group rounded-3xl overflow-hidden border transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl flex flex-col justify-between ${
-              darkMode ? 'bg-[#031126] border-blue-900/40 hover:border-purple-400/50 shadow-lg shadow-black/20' : 'bg-white border-slate-200/80 shadow-md hover:shadow-purple-500/10'
+              darkMode ? 'bg-[#031126] border-blue-900/40 hover:border-purple-400/50 shadow-lg shadow-black/20 text-white' : 'bg-white border-slate-200/80 shadow-md hover:shadow-purple-500/10 text-slate-900'
             }`}>
               <div>
                 {/* Image Banner Header */}
@@ -227,8 +231,8 @@ const Home = ({ darkMode }) => {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-black mb-2 text-slate-900 dark:text-white">Client Solutions & Support</h3>
-                  <p className="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300 mb-2">
+                  <h3 className={`text-xl font-black mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>Client Solutions & Support</h3>
+                  <p className={`text-xs sm:text-sm leading-relaxed mb-2 ${darkMode ? 'text-slate-200' : 'text-slate-600'}`}>
                     From websites and mobile apps to custom software and ongoing technical support, we deliver solutions for every business.
                   </p>
                 </div>
@@ -341,7 +345,9 @@ const Home = ({ darkMode }) => {
               }`}>
                 WHY CHOOSE US
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mt-1 text-slate-900 dark:text-white">
+              <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-black mt-1 ${
+                darkMode ? 'text-white' : 'text-slate-900'
+              }`}>
                 Your Trusted <span className="text-[#1264FF] dark:text-cyan-400">Technology Partner</span>
               </h2>
             </div>
@@ -352,50 +358,50 @@ const Home = ({ darkMode }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             <div className={`p-5 rounded-2xl border transition-all duration-300 hover:shadow-xl flex items-start gap-4 ${
-              darkMode ? 'bg-[#061A3A] border-blue-900/50' : 'bg-white border-slate-200/80 shadow-sm'
+              darkMode ? 'bg-[#061A3A] border-blue-900/50 text-white' : 'bg-white border-slate-200/80 shadow-sm text-slate-900'
             }`}>
               <div className="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-md">
                 <Users className="w-5.5 h-5.5" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold mb-1 text-slate-900 dark:text-white">Experienced Team</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Skilled professionals with real-world industry experience across multiple verticals.</p>
+                <h3 className={`text-base font-extrabold mb-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>Experienced Team</h3>
+                <p className={`text-xs leading-relaxed ${darkMode ? 'text-slate-200' : 'text-slate-600'}`}>Skilled professionals with real-world industry experience across multiple verticals.</p>
               </div>
             </div>
 
             <div className={`p-5 rounded-2xl border transition-all duration-300 hover:shadow-xl flex items-start gap-4 ${
-              darkMode ? 'bg-[#061A3A] border-blue-900/50' : 'bg-white border-slate-200/80 shadow-sm'
+              darkMode ? 'bg-[#061A3A] border-blue-900/50 text-white' : 'bg-white border-slate-200/80 shadow-sm text-slate-900'
             }`}>
               <div className="w-11 h-11 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-md">
                 <Zap className="w-5.5 h-5.5" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold mb-1 text-slate-900 dark:text-white">Practical Solutions</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Tailored software and email strategies engineered for your exact business goals.</p>
+                <h3 className={`text-base font-extrabold mb-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>Practical Solutions</h3>
+                <p className={`text-xs leading-relaxed ${darkMode ? 'text-slate-200' : 'text-slate-600'}`}>Tailored software and email strategies engineered for your exact business goals.</p>
               </div>
             </div>
 
             <div className={`p-5 rounded-2xl border transition-all duration-300 hover:shadow-xl flex items-start gap-4 ${
-              darkMode ? 'bg-[#061A3A] border-blue-900/50' : 'bg-white border-slate-200/80 shadow-sm'
+              darkMode ? 'bg-[#061A3A] border-blue-900/50 text-white' : 'bg-white border-slate-200/80 shadow-sm text-slate-900'
             }`}>
               <div className="w-11 h-11 rounded-xl bg-purple-600 text-white flex items-center justify-center shrink-0 shadow-md">
                 <ShieldCheck className="w-5.5 h-5.5" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold mb-1 text-slate-900 dark:text-white">End-to-End Support</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">From initial design & development to long-term maintenance and technical helpdesk.</p>
+                <h3 className={`text-base font-extrabold mb-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>End-to-End Support</h3>
+                <p className={`text-xs leading-relaxed ${darkMode ? 'text-slate-200' : 'text-slate-600'}`}>From initial design & development to long-term maintenance and technical helpdesk.</p>
               </div>
             </div>
 
             <div className={`p-5 rounded-2xl border transition-all duration-300 hover:shadow-xl flex items-start gap-4 ${
-              darkMode ? 'bg-[#061A3A] border-blue-900/50' : 'bg-white border-slate-200/80 shadow-sm'
+              darkMode ? 'bg-[#061A3A] border-blue-900/50 text-white' : 'bg-white border-slate-200/80 shadow-sm text-slate-900'
             }`}>
               <div className="w-11 h-11 rounded-xl bg-cyan-500 text-white flex items-center justify-center shrink-0 shadow-md">
                 <HeartHandshake className="w-5.5 h-5.5" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold mb-1 text-slate-900 dark:text-white">Growth Focused</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Helping businesses grow revenue and students succeed with hands-on skill development.</p>
+                <h3 className={`text-base font-extrabold mb-1 ${darkMode ? 'text-white' : 'text-slate-900'}`}>Growth Focused</h3>
+                <p className={`text-xs leading-relaxed ${darkMode ? 'text-slate-200' : 'text-slate-600'}`}>Helping businesses grow revenue and students succeed with hands-on skill development.</p>
               </div>
             </div>
           </div>

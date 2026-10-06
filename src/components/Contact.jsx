@@ -68,7 +68,9 @@ const Contact = ({ darkMode }) => {
               <span className={`h-0.5 w-12 rounded-full ${darkMode ? 'bg-cyan-400' : 'bg-[#1264FF]'}`}></span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight text-slate-900 dark:text-white">
+            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight ${
+              darkMode ? 'text-white' : 'text-slate-900'
+            }`}>
               Let's Work <span className="text-[#1264FF] dark:text-cyan-400">Together</span>
             </h2>
 
@@ -83,7 +85,7 @@ const Contact = ({ darkMode }) => {
               <a
                 href="tel:+919090625821"
                 className={`flex items-center gap-4 p-4 rounded-2xl border transition-all hover:scale-[1.02] ${
-                  darkMode ? 'bg-[#061A3A] border-blue-900/50 hover:border-cyan-400/50' : 'bg-slate-50 border-slate-200/80 hover:border-blue-300 shadow-sm'
+                  darkMode ? 'bg-[#061A3A] border-blue-900/50 hover:border-cyan-400/50 text-white' : 'bg-slate-50 border-slate-200/80 hover:border-blue-300 shadow-sm text-slate-900'
                 }`}
               >
                 <div className="w-12 h-12 rounded-full bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-md">
@@ -102,7 +104,7 @@ const Contact = ({ darkMode }) => {
               {/* Email */}
               <div
                 className={`p-4 rounded-2xl border ${
-                  darkMode ? 'bg-[#061A3A] border-blue-900/50' : 'bg-slate-50 border-slate-200/80 shadow-sm'
+                  darkMode ? 'bg-[#061A3A] border-blue-900/50 text-white' : 'bg-slate-50 border-slate-200/80 shadow-sm text-slate-900'
                 }`}
               >
                 <div className="flex items-center gap-4">
@@ -123,7 +125,7 @@ const Contact = ({ darkMode }) => {
               {/* Location */}
               <div
                 className={`flex items-center gap-4 p-4 rounded-2xl border ${
-                  darkMode ? 'bg-[#061A3A] border-blue-900/50' : 'bg-slate-50 border-slate-200/80 shadow-sm'
+                  darkMode ? 'bg-[#061A3A] border-blue-900/50 text-white' : 'bg-slate-50 border-slate-200/80 shadow-sm text-slate-900'
                 }`}
               >
                 <div className="w-12 h-12 rounded-full bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-md">
@@ -146,7 +148,7 @@ const Contact = ({ darkMode }) => {
           {/* Right Side Form (55% width) */}
           <div className="lg:col-span-7">
             <div className={`relative p-8 sm:p-10 rounded-3xl border shadow-xl ${
-              darkMode ? 'bg-[#061A3A] border-blue-900/50' : 'bg-white border-slate-200/90'
+              darkMode ? 'bg-[#061A3A] border-blue-900/50 text-white' : 'bg-white border-slate-200/90 text-slate-900'
             }`}>
               
               {/* Paper Plane Decorative Graphic on Top Right */}
@@ -154,7 +156,7 @@ const Contact = ({ darkMode }) => {
                 <SendHorizontal className="w-8 h-8 transform -rotate-12" />
               </div>
 
-              <h3 className="text-2xl font-black mb-6 text-slate-900 dark:text-white">
+              <h3 className={`text-2xl font-black mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
                 Send Us a Message
               </h3>
 
