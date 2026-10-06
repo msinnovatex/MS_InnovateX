@@ -8,15 +8,15 @@ import globeBg from '../assets/globe-bg.jpg';
 const Footer = () => {
   return (
     <footer 
-      className="relative bg-[#031126] text-slate-300 border-t border-blue-950 pt-16 pb-8 bg-cover bg-center bg-no-repeat overflow-hidden"
+      className="relative bg-[#031126] text-slate-300 border-t border-blue-950 pt-16 pb-8 bg-cover bg-bottom bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url(${mainBg})` }}
     >
       {/* Background Graphic & Texture Overlay */}
       <div 
-        className="absolute inset-0 opacity-25 pointer-events-none bg-cover bg-center mix-blend-overlay"
+        className="absolute inset-0 opacity-35 pointer-events-none bg-cover bg-bottom mix-blend-overlay"
         style={{ backgroundImage: `url(${globeBg})` }}
       />
-      <div className="absolute inset-0 bg-[#031126]/85 pointer-events-none" />
+      <div className="absolute inset-0 bg-[#031126]/65 pointer-events-none" />
 
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 border-b border-blue-950/80">
