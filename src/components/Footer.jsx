@@ -2,24 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Globe, Linkedin, Instagram, Facebook, Youtube, Github } from 'lucide-react';
 import logoImg from '../assets/logo.png';
-import mainBg from '../assets/main-bg.png';
-import globeBg from '../assets/globe-bg.jpg';
 
 const Footer = () => {
   return (
-    <footer 
-      className="relative bg-[#031126] text-slate-300 border-t border-blue-950 pt-16 pb-8 bg-cover bg-bottom bg-no-repeat overflow-hidden"
-      style={{ backgroundImage: `url(${mainBg})` }}
-    >
-      {/* Background Graphic & Texture Overlay */}
-      <div 
-        className="absolute inset-0 opacity-35 pointer-events-none bg-cover bg-bottom mix-blend-overlay"
-        style={{ backgroundImage: `url(${globeBg})` }}
-      />
-      <div className="absolute inset-0 bg-[#031126]/65 pointer-events-none" />
-
-      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 border-b border-blue-950/80">
+    <footer className="bg-[#031126] text-slate-300 border-t border-blue-950 pt-16 pb-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 border-b border-blue-950">
           
           {/* Left: Brand & Description (4 columns) */}
           <div className="lg:col-span-4 space-y-5">
@@ -27,29 +15,29 @@ const Footer = () => {
               <img 
                 src={logoImg} 
                 alt="MS InnovateX Logo" 
-                className="h-12 w-auto object-contain drop-shadow-md" 
+                className="h-12 w-auto object-contain" 
               />
             </div>
 
-            <p className="text-sm text-slate-300 leading-relaxed max-w-sm font-normal">
+            <p className="text-sm text-slate-400 leading-relaxed max-w-sm font-normal">
               We build websites, mobile apps and custom software solutions, provide professional email marketing services and offer industry-focused training programs.
             </p>
 
             {/* Social Media Icons */}
             <div className="flex items-center space-x-3 pt-2">
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950/80 border border-blue-900/60 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
                 <Linkedin className="w-4.5 h-4.5" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950/80 border border-blue-900/60 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
                 <Instagram className="w-4.5 h-4.5" />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950/80 border border-blue-900/60 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
                 <Facebook className="w-4.5 h-4.5" />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950/80 border border-blue-900/60 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
                 <Youtube className="w-4.5 h-4.5" />
               </a>
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950/80 border border-blue-900/60 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+              <a href="https://github.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
                 <Github className="w-4.5 h-4.5" />
               </a>
             </div>
@@ -60,7 +48,7 @@ const Footer = () => {
             <h4 className="text-sm font-extrabold text-white uppercase tracking-wider">
               Quick Links
             </h4>
-            <ul className="space-y-2.5 text-sm font-semibold text-slate-300">
+            <ul className="space-y-2.5 text-sm font-semibold">
               <li>
                 <Link to="/" className="hover:text-cyan-400 transition-colors">Home</Link>
               </li>
@@ -90,7 +78,7 @@ const Footer = () => {
             <h4 className="text-sm font-extrabold text-white uppercase tracking-wider">
               Client Solutions
             </h4>
-            <ul className="space-y-2.5 text-sm font-semibold text-slate-300">
+            <ul className="space-y-2.5 text-sm font-semibold text-slate-400">
               <li>
                 <Link to="/services" className="hover:text-cyan-400 transition-colors">Web Development</Link>
               </li>
@@ -120,7 +108,7 @@ const Footer = () => {
             <h4 className="text-sm font-extrabold text-white uppercase tracking-wider">
               Contact Details
             </h4>
-            <ul className="space-y-3 text-sm font-semibold text-slate-300">
+            <ul className="space-y-3 text-sm font-semibold text-slate-400">
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
                 <a href="tel:+919090625821" className="hover:text-white transition-colors">
@@ -157,12 +145,12 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 font-semibold gap-4">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-semibold gap-4">
           <p>© 2026 MS InnovateX. All Rights Reserved.</p>
           <div className="flex items-center space-x-6">
-            <Link to="/contact" className="hover:text-slate-200 transition-colors">Privacy Policy</Link>
+            <Link to="/contact" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
             <span>•</span>
-            <Link to="/contact" className="hover:text-slate-200 transition-colors">Terms & Conditions</Link>
+            <Link to="/contact" className="hover:text-slate-300 transition-colors">Terms & Conditions</Link>
           </div>
         </div>
 
