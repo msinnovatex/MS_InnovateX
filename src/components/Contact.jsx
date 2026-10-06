@@ -14,33 +14,31 @@ const Contact = ({ darkMode }) => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
     if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
       setError('Please fill in all required fields.');
       return;
     }
-
     setLoading(true);
-
-    setTimeout(() => {
-      const mailSubject = encodeURIComponent(`[${formData.subject}] Message from ${formData.name}`);
-      const mailBody = encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.subject}\n\nMessage:\n${formData.message}`
-      );
-      
-      window.location.href = `mailto:info@msinnovatex.com?subject=${mailSubject}&body=${mailBody}`;
-
-      setLoading(false);
+    try {
+      const apiBase = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+      const response = await fetch(`${apiBase}/api/submissions/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || 'Unable to send your message.');
       setSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '' });
-
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 5000);
-    }, 800);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError(err.message || 'Unable to send your message.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
