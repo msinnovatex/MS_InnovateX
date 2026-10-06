@@ -272,7 +272,8 @@ const Contact = ({ darkMode }) => {
                   <button
                     type="submit"
                     disabled={loading}
-                    disabled={loading}\n                  className="disabled:opacity-70 disabled:cursor-not-allowed w-full flex items-center justify-center gap-2.5 px-6 py-4 text-base font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-xl shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 disabled:opacity-50"
+                    disabled={loading}
+                  className="disabled:opacity-70 disabled:cursor-not-allowed w-full flex items-center justify-center gap-2.5 px-6 py-4 text-base font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-xl shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 disabled:opacity-50"
                   >{loading ? <><Loader2 className="w-4 h-4 animate-spin inline-block mr-2" />Sending...</> : <>{loading ? (
                       <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
                     ) : (
