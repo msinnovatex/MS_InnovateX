@@ -4,6 +4,10 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "/api/index.js?__msix_path=:path*"
+    },
+    {
       "source": "/((?!api/|admin/|assets/).*)",
       "destination": "/index.html"
     }
