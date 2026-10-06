@@ -45,7 +45,7 @@ const Contact = ({ darkMode }) => {
 
   return (
     <section id="contact" className={`relative py-16 lg:py-24 transition-colors ${
-      darkMode ? 'bg-[#031126] text-white' : 'bg-white text-slate-900'
+      darkMode ? 'bg-[#031126]/80 text-white' : 'bg-transparent text-slate-900'
     }`}>
       {/* Background Globe Overlay */}
       <div 

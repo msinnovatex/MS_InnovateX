@@ -17,9 +17,7 @@ import StatsCounter from '../../components/StatsCounter';
 const Home = ({ darkMode }) => {
   return (
     <div 
-      className={`min-h-screen font-sans bg-cover bg-top bg-no-repeat transition-colors ${
-        darkMode ? 'bg-[#031126] text-white' : 'bg-white text-slate-900'
-      }`}
+      className="min-h-screen font-sans bg-cover bg-top bg-no-repeat text-slate-900 dark:text-white transition-colors"
       style={{ backgroundImage: `url(${mainBg})` }}
     >
       
@@ -112,7 +110,7 @@ const Home = ({ darkMode }) => {
       </section>
 
       {/* 2. THREE PILLARS / OUR FOCUS SECTION */}
-      <section className={`py-14 lg:py-20 transition-colors ${darkMode ? 'bg-[#061A3A]' : 'bg-slate-50'}`}>
+      <section className={`py-14 lg:py-20 transition-colors ${darkMode ? 'bg-[#061A3A]/80' : 'bg-transparent'}`}>
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
@@ -334,7 +332,7 @@ const Home = ({ darkMode }) => {
 
       {/* 6. WHY CHOOSE US SECTION - NO BACKGROUND IMAGE */}
       <section className={`py-16 lg:py-20 transition-colors ${
-        darkMode ? 'bg-[#031126] text-white' : 'bg-slate-50/80 text-slate-900'
+        darkMode ? 'bg-[#031126]/80 text-white' : 'bg-transparent text-slate-900'
       }`}>
         <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">

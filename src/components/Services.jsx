@@ -45,7 +45,7 @@ const servicesData = [
 const Services = ({ darkMode }) => {
   return (
     <section id="services" className={`relative py-12 lg:py-16 transition-colors ${
-      darkMode ? 'bg-[#061A3A] text-white' : 'bg-slate-50/70 text-slate-900'
+      darkMode ? 'bg-[#061A3A]/80 text-white' : 'bg-transparent text-slate-900'
     }`}>
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
         
