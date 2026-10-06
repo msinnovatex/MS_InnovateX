@@ -83,7 +83,8 @@ async function handle(req,res){
  cors(req,res);if(req.method==='OPTIONS'){res.writeHead(204);return res.end();}
  const u=new URL(req.url,`http://${req.headers.host||'localhost'}`),p=u.pathname;
  if(p==='/api/health'&&req.method==='GET')return out(res,200,{ok:true,service:'MS InnovateX API'});
- if(p==='/api/public/site-config'&&req.method==='GET'){const c=await config();return out(res,200,{meta:c.meta,stats:c.stats,advertisement:c.advertisement?.active?c.advertisement:{active:false}});}
+ if(p==='/api/public/site-config'&&req.method==='GET'){const c=await config();return out(res,200,{meta:c.meta,stats:c.stats});}
+ if(p==='/api/public/advertisement'&&req.method==='GET'){const c=await config();return out(res,200,{advertisement:c.advertisement?.active?c.advertisement:{active:false}});}
  if(p.startsWith('/api/submissions/')&&req.method==='POST'){
   const type=p.split('/').filter(Boolean)[2];if(!submissionAllowed(ip(req)))return out(res,429,{ok:false,error:'Too many submissions from this network. Please try again later.'});if(!fields[type])return out(res,404,{ok:false,error:'Unknown submission type.'});
   try{const b=clean(await body(req)),data={};for(const k of fields[type])data[k]=b[k]??'';const reqd=type==='contact'?['name','email','subject','message']:type==='internship'?['fullName','email','phone','college']:['name','email','phone'];if(reqd.some(k=>!String(data[k]||'').trim()))return out(res,400,{ok:false,error:'Please complete all required fields.'});if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(data.email)))return out(res,400,{ok:false,error:'Please enter a valid email address.'});const r=await fb(`MSINNOVATEX/submissions/${type}`,'POST',{...data,createdAt:Date.now(),status:'new'});return out(res,201,{ok:true,id:r?.name||null})}catch(e){console.error('[Submission]',e);return out(res,500,{ok:false,error:'Unable to save the submission right now.'})}
