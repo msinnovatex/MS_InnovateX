@@ -13,6 +13,8 @@ import Internship from './pages/Internship/Internship';
 import ServicesPage from './pages/Services/ServicesPage';
 import Careers from './pages/Careers/Careers';
 import ContactPage from './pages/Contact/ContactPage';
+import SeoManager from './components/SeoManager';
+import AdvertisementPopup from './components/AdvertisementPopup';
 
 // Scroll to Top on Route Change
 const ScrollToTop = () => {
@@ -31,6 +33,7 @@ function App() {
       darkMode ? 'bg-[#031126] text-white dark' : 'bg-white text-slate-900'
     }`}>
       <ScrollToTop />
+      <SeoManager />
       
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
@@ -54,6 +57,7 @@ function App() {
         <Route path="/contact" element={<ContactPage darkMode={darkMode} />} />
       </Routes>
 
+      <AdvertisementPopup />
       <Footer />
     </div>
   );
