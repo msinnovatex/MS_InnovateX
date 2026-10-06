@@ -11,11 +11,13 @@ import cityBg from '../../assets/city-bg.jpg';
 import statsBg from '../../assets/stats-bg.jpg';
 import heroBg from '../../assets/hero-bg.jpg';
 import './Internship.css';
+import { isValidEmail, isValidPhone, normalizeSubmission } from '../../lib/validation';
 
 const Internship = ({ darkMode }) => {
   const [activeFaq, setActiveFaq] = useState(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [formError, setFormError] = useState('');
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -30,13 +32,28 @@ const Internship = ({ darkMode }) => {
   const handleRegistrationSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
+    setFormError('');
+    const normalized = normalizeSubmission(formData);
+    if (!isValidEmail(normalized.email)) {
+      setFormError('Please enter a valid email address, for example name@gmail.com.');
+      return;
+    }
+    if (!isValidPhone(normalized.phone)) {
+      setFormError('Please enter a valid phone / WhatsApp number.');
+      return;
+    }
+    if (!normalized.fullName || !normalized.college) {
+      setFormError('Please complete all required fields.');
+      return;
+    }
+    setFormData(normalized);
     setLoading(true);
     try {
       const apiBase = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
       const response = await fetch(`${apiBase}/api/submissions/internship`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(normalized)
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || 'Unable to submit registration.');
@@ -50,9 +67,10 @@ const Internship = ({ darkMode }) => {
           duration: '3 Months Industrial Training',
           message: ''
         });
+        setFormError('');
       }, 4000);
     } catch (err) {
-      alert(err.message || 'Unable to submit registration.');
+      setFormError(err.message || 'Unable to submit registration.');
     } finally {
       setLoading(false);
     }
@@ -512,6 +530,11 @@ const Internship = ({ darkMode }) => {
                 {formSubmitted && (
                   <div className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-500 text-emerald-300 text-xs font-bold">
                     Success! Your internship registration has been received. We will contact you shortly.
+                  </div>
+                )}
+                {formError && (
+                  <div role="alert" className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-300 text-xs font-bold">
+                    {formError}
                   </div>
                 )}
 
