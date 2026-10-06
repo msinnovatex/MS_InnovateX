@@ -1,6 +1,6 @@
 # MS InnovateX backend/admin setup
 
-The repository now contains a Node API server and a Firebase Realtime Database admin panel.
+The repository contains a Vite React frontend, a Vercel-compatible Node API function, and a Firebase Realtime Database admin panel.
 
 ## Firebase
 
@@ -20,7 +20,7 @@ Submissions are stored under:
 
 ## Admin
 
-Open `/admin/admin.html` on the Node deployment. Credentials come from `ADMIN_USERNAME` and `ADMIN_PASSWORD`.
+Open `/admin/admin.html` on the Vercel deployment. On first deployment, `ADMIN_USERNAME` and `ADMIN_PASSWORD` bootstrap the Firebase credential record; after that, `MSINNOVATEX/adminAuth` is authoritative.
 
 The panel can:
 - hide/unhide and edit the homepage statistics bar
@@ -32,15 +32,26 @@ The panel can:
 
 Email Marketing and Careers intentionally do not show the popup advertisement.
 
-## Deployment
+## Vercel deployment
 
-For Render, use:
-- Build command: `npm install && npm run build`
-- Start command: `npm start`
+This repository is configured for a single Vercel deployment:
+- Framework: Vite
+- Build command: `npm run build`
+- Output directory: `dist`
+- API function: `api/[...path].js`
+- Admin panel: `/admin/admin.html`
 
-Set the variables from `.env.example`.
+In Vercel Project Settings -> Environment Variables, add:
+- `FIREBASE_PROJECT_ID`
+- `FIREBASE_CLIENT_EMAIL`
+- `FIREBASE_PRIVATE_KEY`
+- `FIREBASE_DATABASE_URL`
+- `ADMIN_USERNAME`
+- `ADMIN_PASSWORD`
 
-If Vercel hosts the React frontend separately, set `VITE_API_BASE_URL` to the Render API URL and add the Vercel origin to `FRONTEND_ORIGIN`. Keep the admin page on the Node/Render origin unless you also configure a same-origin reverse proxy.
+Leave `VITE_API_BASE_URL` empty for same-origin API requests. `FRONTEND_ORIGIN` can also be left empty because frontend and API share the Vercel origin.
+
+Do not put Firebase service-account credentials in any `VITE_*` variable.
 
 
 ## Admin credentials
