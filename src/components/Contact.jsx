@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle2, User, MessageSquare, AlertCircle, SendHorizontal } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, User, MessageSquare, AlertCircle, SendHorizontal, Loader2 } from 'lucide-react';
 import globeBg from '../assets/globe-bg.jpg';
 
 const Contact = ({ darkMode }) => {
@@ -272,17 +272,15 @@ const Contact = ({ darkMode }) => {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full flex items-center justify-center gap-2.5 px-6 py-4 text-base font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-xl shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 disabled:opacity-50"
-                  >
-                    {loading ? (
+                    disabled={loading}\n                  className="disabled:opacity-70 disabled:cursor-not-allowed w-full flex items-center justify-center gap-2.5 px-6 py-4 text-base font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-xl shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 disabled:opacity-50"
+                  >{loading ? <><Loader2 className="w-4 h-4 animate-spin inline-block mr-2" />Sending...</> : <>{loading ? (
                       <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
                     ) : (
                       <>
                         <span>Send Message</span>
                         <Send className="w-5 h-5" />
                       </>
-                    )}
-                  </button>
+                    )}</>}</button>
                 </form>
               )}
 
