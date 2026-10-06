@@ -14,7 +14,7 @@ import './Internship.css';
 
 const Internship = ({ darkMode }) => {
   const [activeFaq, setActiveFaq] = useState(null);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);\n  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -605,9 +605,9 @@ const Internship = ({ darkMode }) => {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 px-6 text-sm font-bold text-slate-900 bg-cyan-300 hover:bg-cyan-200 rounded-xl shadow-lg transition-all"
+                  disabled={loading}\n                  className="w-full py-3.5 px-6 text-sm font-bold text-slate-900 bg-cyan-300 hover:bg-cyan-200 rounded-xl shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Submit Registration Form →
+                  {loading ? 'Submitting...' : 'Submit Registration Form →'}
                 </button>
               </form>
             </div>
