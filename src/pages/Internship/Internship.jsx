@@ -543,6 +543,11 @@ const Internship = ({ darkMode }) => {
               </div>
             ) : (
               <form onSubmit={handleRegistrationSubmit} className="space-y-4">
+                {formError && (
+                  <div role="alert" className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-300 text-xs font-bold">
+                    {formError}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   
                   {/* Full Name */}
