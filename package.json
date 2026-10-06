@@ -8,8 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "node server/server.js",
-    "start": "node server/server.js"
+    "server": "node --env-file-if-exists=.env server/server.js",
+    "start": "node --env-file-if-exists=.env server/server.js"
   },
   "dependencies": {
     "lucide-react": "^0.475.0",
