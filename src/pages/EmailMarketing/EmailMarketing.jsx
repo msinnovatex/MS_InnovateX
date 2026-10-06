@@ -14,10 +14,12 @@ import globeBg from '../../assets/globe-bg.jpg';
 import heroBg from '../../assets/hero-bg.jpg';
 import statsBg from '../../assets/stats-bg.jpg';
 import './EmailMarketing.css';
+import { isValidEmail, isValidPhone, normalizeSubmission } from '../../lib/validation';
 
 const EmailMarketing = ({ darkMode }) => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [formError, setFormError] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,13 +32,22 @@ const EmailMarketing = ({ darkMode }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
+    setFormError('');
+    const normalized = normalizeSubmission(formData);
+    if (!normalized.name || !isValidEmail(normalized.email) || !isValidPhone(normalized.phone)) {
+      setFormError(!isValidEmail(normalized.email)
+        ? 'Please enter a valid email address.'
+        : 'Please enter a valid phone / WhatsApp number.');
+      return;
+    }
+    setFormData(normalized);
     setLoading(true);
     try {
       const apiBase = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
       const response = await fetch(`${apiBase}/api/submissions/emailMarketing`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(normalized)
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || 'Unable to submit your campaign request.');
@@ -44,9 +55,10 @@ const EmailMarketing = ({ darkMode }) => {
       setTimeout(() => {
         setFormSubmitted(false);
         setFormData({ name: '', email: '', phone: '', company: '', campaignType: 'Promotional Campaigns', message: '' });
+        setFormError('');
       }, 4000);
     } catch (err) {
-      alert(err.message || 'Unable to submit your campaign request.');
+      setFormError(err.message || 'Unable to submit your campaign request.');
     } finally {
       setLoading(false);
     }
@@ -627,6 +639,12 @@ const EmailMarketing = ({ darkMode }) => {
             <div className="lg:col-span-6">
               <form onSubmit={handleSubmit} className="p-6 sm:p-8 rounded-3xl bg-[#031126]/95 border border-cyan-400/30 shadow-2xl space-y-4">
                 <h3 className="text-lg font-extrabold text-white">Start Email Marketing Campaign</h3>
+
+                {formError && (
+                  <div role="alert" className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-300 text-xs font-bold mb-3">
+                    {formError}
+                  </div>
+                )}
 
                 {formSubmitted && (
                   <div className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-500 text-emerald-300 text-xs font-bold">
