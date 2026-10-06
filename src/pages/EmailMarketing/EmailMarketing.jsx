@@ -26,13 +26,25 @@ const EmailMarketing = ({ darkMode }) => {
     message: ''
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', company: '', campaignType: 'Promotional Campaigns', message: '' });
-    }, 4000);
+    try {
+      const apiBase = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+      const response = await fetch(`${apiBase}/api/submissions/emailMarketing`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || 'Unable to submit your campaign request.');
+      setFormSubmitted(true);
+      setTimeout(() => {
+        setFormSubmitted(false);
+        setFormData({ name: '', email: '', phone: '', company: '', campaignType: 'Promotional Campaigns', message: '' });
+      }, 4000);
+    } catch (err) {
+      alert(err.message || 'Unable to submit your campaign request.');
+    }
   };
 
   const services = [
