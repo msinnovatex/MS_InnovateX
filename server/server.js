@@ -18,6 +18,7 @@ const ORIGINS=String(process.env.FRONTEND_ORIGIN||'').split(',').map(x=>x.trim()
 const TTL=8*60*60*1000;
 const sessions=new Map();
 const attempts=new Map();
+const submissionAttempts=new Map();
 let accessToken='';
 let accessExpiry=0;
 
@@ -76,6 +77,7 @@ async function init(){try{if(!(await fb('MSINNOVATEX/siteConfig')))await fb('MSI
 const fields={contact:['name','email','subject','message'],internship:['fullName','email','phone','college','qualification','domain','duration','message'],emailMarketing:['name','email','phone','company','campaignType','message']};
 function guard(req,res){if(!admin(req)){out(res,401,{ok:false,error:'Admin authentication required.'});return false}return true;}
 function loginAllowed(address){const now=Date.now(),x=attempts.get(address)||{n:0,t:now+900000};if(x.t<now){x.n=0;x.t=now+900000}x.n++;attempts.set(address,x);return x.n<=10;}
+function submissionAllowed(address){const now=Date.now(),x=submissionAttempts.get(address)||{n:0,t:now+600000};if(x.t<now){x.n=0;x.t=now+600000}x.n++;submissionAttempts.set(address,x);return x.n<=30;}
 
 async function handle(req,res){
  cors(req,res);if(req.method==='OPTIONS'){res.writeHead(204);return res.end();}
@@ -83,8 +85,8 @@ async function handle(req,res){
  if(p==='/api/health'&&req.method==='GET')return out(res,200,{ok:true,service:'MS InnovateX API'});
  if(p==='/api/public/site-config'&&req.method==='GET'){const c=await config();return out(res,200,{meta:c.meta,stats:c.stats,advertisement:c.advertisement?.active?c.advertisement:{active:false}});}
  if(p.startsWith('/api/submissions/')&&req.method==='POST'){
-  const type=p.split('/').filter(Boolean)[2];if(!fields[type])return out(res,404,{ok:false,error:'Unknown submission type.'});
-  try{const b=clean(await body(req)),data={};for(const k of fields[type])data[k]=b[k]??'';const reqd=type==='contact'?['name','email','subject','message']:type==='internship'?['fullName','email','phone','college']:['name','email','phone'];if(reqd.some(k=>!String(data[k]||'').trim()))return out(res,400,{ok:false,error:'Please complete all required fields.'});const r=await fb(`MSINNOVATEX/submissions/${type}`,'POST',{...data,createdAt:Date.now(),status:'new'});return out(res,201,{ok:true,id:r?.name||null})}catch(e){console.error('[Submission]',e);return out(res,500,{ok:false,error:'Unable to save the submission right now.'})}
+  const type=p.split('/').filter(Boolean)[2];if(!submissionAllowed(ip(req)))return out(res,429,{ok:false,error:'Too many submissions from this network. Please try again later.'});if(!fields[type])return out(res,404,{ok:false,error:'Unknown submission type.'});
+  try{const b=clean(await body(req)),data={};for(const k of fields[type])data[k]=b[k]??'';const reqd=type==='contact'?['name','email','subject','message']:type==='internship'?['fullName','email','phone','college']:['name','email','phone'];if(reqd.some(k=>!String(data[k]||'').trim()))return out(res,400,{ok:false,error:'Please complete all required fields.'});if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(data.email)))return out(res,400,{ok:false,error:'Please enter a valid email address.'});const r=await fb(`MSINNOVATEX/submissions/${type}`,'POST',{...data,createdAt:Date.now(),status:'new'});return out(res,201,{ok:true,id:r?.name||null})}catch(e){console.error('[Submission]',e);return out(res,500,{ok:false,error:'Unable to save the submission right now.'})}
  }
  if(p==='/api/admin/login'&&req.method==='POST'){if(!loginAllowed(ip(req)))return out(res,429,{ok:false,error:'Too many login attempts. Try again later.'});try{const b=await body(req);if(!ADMIN_PASS)return out(res,503,{ok:false,error:'Admin password is not configured on the server.'});if(!safeEqual(b.username,ADMIN_USER)||!safeEqual(b.password,ADMIN_PASS))return out(res,401,{ok:false,error:'Invalid admin credentials.'});cookie(res,session());return out(res,200,{ok:true})}catch(e){return out(res,400,{ok:false,error:e.message})}}
  if(p==='/api/admin/logout'&&req.method==='POST'){const t=cookies(req).msix_admin;if(t)sessions.delete(t);clearCookie(res);return out(res,200,{ok:true});}
