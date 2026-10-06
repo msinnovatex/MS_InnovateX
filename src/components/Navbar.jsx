@@ -30,7 +30,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         ? 'bg-[#031126]/95 backdrop-blur-md border-b border-blue-900/60 text-white shadow-lg shadow-black/30' 
         : 'bg-[#020D24]/98 backdrop-blur-md border-b border-blue-950/70 text-white shadow-md'
     }`}>
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex items-center justify-between h-20 gap-3">
           
           {/* Left: MS InnovateX Logo (Non-clickable, optimized for high visibility over blue theme) */}
@@ -46,7 +46,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           <nav className="hidden md:flex items-center gap-0.5 lg:gap-1 flex-1 justify-center min-w-0">
             <Link
               to="/"
-              className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 relative ${
+              className={`px-1.5 lg:px-2 py-2 text-[12px] lg:text-[13px] font-semibold whitespace-nowrap rounded-lg transition-all duration-200 relative ${
                 isCurrent('/') && location.pathname === '/'
                   ? 'text-cyan-400 font-bold'
                   : 'text-slate-100 hover:text-cyan-300 hover:bg-white/10'
@@ -60,7 +60,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
             <Link
               to="/about"
-              className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 relative ${
+              className={`px-1.5 lg:px-2 py-2 text-[12px] lg:text-[13px] font-semibold whitespace-nowrap rounded-lg transition-all duration-200 relative ${
                 isCurrent('/about')
                   ? 'text-cyan-400 font-bold'
                   : 'text-slate-100 hover:text-cyan-300 hover:bg-white/10'
@@ -80,14 +80,14 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             >
               <Link
                 to="/services"
-                className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 inline-flex items-center gap-1 relative ${
+                className={`px-1.5 lg:px-2 py-2 text-[12px] lg:text-[13px] font-semibold whitespace-nowrap rounded-lg transition-all duration-200 inline-flex items-center gap-1 relative ${
                   isCurrent('/services')
                     ? 'text-cyan-400 font-bold'
                     : 'text-slate-100 hover:text-cyan-300 hover:bg-white/10'
                 }`}
               >
                 <span>Services</span>
-                <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
+                <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 shrink-0" />
                 {isCurrent('/services') && (
                   <span className="absolute bottom-0 left-3.5 right-3.5 h-0.5 bg-cyan-400 rounded-full"></span>
                 )}
@@ -122,7 +122,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {/* Email Marketing Link */}
             <Link
               to="/email-marketing"
-              className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 relative ${
+              className={`px-1.5 lg:px-2 py-2 text-[12px] lg:text-[13px] font-semibold whitespace-nowrap rounded-lg transition-all duration-200 relative ${
                 isCurrent('/email-marketing')
                   ? 'text-cyan-400 font-bold'
                   : 'text-slate-100 hover:text-cyan-300 hover:bg-white/10'
@@ -137,7 +137,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {/* Internship Link */}
             <Link
               to="/internship"
-              className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 relative ${
+              className={`px-1.5 lg:px-2 py-2 text-[12px] lg:text-[13px] font-semibold whitespace-nowrap rounded-lg transition-all duration-200 relative ${
                 isCurrent('/internship')
                   ? 'text-cyan-400 font-bold'
                   : 'text-slate-100 hover:text-cyan-300 hover:bg-white/10'
@@ -152,7 +152,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {/* Careers Link */}
             <Link
               to="/careers"
-              className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 relative ${
+              className={`px-1.5 lg:px-2 py-2 text-[12px] lg:text-[13px] font-semibold whitespace-nowrap rounded-lg transition-all duration-200 relative ${
                 isCurrent('/careers')
                   ? 'text-cyan-400 font-bold'
                   : 'text-slate-100 hover:text-cyan-300 hover:bg-white/10'
@@ -167,7 +167,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {/* Contact Link */}
             <Link
               to="/contact"
-              className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 relative ${
+              className={`px-1.5 lg:px-2 py-2 text-[12px] lg:text-[13px] font-semibold whitespace-nowrap rounded-lg transition-all duration-200 relative ${
                 isCurrent('/contact')
                   ? 'text-cyan-400 font-bold'
                   : 'text-slate-100 hover:text-cyan-300 hover:bg-white/10'
@@ -192,7 +192,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-full shadow-md shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 shrink-0"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 text-[13px] font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-full shadow-md shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 shrink-0"
             >
               <span>Get a Quote</span>
               <ArrowRight className="w-4 h-4" />
