@@ -118,7 +118,7 @@ const Home = ({ darkMode }) => {
               <span className="text-xs sm:text-sm font-extrabold uppercase tracking-widest text-[#1264FF] dark:text-cyan-400">
                 OUR FOCUS
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mt-1">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mt-1 text-slate-900 dark:text-white">
                 Three Pillars for a Brighter <span className="text-[#1264FF] dark:text-cyan-400">Tomorrow</span>
               </h2>
             </div>
@@ -152,7 +152,7 @@ const Home = ({ darkMode }) => {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-black mb-2">Email Marketing</h3>
+                  <h3 className="text-xl font-black mb-2 text-slate-900 dark:text-white">Email Marketing</h3>
                   <p className="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300 mb-2">
                     Reach the right audience, engage customers and grow your business with professional email marketing solutions.
                   </p>
@@ -190,7 +190,7 @@ const Home = ({ darkMode }) => {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-black mb-2">Student Internship</h3>
+                  <h3 className="text-xl font-black mb-2 text-slate-900 dark:text-white">Student Internship</h3>
                   <p className="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300 mb-2">
                     Learn real-world skills, work on live projects and build your career with expert mentorship and recognized certification.
                   </p>
@@ -228,7 +228,7 @@ const Home = ({ darkMode }) => {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-black mb-2">Client Solutions & Support</h3>
+                  <h3 className="text-xl font-black mb-2 text-slate-900 dark:text-white">Client Solutions & Support</h3>
                   <p className="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300 mb-2">
                     From websites and mobile apps to custom software and ongoing technical support, we deliver solutions for every business.
                   </p>
@@ -342,7 +342,7 @@ const Home = ({ darkMode }) => {
               }`}>
                 WHY CHOOSE US
               </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mt-1">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black mt-1 text-slate-900 dark:text-white">
                 Your Trusted <span className="text-[#1264FF] dark:text-cyan-400">Technology Partner</span>
               </h2>
             </div>
@@ -359,7 +359,7 @@ const Home = ({ darkMode }) => {
                 <Users className="w-5.5 h-5.5" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold mb-1">Experienced Team</h3>
+                <h3 className="text-base font-extrabold mb-1 text-slate-900 dark:text-white">Experienced Team</h3>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Skilled professionals with real-world industry experience across multiple verticals.</p>
               </div>
             </div>
@@ -371,7 +371,7 @@ const Home = ({ darkMode }) => {
                 <Zap className="w-5.5 h-5.5" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold mb-1">Practical Solutions</h3>
+                <h3 className="text-base font-extrabold mb-1 text-slate-900 dark:text-white">Practical Solutions</h3>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Tailored software and email strategies engineered for your exact business goals.</p>
               </div>
             </div>
@@ -383,7 +383,7 @@ const Home = ({ darkMode }) => {
                 <ShieldCheck className="w-5.5 h-5.5" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold mb-1">End-to-End Support</h3>
+                <h3 className="text-base font-extrabold mb-1 text-slate-900 dark:text-white">End-to-End Support</h3>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">From initial design & development to long-term maintenance and technical helpdesk.</p>
               </div>
             </div>
@@ -395,7 +395,7 @@ const Home = ({ darkMode }) => {
                 <HeartHandshake className="w-5.5 h-5.5" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold mb-1">Growth Focused</h3>
+                <h3 className="text-base font-extrabold mb-1 text-slate-900 dark:text-white">Growth Focused</h3>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Helping businesses grow revenue and students succeed with hands-on skill development.</p>
               </div>
             </div>

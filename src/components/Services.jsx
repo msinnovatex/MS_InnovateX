@@ -61,7 +61,7 @@ const Services = ({ darkMode }) => {
               <span className={`h-0.5 w-12 rounded-full ${darkMode ? 'bg-cyan-400' : 'bg-[#1264FF]'}`}></span>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
               Complete Technology Solutions
             </h2>
           </div>
@@ -92,7 +92,7 @@ const Services = ({ darkMode }) => {
                   <Icon className="w-5.5 h-5.5" />
                 </div>
 
-                <h3 className="text-sm sm:text-base font-extrabold tracking-tight">
+                <h3 className="text-sm sm:text-base font-extrabold tracking-tight text-slate-900 dark:text-white">
                   {service.title}
                 </h3>
               </div>

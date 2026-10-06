@@ -11,13 +11,13 @@ const Footer = () => {
           
           {/* Left: Brand & Description (4 columns) */}
           <div className="lg:col-span-4 space-y-5">
-            <Link to="/" className="inline-block focus:outline-none">
+            <div className="inline-block">
               <img 
                 src={logoImg} 
                 alt="MS InnovateX Logo" 
                 className="h-12 w-auto object-contain" 
               />
-            </Link>
+            </div>
 
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm font-normal">
               We build websites, mobile apps and custom software solutions, provide professional email marketing services and offer industry-focused training programs.

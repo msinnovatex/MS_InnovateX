@@ -68,7 +68,7 @@ const Contact = ({ darkMode }) => {
               <span className={`h-0.5 w-12 rounded-full ${darkMode ? 'bg-cyan-400' : 'bg-[#1264FF]'}`}></span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight text-slate-900 dark:text-white">
               Let's Work <span className="text-[#1264FF] dark:text-cyan-400">Together</span>
             </h2>
 
@@ -154,7 +154,7 @@ const Contact = ({ darkMode }) => {
                 <SendHorizontal className="w-8 h-8 transform -rotate-12" />
               </div>
 
-              <h3 className="text-2xl font-black mb-6">
+              <h3 className="text-2xl font-black mb-6 text-slate-900 dark:text-white">
                 Send Us a Message
               </h3>
 

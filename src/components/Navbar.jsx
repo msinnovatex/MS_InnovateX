@@ -33,18 +33,14 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Left: MS InnovateX Logo */}
-          <Link
-            to="/"
-            className="flex items-center gap-3 shrink-0 group focus:outline-none"
-            onClick={() => setMobileMenuOpen(false)}
-          >
+          {/* Left: MS InnovateX Logo (Non-clickable) */}
+          <div className="flex items-center gap-3 shrink-0">
             <img 
               src={logoImg} 
               alt="MS InnovateX Logo" 
-              className="h-11 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105" 
+              className="h-11 sm:h-12 w-auto object-contain" 
             />
-          </Link>
+          </div>
 
           {/* Middle: Desktop Nav Links */}
           <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
