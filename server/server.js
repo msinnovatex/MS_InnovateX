@@ -67,7 +67,7 @@ async function token(){
  const d=await r.json();accessToken=d.access_token;accessExpiry=Date.now()+Number(d.expires_in||3600)*1000;return accessToken;
 }
 async function fb(p,m='GET',data){
- const t=await token(),r=await fetch(`${DB}/${p.replace(/^\//,'')}.json`,{method:m,headers:{Authorization:`Bearer ${t}`,'Content-Type':'application/json'},body:data===undefined?undefined:JSON.stringify(data)});
+ const t=await token(); const [rawPath,query='']=p.replace(/^\//,'').split('?'); const r=await fetch(`${DB}/${rawPath}.json${query?'?'+query:''}`,{method:m,headers:{Authorization:`Bearer ${t}`,'Content-Type':'application/json'},body:data===undefined?undefined:JSON.stringify(data)});
  const tx=await r.text();let d=null;try{d=tx?JSON.parse(tx):null}catch{d=tx}if(!r.ok)throw new Error(`Firebase ${r.status}: ${typeof d==='string'?d:JSON.stringify(d)}`);return d;
 }
 function merge(remote){remote=remote||{};return {...defaults,...remote,meta:{...defaults.meta,...remote.meta,global:{...defaults.meta.global,...remote.meta?.global},pages:{...defaults.meta.pages,...remote.meta?.pages}},stats:{...defaults.stats,...remote.stats,items:Array.isArray(remote.stats?.items)?remote.stats.items:defaults.stats.items},advertisement:{...defaults.advertisement,...remote.advertisement}}}
