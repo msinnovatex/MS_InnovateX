@@ -28,22 +28,22 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     <header className={`sticky top-0 left-0 right-0 z-50 transition-colors duration-300 ${
       darkMode 
         ? 'bg-[#031126]/95 backdrop-blur-md border-b border-blue-900/60 text-white shadow-lg shadow-black/30' 
-        : 'bg-[#061A3A]/95 backdrop-blur-md border-b border-blue-900/40 text-white shadow-md'
+        : 'bg-[#020D24]/98 backdrop-blur-md border-b border-blue-950/70 text-white shadow-md'
     }`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-20 gap-3">
           
           {/* Left: MS InnovateX Logo (Non-clickable, optimized for high visibility over blue theme) */}
           <div className="flex items-center gap-3 shrink-0">
             <img 
               src={logoImg} 
               alt="MS InnovateX Logo" 
-              className="h-11 sm:h-12 w-auto object-contain drop-shadow-md" 
+              className="h-10 sm:h-11 w-auto object-contain drop-shadow-md shrink-0" 
             />
           </div>
 
           {/* Middle: Desktop Nav Links */}
-          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <nav className="hidden md:flex items-center gap-0.5 lg:gap-1 flex-1 justify-center min-w-0">
             <Link
               to="/"
               className={`px-3.5 py-2 text-sm font-semibold rounded-lg transition-all duration-200 relative ${
@@ -181,7 +181,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </nav>
 
           {/* Right: Dark Mode Toggle + Get a Quote CTA */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center gap-2 shrink-0">
             <button
               onClick={() => setDarkMode(!darkMode)}
               className="p-2.5 rounded-full transition-colors bg-white/10 text-amber-300 hover:bg-white/20"
@@ -221,7 +221,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b px-4 pt-3 pb-6 shadow-xl transition-all bg-[#061A3A] border-blue-900/50 text-white">
+        <div className="md:hidden border-b px-4 pt-3 pb-6 shadow-xl transition-all bg-[#020D24] border-blue-950/70 text-white">
           <div className="flex flex-col space-y-1">
             <Link
               to="/"
