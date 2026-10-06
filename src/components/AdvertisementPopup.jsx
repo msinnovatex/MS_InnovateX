@@ -15,7 +15,6 @@ export default function AdvertisementPopup() {
       apiFetch('/api/public/advertisement').then((data) => {
         const next = data?.advertisement;
         if (!alive || !next?.active || !next.id) return;
-        try { if (sessionStorage.getItem(`msix-ad-dismissed-${next.id}`) === '1') return; } catch {}
         setAd(next);
         setVisible(true);
       }).catch(() => {});
@@ -26,7 +25,6 @@ export default function AdvertisementPopup() {
   if (!ad || !visible) return null;
   const close = () => {
     setVisible(false);
-    try { sessionStorage.setItem(`msix-ad-dismissed-${ad.id}`, '1'); } catch {}
   };
 
   return (
