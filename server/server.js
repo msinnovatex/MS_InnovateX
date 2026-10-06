@@ -116,5 +116,22 @@ catch(e){console.error('[Admin credentials]',e);return out(res,400,{ok:false,err
  if(p.startsWith('/api/admin/submissions/')&&req.method==='DELETE'){if(!guard(req,res))return;const a=p.split('/').filter(Boolean),type=a[2],id=a[3];if(!fields[type]||!id||!/^[A-Za-z0-9_-]{1,200}$/.test(id))return out(res,400,{ok:false,error:'Invalid submission.'});try{await fb(`MSINNOVATEX/submissions/${type}/${id}`,'DELETE');return out(res,200,{ok:true})}catch(e){return out(res,500,{ok:false,error:e.message})}}
  if(req.method==='GET'&&fs.existsSync(DIST)){let f=p==='/'?path.join(DIST,'index.html'):path.join(DIST,p.replace(/^\//,''));if(!f.startsWith(DIST))return out(res,403,{ok:false});if(!fs.existsSync(f)||fs.statSync(f).isDirectory())f=path.join(DIST,'index.html');const ext=path.extname(f).toLowerCase(),ct={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.svg':'image/svg+xml','.webp':'image/webp','.ico':'image/x-icon'}[ext]||'application/octet-stream';res.writeHead(200,{'Content-Type':ct,'X-Content-Type-Options':'nosniff'});return fs.createReadStream(f).pipe(res)}
  return out(res,404,{ok:false,error:'Not found.'});
+}export { handle, init };
+
+if (!process.env.VERCEL) {
+  http.createServer((req, res) =>
+    handle(req, res).catch(e => {
+      console.error('[Server]', e);
+
+      if (!res.headersSent) {
+        out(res, 500, {
+          ok: false,
+          error: 'Internal server error.'
+        });
+      }
+    })
+  ).listen(PORT, () => {
+    console.log(`MS InnovateX API listening on ${PORT}`);
+    init();
+  });
 }
-export { handle, init };\n\nif (!process.env.VERCEL) {\n  http.createServer((req,res)=>handle(req,res).catch(e=>{console.error('[Server]',e);if(!res.headersSent)out(res,500,{ok:false,error:'Internal server error.'})})).listen(PORT,()=>{console.log(`MS InnovateX API listening on ${PORT}`);init()});\n}
