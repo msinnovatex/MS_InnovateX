@@ -4,121 +4,196 @@ import {
   Compass, 
   Code, 
   CheckCircle, 
-  Rocket 
+  Rocket,
+  ArrowRight,
+  ArrowDown
 } from 'lucide-react';
 
-const Process = () => {
+const Process = ({ darkMode }) => {
   const steps = [
     {
       num: '01',
-      icon: <FileText className="w-6 h-6 text-blue-600" />,
+      icon: FileText,
       title: 'Understand Requirements',
-      desc: 'In-depth analysis of your business goals, target audience, and project specifications.'
+      desc: 'In-depth analysis of your business goals, target audience, and project specifications.',
+      color: 'from-[#1264FF] to-cyan-500',
+      badgeBg: 'bg-[#1264FF]',
+      borderHover: 'hover:border-[#1264FF]'
     },
     {
       num: '02',
-      icon: <Compass className="w-6 h-6 text-cyan-600" />,
+      icon: Compass,
       title: 'Planning & Strategy',
-      desc: 'Defining tech stack, architecture, project roadmap, and timeline deliverables.'
+      desc: 'Defining tech stack, architecture, project roadmap, and timeline deliverables.',
+      color: 'from-cyan-500 to-blue-600',
+      badgeBg: 'bg-cyan-600',
+      borderHover: 'hover:border-cyan-400'
     },
     {
       num: '03',
-      icon: <Code className="w-6 h-6 text-indigo-600" />,
+      icon: Code,
       title: 'Design & Development',
-      desc: 'Crafting responsive UI/UX prototypes and writing clean, scalable production code.'
+      desc: 'Crafting responsive UI/UX prototypes and writing clean, scalable production code.',
+      color: 'from-blue-600 to-indigo-600',
+      badgeBg: 'bg-indigo-600',
+      borderHover: 'hover:border-indigo-400'
     },
     {
       num: '04',
-      icon: <CheckCircle className="w-6 h-6 text-teal-600" />,
+      icon: CheckCircle,
       title: 'Testing & Quality Assurance',
-      desc: 'Rigorous security testing, bug fixing, performance audit, and user acceptance.'
+      desc: 'Rigorous security testing, bug fixing, performance audit, and user acceptance.',
+      color: 'from-indigo-600 to-teal-500',
+      badgeBg: 'bg-teal-600',
+      borderHover: 'hover:border-teal-400'
     },
     {
       num: '05',
-      icon: <Rocket className="w-6 h-6 text-sky-600" />,
+      icon: Rocket,
       title: 'Deployment & Support',
-      desc: 'Smooth cloud launch, ongoing maintenance, and continuous optimization.'
+      desc: 'Smooth cloud launch, ongoing maintenance, and continuous optimization.',
+      color: 'from-teal-500 to-sky-500',
+      badgeBg: 'bg-sky-600',
+      borderHover: 'hover:border-sky-400'
     },
   ];
 
   return (
-    <section id="process" className="relative bg-process-section py-16 lg:py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-50/70 via-cyan-50/30 to-slate-50/80 pointer-events-none" />
+    <section id="process" className={`py-16 lg:py-24 relative overflow-hidden transition-colors ${
+      darkMode ? 'bg-[#031126] text-white' : 'bg-slate-50/70 text-slate-900'
+    }`}>
+      {/* Background Accent Gradients */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 via-cyan-500/5 to-transparent pointer-events-none" />
 
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3 mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 border border-blue-300 text-blue-800 font-bold text-xs uppercase tracking-widest">
-            Our Process
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            A Simple & Transparent <br className="hidden sm:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-cyan-600 to-sky-600">
-              Development Process
+        <div className="text-center max-w-xl mx-auto mb-14">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <span className={`h-0.5 w-8 rounded-full ${darkMode ? 'bg-cyan-400' : 'bg-[#1264FF]'}`}></span>
+            <span className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${
+              darkMode ? 'text-cyan-400' : 'text-[#1264FF]'
+            }`}>
+              OUR PROCESS
             </span>
+            <span className={`h-0.5 w-8 rounded-full ${darkMode ? 'bg-cyan-400' : 'bg-[#1264FF]'}`}></span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight mb-2">
+            A Simple & Transparent <br className="hidden sm:inline" />
+            <span className="text-[#1264FF] dark:text-cyan-400">Development Process</span>
           </h2>
-          <p className="text-base sm:text-lg text-slate-700 font-medium">
+          <p className={`text-sm sm:text-base font-normal ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
             From initial concept to final deployment, we follow an agile and structured workflow.
           </p>
         </div>
 
-        {/* Desktop Horizontal Process Timeline with Animated Steps */}
-        <div className="hidden lg:block relative my-6">
-          <div className="absolute top-1/2 left-10 right-10 h-1 bg-gradient-to-r from-blue-400 via-cyan-400 to-sky-500 transform -translate-y-12 rounded-full z-0 opacity-70" />
+        {/* Desktop 5-Step Arrow Flow */}
+        <div className="hidden lg:grid grid-cols-5 gap-4 lg:gap-5 relative z-10 items-stretch">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            const isLast = index === steps.length - 1;
 
-          <div className="grid grid-cols-5 gap-4 relative z-10">
-            {steps.map((step, index) => (
-              <div key={index} className="flex flex-col items-center text-center group">
+            return (
+              <div key={index} className="relative flex flex-col group">
                 
-                <div className="relative w-20 h-20 rounded-full bg-white border-2 border-cyan-400 p-1 shadow-lg shadow-cyan-500/20 group-hover:scale-110 group-hover:border-blue-600 transition-all duration-300 mb-5 flex items-center justify-center">
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-cyan-50 to-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-gradient-to-br group-hover:from-cyan-500 group-hover:to-blue-600 group-hover:text-white transition-all duration-300">
-                    {React.cloneElement(step.icon, {
-                      className: "w-7 h-7 transition-all duration-300 group-hover:text-white group-hover:scale-110"
-                    })}
+                {/* Arrow Step Card */}
+                <div className={`relative flex-1 rounded-2xl p-5 border transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between ${step.borderHover} ${
+                  darkMode 
+                    ? 'bg-[#061A3A] border-blue-900/60 text-white shadow-xl' 
+                    : 'bg-white border-slate-200 text-slate-900 shadow-md hover:shadow-xl'
+                }`}>
+                  
+                  {/* Pointing Chevron Arrow Banner */}
+                  <div 
+                    className={`w-full py-2 px-3.5 mb-4 rounded-lg bg-gradient-to-r ${step.color} text-white font-black text-xs tracking-wider flex items-center justify-between shadow-md`}
+                    style={{ clipPath: 'polygon(0% 0%, 88% 0%, 100% 50%, 88% 100%, 0% 100%)' }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="opacity-90">STEP</span>
+                      <span className="text-sm">{step.num}</span>
+                    </div>
+                    <Icon className="w-4 h-4 mr-3 shrink-0" />
                   </div>
-                  <span className="absolute -top-2 -right-1 px-2.5 py-0.5 rounded-full bg-blue-600 text-white font-extrabold text-xs shadow-md transition-transform duration-300 group-hover:scale-110">
-                    {step.num}
-                  </span>
+
+                  {/* Title & Description */}
+                  <div className="flex-1">
+                    <h3 className="text-base font-extrabold mb-2 leading-snug group-hover:text-[#1264FF] dark:group-hover:text-cyan-400 transition-colors">
+                      {step.title}
+                    </h3>
+                    <p className={`text-xs leading-relaxed font-normal ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+                      {step.desc}
+                    </p>
+                  </div>
+
+                  {/* Arrow Indicator at Bottom */}
+                  <div className="mt-4 pt-3 border-t border-slate-100 dark:border-blue-900/40 flex items-center justify-between text-[11px] font-bold text-[#1264FF] dark:text-cyan-400">
+                    <span>PHASE {step.num}</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
+                  </div>
+
                 </div>
 
-                <div className="bg-white/85 backdrop-blur-md border border-cyan-200 p-5 rounded-2xl shadow-md group-hover:shadow-xl group-hover:border-cyan-400 transition-all duration-300 min-h-[150px] flex flex-col justify-start group-hover:-translate-y-1">
-                  <h3 className="text-base font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                {/* Arrow Connector between steps */}
+                {!isLast && (
+                  <div className="hidden xl:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-[#1264FF] dark:bg-cyan-400 text-white dark:text-slate-950 items-center justify-center shadow-lg border-2 border-white dark:border-[#031126]">
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
+                )}
+
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Mobile & Tablet Arrow Vertical Flow */}
+        <div className="lg:hidden space-y-4 max-w-xl mx-auto">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            const isLast = index === steps.length - 1;
+
+            return (
+              <div key={index} className="flex flex-col items-center">
+                
+                {/* Mobile Arrow Card */}
+                <div className={`w-full rounded-2xl p-5 border transition-all duration-300 ${
+                  darkMode 
+                    ? 'bg-[#061A3A] border-blue-900/60 text-white shadow-xl' 
+                    : 'bg-white border-slate-200 text-slate-900 shadow-md'
+                }`}>
+                  <div className="flex items-center gap-3 mb-3">
+                    {/* Arrow Chevron Badge */}
+                    <div 
+                      className={`py-1.5 px-4 rounded-lg bg-gradient-to-r ${step.color} text-white font-black text-xs tracking-wider flex items-center gap-2 shadow-md`}
+                      style={{ clipPath: 'polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)' }}
+                    >
+                      <span>STEP {step.num}</span>
+                      <ArrowRight className="w-3.5 h-3.5 mr-2" />
+                    </div>
+
+                    <div className={`p-2 rounded-xl ${step.badgeBg} text-white shrink-0`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                  </div>
+
+                  <h3 className="text-lg font-extrabold mb-1.5 text-slate-900 dark:text-white">
                     {step.title}
                   </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                  <p className={`text-xs sm:text-sm leading-relaxed ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                     {step.desc}
                   </p>
                 </div>
 
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Mobile Vertical Process Timeline */}
-        <div className="lg:hidden space-y-5 relative pl-6 border-l-2 border-cyan-400 ml-4">
-          {steps.map((step, index) => (
-            <div key={index} className="relative group">
-              <div className="absolute -left-[35px] top-4 w-9 h-9 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xs flex items-center justify-center shadow-lg border-2 border-white">
-                {step.num}
-              </div>
-
-              <div className="bg-white/90 backdrop-blur-md border border-cyan-200 rounded-xl p-5 shadow-md group-hover:shadow-lg transition-all duration-300">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2 rounded-lg bg-cyan-50 text-blue-600">
-                    {step.icon}
+                {/* Vertical Arrow Connector */}
+                {!isLast && (
+                  <div className="my-2 p-1.5 rounded-full bg-cyan-100 dark:bg-blue-900/60 text-[#1264FF] dark:text-cyan-400">
+                    <ArrowDown className="w-4 h-4 animate-bounce" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900">
-                    {step.title}
-                  </h3>
-                </div>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  {step.desc}
-                </p>
+                )}
+
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

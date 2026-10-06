@@ -5,9 +5,11 @@ import heroBg from '../../assets/hero-bg.jpg';
 import officeBg from '../../assets/office.jpg';
 import internshipBg from '../../assets/internship-bg.jpg';
 import statsBg from '../../assets/stats-bg.jpg';
-import whyUsBg from '../../assets/why-us-bg.jpg';
 import globeBg from '../../assets/globe-bg.jpg';
 import aboutImg from '../../assets/about.jpg';
+import emailMarketingImg from '../../assets/email-marketing-analytics.jpg';
+import techHubImg from '../../assets/tech-hub.jpg';
+import techSupportImg from '../../assets/tech-support-team.jpg';
 import logoImg from '../../assets/logo.png';
 import mainBg from '../../assets/main-bg.png';
 import Services from '../../components/Services';
@@ -18,15 +20,15 @@ const Home = ({ darkMode }) => {
   return (
     <div className="min-h-screen font-sans text-slate-900 dark:text-white transition-colors">
       
-      {/* 1. HERO SECTION WITH CRISP BACKGROUND IMAGE & ELEGANT DARK OVERLAY */}
+      {/* 1. HERO SECTION WITH CRISP BACKGROUND IMAGE & NEUTRAL DARK OVERLAY */}
       <section 
-        className="relative w-full py-12 sm:py-16 lg:py-20 overflow-hidden bg-no-repeat bg-cover bg-center border-b border-blue-900/40 text-white"
+        className="relative w-full py-12 sm:py-16 lg:py-20 overflow-hidden bg-no-repeat bg-cover bg-center border-b border-slate-800/60 text-white"
         style={{ 
           backgroundImage: `url(${heroBg})`,
         }}
       >
-        {/* Crisp Dark Gradient Overlay for Maximum Text Legibility and Image Contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#031126]/95 via-[#031126]/80 to-[#031126]/45 pointer-events-none" />
+        {/* Neutral Dark Gradient Overlay for Maximum Text Legibility & Image Clarity */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/55 to-slate-950/20 pointer-events-none" />
 
         <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="max-w-2xl space-y-5">
@@ -71,7 +73,7 @@ const Home = ({ darkMode }) => {
             {/* Trust Badges */}
             <div className="pt-6 border-t border-slate-700/60 grid grid-cols-1 sm:grid-cols-3 gap-3">
               {/* Reliable Solutions */}
-              <div className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl backdrop-blur-md bg-[#071936]/80 border border-blue-900/60 hover:border-cyan-500/40 hover:bg-slate-800/80 shadow-lg shadow-black/20 transition-all duration-300 group">
+              <div className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl backdrop-blur-md bg-slate-900/75 border border-white/20 hover:bg-slate-800/80 shadow-lg shadow-black/20 transition-all duration-300 group">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-[#1264FF] via-blue-600 to-cyan-400 text-white flex items-center justify-center shrink-0 shadow-md shadow-blue-500/25 border border-white/20 transition-transform duration-300 group-hover:scale-110">
                   <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
@@ -81,7 +83,7 @@ const Home = ({ darkMode }) => {
               </div>
 
               {/* Expert Team */}
-              <div className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl backdrop-blur-md bg-[#071936]/80 border border-blue-900/60 hover:border-cyan-500/40 hover:bg-slate-800/80 shadow-lg shadow-black/20 transition-all duration-300 group">
+              <div className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl backdrop-blur-md bg-slate-900/75 border border-white/20 hover:bg-slate-800/80 shadow-lg shadow-black/20 transition-all duration-300 group">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-blue-400 text-white flex items-center justify-center shrink-0 shadow-md shadow-indigo-500/25 border border-white/20 transition-transform duration-300 group-hover:scale-110">
                   <Users className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
@@ -91,7 +93,7 @@ const Home = ({ darkMode }) => {
               </div>
 
               {/* Pan India Support */}
-              <div className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl backdrop-blur-md bg-[#071936]/80 border border-blue-900/60 hover:border-cyan-500/40 hover:bg-slate-800/80 shadow-lg shadow-black/20 transition-all duration-300 group">
+              <div className="flex items-center gap-3 p-2.5 sm:p-3 rounded-2xl backdrop-blur-md bg-slate-900/75 border border-white/20 hover:bg-slate-800/80 shadow-lg shadow-black/20 transition-all duration-300 group">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-teal-500 to-emerald-400 text-white flex items-center justify-center shrink-0 shadow-md shadow-cyan-500/25 border border-white/20 transition-transform duration-300 group-hover:scale-110">
                   <Headphones className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
@@ -143,13 +145,13 @@ const Home = ({ darkMode }) => {
             }`}>
               <div>
                 {/* Image Banner Header */}
-                <div className="relative h-48 sm:h-52 w-full overflow-hidden">
+                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
                   <img 
-                    src={globeBg} 
+                    src={emailMarketingImg} 
                     alt="Email Marketing Solutions" 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#031126] via-[#031126]/40 to-transparent opacity-90 dark:opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent pointer-events-none" />
                   <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold text-white bg-[#1264FF]/90 backdrop-blur-md border border-white/20 shadow-md">
                     Digital Outreach
                   </span>
@@ -181,13 +183,13 @@ const Home = ({ darkMode }) => {
             }`}>
               <div>
                 {/* Image Banner Header */}
-                <div className="relative h-48 sm:h-52 w-full overflow-hidden">
+                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
                   <img 
-                    src={internshipBg} 
+                    src={techHubImg} 
                     alt="Student Internship & Training" 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#031126] via-[#031126]/40 to-transparent opacity-90 dark:opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent pointer-events-none" />
                   <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold text-white bg-emerald-600/90 backdrop-blur-md border border-white/20 shadow-md">
                     Skill & Career Growth
                   </span>
@@ -219,13 +221,13 @@ const Home = ({ darkMode }) => {
             }`}>
               <div>
                 {/* Image Banner Header */}
-                <div className="relative h-48 sm:h-52 w-full overflow-hidden">
+                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
                   <img 
-                    src={aboutImg} 
+                    src={techSupportImg} 
                     alt="Client Solutions & Support" 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#031126] via-[#031126]/40 to-transparent opacity-90 dark:opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent pointer-events-none" />
                   <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold text-white bg-purple-600/90 backdrop-blur-md border border-white/20 shadow-md">
                     Custom Software & Apps
                   </span>
@@ -412,10 +414,10 @@ const Home = ({ darkMode }) => {
 
       {/* 7. STUDENT INTERNSHIP BANNER */}
       <section 
-        className="relative py-16 lg:py-24 bg-cover bg-center text-white border-y border-cyan-500/30"
+        className="relative py-16 lg:py-24 bg-cover bg-center text-white border-y border-slate-800/60"
         style={{ backgroundImage: `url(${internshipBg})` }}
       >
-        <div className="absolute inset-0 bg-slate-950/75" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-950/55 to-slate-950/25 pointer-events-none" />
 
         <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="max-w-2xl space-y-5">

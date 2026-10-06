@@ -1,5 +1,6 @@
 import React from 'react';
 import Contact from '../../components/Contact';
+import ContactFAQ from '../../components/ContactFAQ';
 
 const ContactPage = ({ darkMode }) => {
   return (
@@ -13,6 +14,7 @@ const ContactPage = ({ darkMode }) => {
 
       <main>
         <Contact darkMode={darkMode} />
+        <ContactFAQ darkMode={darkMode} />
       </main>
     </div>
   );

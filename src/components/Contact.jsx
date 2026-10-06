@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle2, User, MessageSquare, AlertCircle, SendHorizontal, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, User, MessageSquare, AlertCircle, Loader2 } from 'lucide-react';
 import globeBg from '../assets/globe-bg.jpg';
+<<<<<<< HEAD
 import { isValidEmail, normalizeSubmission } from '../lib/validation';
+=======
+import dottedFlightImg from '../assets/dotted-flight.png';
+>>>>>>> 6d5cf0a (Update)
 
 const Contact = ({ darkMode }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   });
@@ -15,9 +20,37 @@ const Contact = ({ darkMode }) => {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === 'name') {
+      // Disallow numbers in full name
+      const noNumbers = value.replace(/[0-9]/g, '');
+      setFormData(prev => ({ ...prev, name: noNumbers }));
+      return;
+    }
+
+    if (name === 'phone') {
+      // Extract digits only
+      let digits = value.replace(/\D/g, '');
+      // Strip leading country code 91 if typed or formatted
+      if (digits.startsWith('91')) {
+        digits = digits.slice(2);
+      }
+      // Restrict to max 10 digits
+      digits = digits.slice(0, 10);
+      const formatted = digits ? `+91 ${digits}` : '';
+      setFormData(prev => ({ ...prev, phone: formatted }));
+      return;
+    }
+
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+<<<<<<< HEAD
     const normalized = normalizeSubmission(formData);
     if (!normalized.name || !normalized.email || !normalized.subject || !normalized.message) {
       setError('Please fill in all required fields.');
@@ -28,6 +61,21 @@ const Contact = ({ darkMode }) => {
       return;
     }
     setFormData(normalized);
+=======
+
+    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.subject.trim() || !formData.message.trim()) {
+      setError('Please fill in all required fields.');
+      return;
+    }
+
+    // Validate 10-digit mobile number
+    const phoneDigits = formData.phone.replace(/\D/g, '').replace(/^91/, '');
+    if (phoneDigits.length !== 10) {
+      setError('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+
+>>>>>>> 6d5cf0a (Update)
     setLoading(true);
     try {
       const apiBase = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
@@ -39,7 +87,7 @@ const Contact = ({ darkMode }) => {
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || 'Unable to send your message.');
       setSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
       setError(err.message || 'Unable to send your message.');
@@ -157,11 +205,15 @@ const Contact = ({ darkMode }) => {
             }`}>
               
               {/* Paper Plane Decorative Graphic on Top Right */}
-              <div className="absolute top-6 right-6 text-[#1264FF] dark:text-cyan-400 opacity-80">
-                <SendHorizontal className="w-8 h-8 transform -rotate-12" />
+              <div className="absolute -top-6 -right-4 sm:-top-7 sm:-right-6 pointer-events-none z-20">
+                <img 
+                  src={dottedFlightImg} 
+                  alt="Paper plane flight" 
+                  className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md" 
+                />
               </div>
 
-              <h3 className={`text-2xl font-black mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+              <h3 className={`text-2xl font-black mb-6 ${darkMode ? 'text-[#1264FF]' : 'text-slate-900'}`}>
                 Send Us a Message
               </h3>
 
@@ -181,22 +233,23 @@ const Contact = ({ darkMode }) => {
                     </div>
                   )}
 
-                  {/* Name & Email Row */}
+                  {/* Full Name & Email Row */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 ${
                         darkMode ? 'text-slate-300' : 'text-slate-700'
                       }`}>
-                        Your Name *
+                        Full Name *
                       </label>
                       <div className="relative">
                         <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
                         <input
                           type="text"
+                          name="name"
                           required
-                          placeholder="Enter your name"
+                          placeholder="Enter your full name"
                           value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          onChange={handleInputChange}
                           className={`w-full rounded-xl pl-10 pr-4 py-3 text-sm font-semibold transition-all focus:outline-none focus:ring-2 ${
                             darkMode 
                               ? 'bg-[#031126] border-blue-900/60 text-white placeholder-slate-500 focus:ring-cyan-400' 
@@ -210,16 +263,17 @@ const Contact = ({ darkMode }) => {
                       <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 ${
                         darkMode ? 'text-slate-300' : 'text-slate-700'
                       }`}>
-                        Your Email *
+                        Email Address *
                       </label>
                       <div className="relative">
                         <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
                         <input
                           type="email"
+                          name="email"
                           required
-                          placeholder="Enter your email"
+                          placeholder="Enter your email address"
                           value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          onChange={handleInputChange}
                           className={`w-full rounded-xl pl-10 pr-4 py-3 text-sm font-semibold transition-all focus:outline-none focus:ring-2 ${
                             darkMode 
                               ? 'bg-[#031126] border-blue-900/60 text-white placeholder-slate-500 focus:ring-cyan-400' 
@@ -230,27 +284,55 @@ const Contact = ({ darkMode }) => {
                     </div>
                   </div>
 
-                  {/* Subject */}
-                  <div>
-                    <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 ${
-                      darkMode ? 'text-slate-300' : 'text-slate-700'
-                    }`}>
-                      Subject *
-                    </label>
-                    <div className="relative">
-                      <MessageSquare className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
-                      <input
-                        type="text"
-                        required
-                        placeholder="Enter subject"
-                        value={formData.subject}
-                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                        className={`w-full rounded-xl pl-10 pr-4 py-3 text-sm font-semibold transition-all focus:outline-none focus:ring-2 ${
-                          darkMode 
-                            ? 'bg-[#031126] border-blue-900/60 text-white placeholder-slate-500 focus:ring-cyan-400' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:ring-[#1264FF]'
-                        }`}
-                      />
+                  {/* Mobile Number & Subject Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 ${
+                        darkMode ? 'text-slate-300' : 'text-slate-700'
+                      }`}>
+                        Mobile Number *
+                      </label>
+                      <div className="relative">
+                        <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                        <input
+                          type="tel"
+                          name="phone"
+                          required
+                          maxLength={14}
+                          placeholder="Enter mobile number"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          className={`w-full rounded-xl pl-10 pr-4 py-3 text-sm font-semibold transition-all focus:outline-none focus:ring-2 ${
+                            darkMode 
+                              ? 'bg-[#031126] border-blue-900/60 text-white placeholder-slate-500 focus:ring-cyan-400' 
+                              : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:ring-[#1264FF]'
+                          }`}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className={`block text-xs font-extrabold uppercase tracking-wider mb-2 ${
+                        darkMode ? 'text-slate-300' : 'text-slate-700'
+                      }`}>
+                        Subject *
+                      </label>
+                      <div className="relative">
+                        <MessageSquare className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                        <input
+                          type="text"
+                          name="subject"
+                          required
+                          placeholder="Enter subject"
+                          value={formData.subject}
+                          onChange={handleInputChange}
+                          className={`w-full rounded-xl pl-10 pr-4 py-3 text-sm font-semibold transition-all focus:outline-none focus:ring-2 ${
+                            darkMode 
+                              ? 'bg-[#031126] border-blue-900/60 text-white placeholder-slate-500 focus:ring-cyan-400' 
+                              : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:ring-[#1264FF]'
+                          }`}
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -262,11 +344,12 @@ const Contact = ({ darkMode }) => {
                       Your Message *
                     </label>
                     <textarea
+                      name="message"
                       required
                       rows="4"
                       placeholder="Tell us about your project or requirements..."
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={handleInputChange}
                       className={`w-full rounded-xl px-4 py-3 text-sm font-semibold transition-all focus:outline-none focus:ring-2 ${
                         darkMode 
                           ? 'bg-[#031126] border-blue-900/60 text-white placeholder-slate-500 focus:ring-cyan-400' 
@@ -279,16 +362,20 @@ const Contact = ({ darkMode }) => {
                   <button
                     type="submit"
                     disabled={loading}
-                    disabled={loading}
-                  className="disabled:opacity-70 disabled:cursor-not-allowed w-full flex items-center justify-center gap-2.5 px-6 py-4 text-base font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-xl shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 disabled:opacity-50"
-                  >{loading ? <><Loader2 className="w-4 h-4 animate-spin inline-block mr-2" />Sending...</> : <>{loading ? (
-                      <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    className="disabled:opacity-70 disabled:cursor-not-allowed w-full flex items-center justify-center gap-2.5 px-6 py-4 text-base font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-xl shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 disabled:opacity-50"
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin inline-block mr-2" />
+                        <span>Sending...</span>
+                      </>
                     ) : (
                       <>
                         <span>Send Message</span>
                         <Send className="w-5 h-5" />
                       </>
-                    )}</>}</button>
+                    )}
+                  </button>
                 </form>
               )}
 

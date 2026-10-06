@@ -8,7 +8,7 @@ const About = ({ darkMode }) => {
 
   return (
     <section id="about" className={`py-16 lg:py-24 transition-colors ${
-      darkMode ? 'bg-[#031126] text-white' : 'bg-white text-slate-900'
+      darkMode ? 'bg-[#061A3A]/80 text-white' : 'bg-gradient-to-b from-[#EAF5FF]/80 via-[#F7FBFF] to-[#EAF5FF]/60 text-[#102044]'
     }`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -19,85 +19,75 @@ const About = ({ darkMode }) => {
             {/* Small uppercase label */}
             <div className="flex items-center gap-3">
               <span className={`text-xs sm:text-sm font-extrabold uppercase tracking-widest ${
-                darkMode ? 'text-cyan-400' : 'text-[#1264FF]'
+                darkMode ? 'text-[#65C7FF]' : 'text-[#1769FF]'
               }`}>
-                ABOUT MS INNOVATEX
+                OUR STORY
               </span>
-              <span className={`h-0.5 w-12 rounded-full ${darkMode ? 'bg-cyan-400' : 'bg-[#1264FF]'}`}></span>
+              <span className={`h-0.5 w-12 rounded-full ${darkMode ? 'bg-[#65C7FF]' : 'bg-[#1769FF]'}`}></span>
             </div>
 
             {/* Heading */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
               Turning Ideas Into <br />
-              <span className="text-[#1264FF] dark:text-cyan-400">
+              <span className="text-[#1769FF] dark:text-[#65C7FF]">
                 Real-World Solutions
               </span>
             </h2>
 
             {/* Description */}
             <p className={`text-base sm:text-lg leading-relaxed ${
-              darkMode ? 'text-slate-300' : 'text-slate-600'
+              darkMode ? 'text-slate-300' : 'text-[#536A8A]'
             }`}>
-              MS InnovateX is a technology company focused on delivering practical, innovative and scalable digital solutions for businesses, organizations and growing enterprises.
+              MS InnovateX is a technology company focused on delivering practical, innovative and scalable digital solutions for businesses, organizations and growing enterprises. We combine creativity, technology and strategy to help our clients solve real problems and achieve long-term success.
             </p>
 
-            {/* Bullet points & locations */}
+            {/* Feature Pills 2x2 Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
               <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                  darkMode ? 'bg-blue-900/40 text-cyan-400' : 'bg-blue-50 text-[#1264FF]'
-                }`}>
-                  <MapPin className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-full bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-md">
+                  <MapPin className="w-4 h-4" />
                 </div>
-                <span className={`text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                <span className={`text-xs sm:text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
                   Bhubaneswar, Odisha, India
                 </span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                  darkMode ? 'bg-blue-900/40 text-cyan-400' : 'bg-blue-50 text-[#1264FF]'
-                }`}>
-                  <Globe2 className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-full bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-md">
+                  <Globe2 className="w-4 h-4" />
                 </div>
-                <span className={`text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                <span className={`text-xs sm:text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
                   Pan India Support
                 </span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                  darkMode ? 'bg-blue-900/40 text-cyan-400' : 'bg-blue-50 text-[#1264FF]'
-                }`}>
-                  <ShieldCheck className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-full bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-md">
+                  <ShieldCheck className="w-4 h-4" />
                 </div>
-                <span className={`text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                <span className={`text-xs sm:text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
                   Transparent & Secure
                 </span>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                  darkMode ? 'bg-blue-900/40 text-cyan-400' : 'bg-blue-50 text-[#1264FF]'
-                }`}>
-                  <CheckCircle2 className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-full bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-md">
+                  <CheckCircle2 className="w-4 h-4" />
                 </div>
-                <span className={`text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                <span className={`text-xs sm:text-sm font-extrabold ${darkMode ? 'text-slate-200' : 'text-slate-800'}`}>
                   100% Quality Commitment
                 </span>
               </div>
             </div>
 
-            {/* Watch Our Video Button */}
+            {/* Watch Our Story Button */}
             <div className="pt-2">
               <button
                 onClick={() => setIsVideoModalOpen(true)}
-                className="inline-flex items-center gap-3 px-7 py-3.5 text-base font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-full shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 group"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 text-sm font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-full shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 group"
               >
-                <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Play className="w-4 h-4 fill-white text-white translate-x-0.5" />
-                </div>
-                <span>Watch Our Video</span>
+                <span>Watch Our Story</span>
+                <Play className="w-4 h-4 fill-white text-white translate-x-0.5" />
               </button>
             </div>
 
@@ -128,6 +118,17 @@ const About = ({ darkMode }) => {
                 >
                   <Play className="w-9 h-9 text-[#1264FF] dark:text-white fill-[#1264FF] dark:fill-white translate-x-1" />
                 </button>
+              </div>
+
+              {/* Bottom Left "Play Video - See how we work" Badge */}
+              <div className="absolute bottom-4 left-4 p-2.5 px-4 rounded-full bg-[#031126]/90 backdrop-blur-md border border-white/20 shadow-lg flex items-center gap-3">
+                <div className="w-7 h-7 rounded-full bg-white text-[#1264FF] flex items-center justify-center">
+                  <Play className="w-3.5 h-3.5 fill-[#1264FF] translate-x-0.5" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white leading-tight">Play Video</h4>
+                  <p className="text-[10px] text-slate-300">See how we work</p>
+                </div>
               </div>
 
             </div>

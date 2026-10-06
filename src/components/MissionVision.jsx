@@ -1,176 +1,97 @@
 import React from 'react';
-import { Target, Rocket, Laptop, TrendingUp, GraduationCap } from 'lucide-react';
+import { Target, Eye, Gem } from 'lucide-react';
 
 const MissionVision = ({ darkMode }) => {
   return (
-    <section id="mission-vision" className={`py-8 sm:py-10 lg:py-12 transition-colors ${
-      darkMode ? 'bg-[#031126] text-white' : 'bg-slate-50/70 text-slate-900'
+    <section id="mission-vision" className={`py-12 lg:py-16 transition-colors ${
+      darkMode ? 'bg-[#031126] text-white' : 'bg-[#F7FBFF] text-[#102044]'
     }`}>
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-xl mx-auto mb-7 sm:mb-9">
+        <div className="text-center max-w-xl mx-auto mb-8 sm:mb-12">
           <div className="flex items-center justify-center gap-2.5 mb-1.5">
-            <span className={`h-0.5 w-6 rounded-full ${darkMode ? 'bg-cyan-400' : 'bg-[#1264FF]'}`}></span>
+            <span className={`h-0.5 w-6 rounded-full ${darkMode ? 'bg-[#65C7FF]' : 'bg-[#1769FF]'}`}></span>
             <span className={`text-xs font-extrabold uppercase tracking-widest ${
-              darkMode ? 'text-cyan-400' : 'text-[#1264FF]'
+              darkMode ? 'text-[#65C7FF]' : 'text-[#1769FF]'
             }`}>
-              MISSION & VISION
+              MISSION, VISION & VALUES
             </span>
-            <span className={`h-0.5 w-6 rounded-full ${darkMode ? 'bg-cyan-400' : 'bg-[#1264FF]'}`}></span>
+            <span className={`h-0.5 w-6 rounded-full ${darkMode ? 'bg-[#65C7FF]' : 'bg-[#1769FF]'}`}></span>
           </div>
-          <h2 className={`text-2xl sm:text-3xl lg:text-3xl font-black tracking-tight leading-snug ${
-            darkMode ? 'text-white' : 'text-[#061A3A]'
+          <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight mb-2 ${
+            darkMode ? 'text-white' : 'text-[#102044]'
           }`}>
-            Driving Digital Innovation. <br />
-            <span className="text-[#1264FF] dark:text-cyan-400">Building Future Opportunities.</span>
+            Our Mission, Vision & Values
           </h2>
+          <p className={`text-xs sm:text-sm font-normal ${darkMode ? 'text-slate-300' : 'text-[#536A8A]'}`}>
+            The principles that drive everything we do at MS InnovateX.
+          </p>
         </div>
 
-        {/* Two Mission & Vision Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 sm:mb-8">
+        {/* Three Corporate Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           
           {/* Card 1: Our Mission */}
-          <div className={`p-5 sm:p-6 lg:p-7 rounded-2xl border transition-all duration-300 hover:-translate-y-1 shadow-md hover:shadow-lg flex flex-col justify-between ${
+          <div className={`p-7 rounded-3xl border transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between ${
             darkMode 
-              ? 'bg-[#061A3A] border-blue-900/50 text-white shadow-black/20' 
-              : 'bg-white border-slate-200/80 text-slate-900 shadow-slate-200/50'
+              ? 'bg-[#061A3A] border-blue-900/60 text-white shadow-xl shadow-black/30' 
+              : 'bg-white border-blue-100 text-[#102044] shadow-xl shadow-blue-500/5'
           }`}>
             <div>
-              {/* Header Row: Icon & Tag */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#1264FF] to-cyan-400 text-white flex items-center justify-center shadow-md shadow-blue-500/20">
-                  <Target className="w-5.5 h-5.5" />
-                </div>
-                <span className="px-3 py-0.5 rounded-full text-[11px] font-extrabold text-[#1264FF] dark:text-cyan-400 bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-900/40">
-                  Our Purpose
-                </span>
+              <div className="w-12 h-12 rounded-2xl bg-[#EAF5FF] text-[#1769FF] dark:bg-blue-900/50 dark:text-[#65C7FF] flex items-center justify-center mb-5 shadow-sm">
+                <Target className="w-6 h-6" />
               </div>
 
-              <h3 className={`text-xl sm:text-2xl font-black mb-2.5 ${
-                darkMode ? 'text-white' : 'text-[#061A3A]'
-              }`}>
+              <h3 className={`text-xl font-black mb-3 ${darkMode ? 'text-white' : 'text-[#102044]'}`}>
                 Our Mission
               </h3>
 
-              <p className={`text-xs sm:text-sm leading-relaxed font-normal mb-5 ${
-                darkMode ? 'text-slate-300' : 'text-slate-600'
-              }`}>
-                To deliver practical, innovative and reliable digital solutions that help businesses grow, while providing students with practical technology learning and helping organizations build stronger digital connections with their customers.
+              <p className={`text-xs sm:text-sm leading-relaxed font-normal ${darkMode ? 'text-slate-300' : 'text-[#536A8A]'}`}>
+                To deliver practical, innovative and reliable digital solutions that help businesses grow, while providing learning opportunities for students and supporting communities.
               </p>
-            </div>
-
-            {/* Bottom Highlight */}
-            <div className="pt-3 border-t border-slate-100 dark:border-blue-900/40">
-              <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-[#1264FF] dark:text-cyan-400">
-                Solutions • Growth • Learning
-              </span>
             </div>
           </div>
 
           {/* Card 2: Our Vision */}
-          <div className={`p-5 sm:p-6 lg:p-7 rounded-2xl border transition-all duration-300 hover:-translate-y-1 shadow-md hover:shadow-lg flex flex-col justify-between ${
+          <div className={`p-7 rounded-3xl border transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between ${
             darkMode 
-              ? 'bg-[#061A3A] border-blue-900/50 text-white shadow-black/20' 
-              : 'bg-white border-slate-200/80 text-slate-900 shadow-slate-200/50'
+              ? 'bg-[#061A3A] border-blue-900/60 text-white shadow-xl shadow-black/30' 
+              : 'bg-white border-blue-100 text-[#102044] shadow-xl shadow-blue-500/5'
           }`}>
             <div>
-              {/* Header Row: Icon & Tag */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 via-teal-500 to-emerald-400 text-white flex items-center justify-center shadow-md shadow-cyan-500/20">
-                  <Rocket className="w-5.5 h-5.5" />
-                </div>
-                <span className="px-3 py-0.5 rounded-full text-[11px] font-extrabold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-100 dark:border-emerald-900/40">
-                  Future Outlook
-                </span>
+              <div className="w-12 h-12 rounded-2xl bg-[#EAF5FF] text-[#1769FF] dark:bg-blue-900/50 dark:text-[#65C7FF] flex items-center justify-center mb-5 shadow-sm">
+                <Eye className="w-6 h-6" />
               </div>
 
-              <h3 className={`text-xl sm:text-2xl font-black mb-2.5 ${
-                darkMode ? 'text-white' : 'text-[#061A3A]'
-              }`}>
+              <h3 className={`text-xl font-black mb-3 ${darkMode ? 'text-white' : 'text-[#102044]'}`}>
                 Our Vision
               </h3>
 
-              <p className={`text-xs sm:text-sm leading-relaxed font-normal mb-5 ${
-                darkMode ? 'text-slate-300' : 'text-slate-600'
-              }`}>
-                To become a trusted technology partner across India by combining digital innovation, effective customer communication, and practical technology training to create long-term value for businesses and future professionals.
+              <p className={`text-xs sm:text-sm leading-relaxed font-normal ${darkMode ? 'text-slate-300' : 'text-[#536A8A]'}`}>
+                To be a trusted technology partner across India and globally by delivering high-quality solutions, creating opportunities for learners, and building long-term relationships.
               </p>
             </div>
-
-            {/* Bottom Highlight */}
-            <div className="pt-3 border-t border-slate-100 dark:border-blue-900/40">
-              <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-                Innovation • Connection • Opportunity
-              </span>
-            </div>
           </div>
 
-        </div>
-
-        {/* Three Feature Blocks Below */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          
-          {/* Block 01 */}
-          <div className={`p-4 rounded-xl border transition-all duration-300 hover:shadow-md flex items-center gap-3.5 ${
+          {/* Card 3: Our Values */}
+          <div className={`p-7 rounded-3xl border transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between ${
             darkMode 
-              ? 'bg-[#061A3A] border-blue-900/50 text-white' 
-              : 'bg-white border-slate-200/80 text-slate-900 shadow-sm'
+              ? 'bg-[#061A3A] border-blue-900/60 text-white shadow-xl shadow-black/30' 
+              : 'bg-white border-blue-100 text-[#102044] shadow-xl shadow-blue-500/5'
           }`}>
-            <div className="w-9.5 h-9.5 rounded-lg bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-sm">
-              <Laptop className="w-4.5 h-4.5" />
-            </div>
             <div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-[#1264FF] dark:text-cyan-400 block">
-                01 — DIGITAL SOLUTIONS
-              </span>
-              <h4 className={`text-xs font-bold mt-0.5 ${
-                darkMode ? 'text-slate-200' : 'text-slate-700'
-              }`}>
-                Websites, mobile apps & custom software
-              </h4>
-            </div>
-          </div>
+              <div className="w-12 h-12 rounded-2xl bg-[#EAF5FF] text-[#1769FF] dark:bg-blue-900/50 dark:text-[#65C7FF] flex items-center justify-center mb-5 shadow-sm">
+                <Gem className="w-6 h-6" />
+              </div>
 
-          {/* Block 02 */}
-          <div className={`p-4 rounded-xl border transition-all duration-300 hover:shadow-md flex items-center gap-3.5 ${
-            darkMode 
-              ? 'bg-[#061A3A] border-blue-900/50 text-white' 
-              : 'bg-white border-slate-200/80 text-slate-900 shadow-sm'
-          }`}>
-            <div className="w-9.5 h-9.5 rounded-lg bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-sm">
-              <TrendingUp className="w-4.5 h-4.5" />
-            </div>
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-[#1264FF] dark:text-cyan-400 block">
-                02 — BUSINESS GROWTH
-              </span>
-              <h4 className={`text-xs font-bold mt-0.5 ${
-                darkMode ? 'text-slate-200' : 'text-slate-700'
-              }`}>
-                Email marketing & customer engagement
-              </h4>
-            </div>
-          </div>
+              <h3 className={`text-xl font-black mb-3 ${darkMode ? 'text-white' : 'text-[#102044]'}`}>
+                Our Values
+              </h3>
 
-          {/* Block 03 */}
-          <div className={`p-4 rounded-xl border transition-all duration-300 hover:shadow-md flex items-center gap-3.5 ${
-            darkMode 
-              ? 'bg-[#061A3A] border-blue-900/50 text-white' 
-              : 'bg-white border-slate-200/80 text-slate-900 shadow-sm'
-          }`}>
-            <div className="w-9.5 h-9.5 rounded-lg bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-sm">
-              <GraduationCap className="w-4.5 h-4.5" />
-            </div>
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-[#1264FF] dark:text-cyan-400 block">
-                03 — FUTURE TALENT
-              </span>
-              <h4 className={`text-xs font-bold mt-0.5 ${
-                darkMode ? 'text-slate-200' : 'text-slate-700'
-              }`}>
-                Practical internships & technology training
-              </h4>
+              <p className={`text-xs sm:text-sm leading-relaxed font-normal ${darkMode ? 'text-slate-300' : 'text-[#536A8A]'}`}>
+                Innovation, Integrity, Transparency, Quality and Client Success in everything we do.
+              </p>
             </div>
           </div>
 
