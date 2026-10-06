@@ -59,14 +59,13 @@
 
 /* Card hover animation */
 .card-hover-effect {
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 1, 1);
 }
 
 .card-hover-effect:hover {
   transform: translateY(-6px);
   box-shadow: 0 16px 32px -8px rgba(18, 100, 255, 0.18);
 }
-
 
 /* Responsive safety layer */
 html, body, #root {
@@ -80,7 +79,6 @@ img, video, canvas, svg {
 }
 
 img {
-  height: auto;
   content-visibility: auto;
 }
 
