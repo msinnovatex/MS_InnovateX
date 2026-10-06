@@ -12,7 +12,7 @@ export default function AdvertisementPopup() {
     if (pathname === '/email-marketing' || pathname === '/careers' || pathname.startsWith('/admin')) return undefined;
     let alive = true;
     const timer = setTimeout(() => {
-      apiFetch('/api/public/site-config').then((data) => {
+      apiFetch('/api/public/advertisement').then((data) => {
         const next = data?.advertisement;
         if (!alive || !next?.active || !next.id) return;
         try { if (sessionStorage.getItem(`msix-ad-dismissed-${next.id}`) === '1') return; } catch {}
