@@ -16,7 +16,7 @@ import statsBg from '../../assets/stats-bg.jpg';
 import './EmailMarketing.css';
 
 const EmailMarketing = ({ darkMode }) => {
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);\n  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -695,9 +695,9 @@ const EmailMarketing = ({ darkMode }) => {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 px-6 text-sm font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-xl shadow-lg transition-all"
+                  disabled={loading}\n                  className="w-full py-3.5 px-6 text-sm font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-xl shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Send Campaign Request →
+                  {loading ? 'Sending...' : 'Send Campaign Request →'}
                 </button>
               </form>
             </div>
