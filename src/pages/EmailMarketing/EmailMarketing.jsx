@@ -16,7 +16,8 @@ import statsBg from '../../assets/stats-bg.jpg';
 import './EmailMarketing.css';
 
 const EmailMarketing = ({ darkMode }) => {
-  const [formSubmitted, setFormSubmitted] = useState(false);\n  const [loading, setLoading] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,6 +29,8 @@ const EmailMarketing = ({ darkMode }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+    setLoading(true);
     try {
       const apiBase = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
       const response = await fetch(`${apiBase}/api/submissions/emailMarketing`, {
@@ -44,6 +47,8 @@ const EmailMarketing = ({ darkMode }) => {
       }, 4000);
     } catch (err) {
       alert(err.message || 'Unable to submit your campaign request.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -695,7 +700,8 @@ const EmailMarketing = ({ darkMode }) => {
 
                 <button
                   type="submit"
-                  disabled={loading}\n                  className="w-full py-3.5 px-6 text-sm font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-xl shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                  disabled={loading}
+                  className="w-full py-3.5 px-6 text-sm font-bold text-white bg-[#1264FF] hover:bg-[#0052E0] rounded-xl shadow-lg transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Sending...' : 'Send Campaign Request →'}
                 </button>
