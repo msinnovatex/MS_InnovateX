@@ -32,7 +32,7 @@ function App() {
     const images = Array.from(document.images);
     images.forEach((img, index) => {
       img.decoding = 'async';
-      if (index > 2 && !img.loading) img.loading = 'lazy';
+      if (index > 2 && !img.getAttribute('loading')) img.loading = 'lazy';
     });
   }, []);
 
