@@ -65,7 +65,6 @@ const Internship = ({ darkMode }) => {
   const handleRegistrationSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
-<<<<<<< HEAD
     setFormError('');
     const normalized = normalizeSubmission(formData);
     if (!isValidEmail(normalized.email)) {
@@ -81,36 +80,16 @@ const Internship = ({ darkMode }) => {
       return;
     }
     setFormData(normalized);
-=======
-
-    // Validate 10-digit mobile number
-    const phoneDigits = formData.phone.replace(/\D/g, '').replace(/^91/, '');
-    if (phoneDigits.length !== 10) {
-      alert('Please enter a valid 10-digit mobile number.');
-      return;
-    }
-
->>>>>>> 6d5cf0a (Update)
     setLoading(true);
     try {
       const apiBase = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
       const response = await fetch(`${apiBase}/api/submissions/internship`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-<<<<<<< HEAD
-        body: JSON.stringify(normalized)
-=======
         body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          college: formData.college,
-          qualification: 'Student',
-          domain: formData.domain,
-          duration: formData.duration,
-          message: formData.message
+          ...normalized,
+          qualification: 'Student'
         })
->>>>>>> 6d5cf0a (Update)
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || 'Unable to submit application.');
@@ -121,16 +100,11 @@ const Internship = ({ darkMode }) => {
           fullName: '', email: '', phone: '', college: '',
           duration: '1 Month', domain: 'Web Development', message: ''
         });
-<<<<<<< HEAD
         setFormError('');
       }, 4000);
     } catch (err) {
-      setFormError(err.message || 'Unable to submit registration.');
-=======
-      }, 5000);
-    } catch (err) {
-      alert(err.message || 'Unable to submit application.');
->>>>>>> 6d5cf0a (Update)
+      setFormError(err.message || 'Unable to submit application.');
+
     } finally {
       setLoading(false);
     }
@@ -461,107 +435,6 @@ const Internship = ({ darkMode }) => {
                       </div>
                     ))}
                   </div>
-<<<<<<< HEAD
-                )}
-                {formError && (
-                  <div role="alert" className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-300 text-xs font-bold">
-                    {formError}
-                  </div>
-                )}
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">Full Name *</label>
-                    <input 
-                      type="text" 
-                      required
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                      placeholder="Enter your full name" 
-                      className="w-full px-4 py-2.5 rounded-xl bg-blue-950/70 border border-blue-900 text-white text-xs focus:outline-none focus:border-cyan-400"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">Email Address *</label>
-                    <input 
-                      type="email" 
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      placeholder="Enter your email address" 
-                      className="w-full px-4 py-2.5 rounded-xl bg-blue-950/70 border border-blue-900 text-white text-xs focus:outline-none focus:border-cyan-400"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">Phone / WhatsApp *</label>
-                    <input 
-                      type="tel" 
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      placeholder="Enter phone number" 
-                      className="w-full px-4 py-2.5 rounded-xl bg-blue-950/70 border border-blue-900 text-white text-xs focus:outline-none focus:border-cyan-400"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">College / Institution *</label>
-                    <input 
-                      type="text" 
-                      required
-                      value={formData.college}
-                      onChange={(e) => setFormData({...formData, college: e.target.value})}
-                      placeholder="Your college name" 
-                      className="w-full px-4 py-2.5 rounded-xl bg-blue-950/70 border border-blue-900 text-white text-xs focus:outline-none focus:border-cyan-400"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">Select Technology Domain</label>
-                    <select
-                      value={formData.domain}
-                      onChange={(e) => setFormData({...formData, domain: e.target.value})}
-                      className="w-full px-4 py-2.5 rounded-xl bg-blue-950/70 border border-blue-900 text-white text-xs focus:outline-none focus:border-cyan-400"
-                    >
-                      <option value="Full Stack Web Development">Full Stack Web Development</option>
-                      <option value="Android & Mobile App Development">Android & Mobile App Development</option>
-                      <option value="Data Science & AI / Automation">Data Science & AI / Automation</option>
-                      <option value="Cloud & Database Infrastructure">Cloud & Database Infrastructure</option>
-                      <option value="UI/UX & Product Design">UI/UX & Product Design</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1">Program Duration</label>
-                    <select
-                      value={formData.duration}
-                      onChange={(e) => setFormData({...formData, duration: e.target.value})}
-                      className="w-full px-4 py-2.5 rounded-xl bg-blue-950/70 border border-blue-900 text-white text-xs focus:outline-none focus:border-cyan-400"
-                    >
-                      <option value="4-6 Weeks Summer / Winter Internship">4-6 Weeks Summer / Winter Internship</option>
-                      <option value="3 Months Industrial Training">3 Months Industrial Training</option>
-                      <option value="6 Months Launchpad Program">6 Months Launchpad Program</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">Additional Notes / Message</label>
-                  <textarea 
-                    rows={2}
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    placeholder="Tell us about your background or learning goals..." 
-                    className="w-full px-4 py-2.5 rounded-xl bg-blue-950/70 border border-blue-900 text-white text-xs focus:outline-none focus:border-cyan-400"
-                  ></textarea>
-=======
->>>>>>> 6d5cf0a (Update)
                 </div>
 
                 <button
