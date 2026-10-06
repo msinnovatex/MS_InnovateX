@@ -63,6 +63,28 @@ function admin(req){const t=cookies(req).msix_admin;if(!t)return false;const [pa
 function cookie(res,t){const secure=(process.env.VERCEL||process.env.NODE_ENV==='production')?'; Secure':'';const crossSite=ORIGINS.length>0&&!ORIGINS.includes('*');const sameSite=crossSite?'None':'Lax';res.setHeader('Set-Cookie',`msix_admin=${encodeURIComponent(t)}; Path=/; HttpOnly; SameSite=${sameSite}; Max-Age=${Math.floor(TTL/1000)}${secure}`);}
 function clearCookie(res){const crossSite=ORIGINS.length>0&&!ORIGINS.includes('*');res.setHeader('Set-Cookie',`msix_admin=; Path=/; HttpOnly; SameSite=${crossSite?'None':'Lax'}; Max-Age=0${(process.env.VERCEL||process.env.NODE_ENV==='production')?'; Secure':''}`);}
 function cors(req,res){const o=String(req.headers.origin||'');const allowed=o&&(ORIGINS.includes('*')||ORIGINS.includes(o));if(allowed){res.setHeader('Access-Control-Allow-Origin',ORIGINS.includes('*')?'*':o);res.setHeader('Access-Control-Allow-Credentials','true');res.setHeader('Vary','Origin');}res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,DELETE,OPTIONS');res.setHeader('Access-Control-Allow-Headers','Content-Type, Authorization');}
+function normalizeSubmissionValue(v){
+ if(typeof v!=='string') return '';
+ return v.normalize('NFKC').replace(/[\u200B-\u200D\uFEFF]/g,'').trim();
+}
+function normalizeEmail(v){return normalizeSubmissionValue(v).toLowerCase();}
+function normalizePhone(v){return normalizeSubmissionValue(v).replace(/[\u00A0\s]+/g,' ');}
+function validEmail(v){
+ const email=normalizeEmail(v);
+ return email.length<=254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+function validPhone(v){
+ const phone=normalizePhone(v),digits=phone.replace(/\D/g,'');
+ return digits.length>=7&&digits.length<=15&&/^[+()\d\s-]+$/.test(phone);
+}
+function fieldTooLong(data,type){
+ const limits=type==='contact'
+  ? {name:120,email:254,subject:200,message:5000}
+  : type==='internship'
+  ? {fullName:120,email:254,phone:40,college:200,qualification:120,domain:160,duration:120,message:5000}
+  : {name:120,email:254,phone:40,company:200,campaignType:160,message:5000};
+ return Object.entries(limits).find(([key,max])=>String(data[key]||'').length>max)?.[0]||null;
+}
 function clean(v,d=0){if(d>4)return null;if(typeof v==='string')return v.trim().slice(0,5000);if(typeof v==='number'&&Number.isFinite(v))return v;if(typeof v==='boolean')return v;if(Array.isArray(v))return v.slice(0,100).map(x=>clean(x,d+1));if(v&&typeof v==='object'){const o={};for(const [k,x] of Object.entries(v).slice(0,100))if(/^[A-Za-z0-9_./-]{1,80}$/.test(k))o[k]=clean(x,d+1);return o;}return null;}
 async function body(req){return await new Promise((resolve,reject)=>{let s='',n=0;req.on('data',c=>{n+=c.length;if(n>200000){reject(new Error('Request body is too large.'));req.destroy();return}s+=c});req.on('end',()=>{if(!s)return resolve({});try{resolve(JSON.parse(s))}catch{reject(new Error('Invalid JSON body.'))}});req.on('error',reject)})}
 function b64(s){return Buffer.from(s).toString('base64').replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');}
@@ -100,7 +122,24 @@ async function handle(req,res){
  if(p==='/api/public/advertisement'&&req.method==='GET'){const c=await config();return out(res,200,{advertisement:c.advertisement?.active?c.advertisement:{active:false}});}
  if(p.startsWith('/api/submissions/')&&req.method==='POST'){
   const type=p.split('/').filter(Boolean)[2];if(!submissionAllowed(ip(req)))return out(res,429,{ok:false,error:'Too many submissions from this network. Please try again later.'});if(!fields[type])return out(res,404,{ok:false,error:'Unknown submission type.'});
-  try{const b=clean(await body(req)),data={};for(const k of fields[type])data[k]=b[k]??'';const reqd=type==='contact'?['name','email','subject','message']:type==='internship'?['fullName','email','phone','college']:['name','email','phone'];if(reqd.some(k=>!String(data[k]||'').trim()))return out(res,400,{ok:false,error:'Please complete all required fields.'});if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(data.email)))return out(res,400,{ok:false,error:'Please enter a valid email address.'});const r=await fb(`MSINNOVATEX/submissions/${type}`,'POST',{...data,createdAt:Date.now(),status:'new'});return out(res,201,{ok:true,id:r?.name||null})}catch(e){console.error('[Submission]',e);return out(res,500,{ok:false,error:'Unable to save the submission right now.'})}
+  try{
+   const b=clean(await body(req))||{},data={};
+   for(const k of fields[type]){
+    const value=b[k]??'';
+    data[k]=typeof value==='string' ? normalizeSubmissionValue(value) : '';
+   }
+   if('email' in data) data.email=normalizeEmail(data.email);
+   if('phone' in data) data.phone=normalizePhone(data.phone);
+   const reqd=type==='contact'?['name','email','subject','message']:type==='internship'?['fullName','email','phone','college']:['name','email','phone'];
+   const missing=reqd.find(k=>!data[k]);
+   if(missing)return out(res,400,{ok:false,error:'Please complete all required fields.',field:missing});
+   const tooLong=fieldTooLong(data,type);
+   if(tooLong)return out(res,400,{ok:false,error:`The ${tooLong} field is too long.`,field:tooLong});
+   if(!validEmail(data.email))return out(res,400,{ok:false,error:'Please enter a valid email address.',field:'email'});
+   if('phone' in data&&!validPhone(data.phone))return out(res,400,{ok:false,error:'Please enter a valid phone / WhatsApp number.',field:'phone'});
+   const r=await fb(`MSINNOVATEX/submissions/${type}`,'POST',{...data,createdAt:Date.now(),status:'new'});
+   return out(res,201,{ok:true,id:r?.name||null});
+  }catch(e){console.error('[Submission]',e);return out(res,500,{ok:false,error:'Unable to save the submission right now.'})}
  }
  if(p==='/api/admin/login'&&req.method==='POST'){if(!loginAllowed(ip(req)))return out(res,429,{ok:false,error:'Too many login attempts. Try again later.'});try{const b=await body(req),auth=await adminCredentials();if(!auth)return out(res,503,{ok:false,error:'Admin credentials are not configured. Set ADMIN_USERNAME and ADMIN_PASSWORD once, then they are stored in Firebase at MSINNOVATEX/adminAuth.'});if(!safeEqual(b.username,auth.username)||!safeEqual(b.password,auth.password))return out(res,401,{ok:false,error:'Invalid admin credentials.'});cookie(res,session());return out(res,200,{ok:true})}catch(e){console.error('[Admin login]',e);return out(res,503,{ok:false,error:'Unable to verify admin credentials right now.'})}}
  if(p==='/api/admin/logout'&&req.method==='POST'){clearCookie(res);return out(res,200,{ok:true});}
