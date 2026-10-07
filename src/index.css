@@ -163,6 +163,28 @@ table {
 }
 
 
+/* Client-page content protection. Admin pages are separate documents and are not affected. */
+.client-protected,
+.client-protected * {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.client-protected input,
+.client-protected textarea,
+.client-protected select,
+.client-protected [contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.client-protected img,
+.client-protected video {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: auto;
+}
+
 /* Global interaction feedback: every clickable control visibly responds. */
 button,
 a,
