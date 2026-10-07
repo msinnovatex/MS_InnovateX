@@ -305,28 +305,7 @@ const Careers = ({ darkMode }) => {
                 </div>
               );
             })
-          ) : (
-            <div className="text-center py-12 px-6 rounded-3xl border border-dashed border-blue-200 dark:border-blue-900/60 bg-white dark:bg-[#061A3A]/60 shadow-sm max-w-2xl mx-auto space-y-4">
-              <div className="w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/50 text-[#1769FF] dark:text-[#65C7FF] flex items-center justify-center mx-auto shadow-inner">
-                <Briefcase className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-black text-[#102044] dark:text-white">
-                No Active Vacancies Right Now
-              </h3>
-              <p className="text-xs sm:text-sm text-[#536A8A] dark:text-slate-300 font-normal leading-relaxed max-w-md mx-auto">
-                We currently do not have active job openings available, but we are always eager to meet talented professionals. Send us your CV for future opportunities!
-              </p>
-              <div className="pt-2">
-                <a 
-                  href="mailto:careers@msinnovatex.com?subject=General Resume Submission - MS InnovateX"
-                  className="inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-bold text-white bg-[#1769FF] hover:bg-[#2F8FFF] rounded-xl shadow-md transition-all"
-                >
-                  <Mail className="w-4 h-4" />
-                  <span>Send Resume for Future Roles</span>
-                </a>
-              </div>
-            </div>
-          )}
+          ) : null}
         </div>
 
       </section>
