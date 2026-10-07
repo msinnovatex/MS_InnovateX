@@ -54,22 +54,37 @@ const CTA = () => {
               Have a project in mind? Let's turn your idea into a practical, scalable, and high-performance digital solution.
             </p>
 
-            <div className="space-y-3 pt-2">
-              {/* Updated Email to info@msinnovatex.com */}
+            <div className="flex flex-wrap gap-3 pt-2">
+              <a 
+                href="mailto:msinnovatex@gmail.com"
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#07132b]/90 border border-cyan-500/25 text-slate-100 text-xs sm:text-sm font-semibold hover:border-cyan-400 transition-colors"
+              >
+                <Mail className="w-4 h-4 text-cyan-400" />
+                <span>msinnovatex@gmail.com</span>
+              </a>
+
               <a 
                 href="mailto:info@msinnovatex.com"
-                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#07132b]/90 border border-cyan-500/25 text-slate-100 text-sm font-semibold hover:border-cyan-400 transition-colors w-max"
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#07132b]/90 border border-cyan-500/25 text-slate-100 text-xs sm:text-sm font-semibold hover:border-cyan-400 transition-colors"
               >
-                <Mail className="w-5 h-5 text-cyan-400" />
+                <Mail className="w-4 h-4 text-cyan-400" />
                 <span>info@msinnovatex.com</span>
               </a>
 
               <a 
                 href="tel:+919090625821"
-                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#07132b]/90 border border-cyan-500/25 text-slate-100 text-sm font-semibold hover:border-cyan-400 transition-colors w-max"
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#07132b]/90 border border-cyan-500/25 text-slate-100 text-xs sm:text-sm font-semibold hover:border-cyan-400 transition-colors"
               >
-                <Phone className="w-5 h-5 text-cyan-400" />
+                <Phone className="w-4 h-4 text-cyan-400" />
                 <span>+91 9090625821</span>
+              </a>
+
+              <a 
+                href="tel:+916371485412"
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-[#07132b]/90 border border-cyan-500/25 text-slate-100 text-xs sm:text-sm font-semibold hover:border-cyan-400 transition-colors"
+              >
+                <Phone className="w-4 h-4 text-cyan-400" />
+                <span>+91 6371485412</span>
               </a>
             </div>
 

@@ -120,24 +120,31 @@ const Contact = ({ darkMode }) => {
             <div className="space-y-4 pt-4">
               
               {/* Phone */}
-              <a
-                href="tel:+919090625821"
-                className={`flex items-center gap-4 p-4 rounded-2xl border transition-all hover:scale-[1.02] ${
-                  darkMode ? 'bg-[#061A3A] border-blue-900/50 hover:border-cyan-400/50 text-white' : 'bg-slate-50 border-slate-200/80 hover:border-blue-300 shadow-sm text-slate-900'
+              <div
+                className={`p-4 rounded-2xl border transition-all ${
+                  darkMode ? 'bg-[#061A3A] border-blue-900/50 text-white' : 'bg-slate-50 border-slate-200/80 shadow-sm text-slate-900'
                 }`}
               >
-                <div className="w-12 h-12 rounded-full bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-md">
-                  <Phone className="w-5 h-5" />
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-[#1264FF] text-white flex items-center justify-center shrink-0 shadow-md">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className={`text-xs font-bold uppercase tracking-wider block ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                      Phone / WhatsApp
+                    </span>
+                    <div className="flex flex-row items-center gap-2 pt-0.5 whitespace-nowrap overflow-x-auto">
+                      <a href="tel:+919090625821" className={`text-xs sm:text-sm font-extrabold hover:underline ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                        +91 9090625821
+                      </a>
+                      <span className="text-slate-400 font-bold">|</span>
+                      <a href="tel:+916371485412" className={`text-xs sm:text-sm font-extrabold hover:underline ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                        +91 6371485412
+                      </a>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <span className={`text-xs font-bold uppercase tracking-wider block ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                    Phone
-                  </span>
-                  <span className={`text-base font-extrabold ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                    +91 9090625821
-                  </span>
-                </div>
-              </a>
+              </div>
 
               {/* Email */}
               <div
@@ -153,9 +160,15 @@ const Contact = ({ darkMode }) => {
                     <span className={`text-xs font-bold uppercase tracking-wider block ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
                       Email
                     </span>
-                    <a href="mailto:msinnovatex@gmail.com" className="text-sm font-extrabold hover:underline text-[#1264FF] dark:text-cyan-300 block">
-                      msinnovatex@gmail.com
-                    </a>
+                    <div className="flex flex-row items-center gap-2 pt-0.5 whitespace-nowrap overflow-x-auto">
+                      <a href="mailto:msinnovatex@gmail.com" className="text-xs sm:text-sm font-extrabold hover:underline text-[#1264FF] dark:text-cyan-300">
+                        msinnovatex@gmail.com
+                      </a>
+                      <span className="text-slate-400 font-bold">|</span>
+                      <a href="mailto:info@msinnovatex.com" className="text-xs sm:text-sm font-extrabold hover:underline text-[#1264FF] dark:text-cyan-300">
+                        info@msinnovatex.com
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

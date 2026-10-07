@@ -25,19 +25,31 @@ const Footer = () => {
 
             {/* Social Media Icons */}
             <div className="flex items-center space-x-3 pt-2">
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+              <a 
+                href="https://lnkd.in/p/dt6Dqmfw" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="LinkedIn"
+                className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+              >
                 <Linkedin className="w-4.5 h-4.5" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+              <a 
+                href="https://www.instagram.com/msinnovatex?stkn=MXF2eTMwMDZ1b3ZuMA==" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Instagram"
+                className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+              >
                 <Instagram className="w-4.5 h-4.5" />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
-                <Facebook className="w-4.5 h-4.5" />
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
-                <Youtube className="w-4.5 h-4.5" />
-              </a>
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+              <a 
+                href="https://github.com/msinnovatex" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="GitHub"
+                className="w-9 h-9 rounded-full bg-blue-950 hover:bg-[#1264FF] text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+              >
                 <Github className="w-4.5 h-4.5" />
               </a>
             </div>
@@ -111,9 +123,14 @@ const Footer = () => {
             <ul className="space-y-3 text-sm font-semibold text-slate-400">
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-cyan-400 shrink-0" />
-                <a href="tel:+919090625821" className="hover:text-white transition-colors">
-                  +91 9090625821
-                </a>
+                <div className="flex flex-col">
+                  <a href="tel:+919090625821" className="hover:text-white transition-colors">
+                    +91 9090625821
+                  </a>
+                  <a href="tel:+916371485412" className="hover:text-white transition-colors">
+                    +91 6371485412
+                  </a>
+                </div>
               </li>
 
               <li className="flex items-center gap-3">
