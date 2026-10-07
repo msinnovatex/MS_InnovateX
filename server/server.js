@@ -33,7 +33,8 @@ const defaults={
    '/internship':{title:'Internship & Training | MS InnovateX',description:'Practical technology internships and industrial training with live projects and mentorship.',keywords:'software internship, industrial training, BTech internship, coding training'},
    '/contact':{title:'Contact MS InnovateX | Get a Quote',description:'Contact MS InnovateX for software development, email marketing and technology training enquiries.',keywords:'contact MS InnovateX, software quote, technology enquiry'},
    '/email-marketing':{title:'Email Marketing Services | MS InnovateX',description:'Professional email campaign management, newsletters, automation, templates and analytics.',keywords:'email marketing, email automation, newsletter, campaigns'},
-   '/careers':{title:'Careers at MS InnovateX',description:'Explore technology, email marketing and training opportunities at MS InnovateX.',keywords:'MS InnovateX careers, software jobs, technology jobs'}
+   '/careers':{title:'Careers at MS InnovateX',description:'Explore technology, email marketing and training opportunities at MS InnovateX.',keywords:'MS InnovateX careers, software jobs, technology jobs'},
+   '/offerinternship':{title:'Internship Application | MS InnovateX',description:'Apply for the MS InnovateX internship program, complete payment and submit your transaction proof.',keywords:'MS InnovateX internship application, internship fee, internship'}
   }
  },
  stats:{visible:true,items:[
@@ -102,7 +103,7 @@ async function fb(p,m='GET',data){
  const t=await token(); const [rawPath,query='']=p.replace(/^\//,'').split('?'); const r=await fetch(`${DB}/${rawPath}.json${query?'?'+query:''}`,{method:m,headers:{Authorization:`Bearer ${t}`,'Content-Type':'application/json'},body:data===undefined?undefined:JSON.stringify(data)});
  const tx=await r.text();let d=null;try{d=tx?JSON.parse(tx):null}catch{d=tx}if(!r.ok)throw new Error(`Firebase ${r.status}: ${typeof d==='string'?d:JSON.stringify(d)}`);return d;
 }
-const PAGE_KEY_MAP={'/':'home','/about':'about','/services':'services','/internship':'internship','/contact':'contact','/email-marketing':'emailMarketing','/careers':'careers'};
+const PAGE_KEY_MAP={'/':'home','/about':'about','/services':'services','/internship':'internship','/offerinternship':'offerinternship','/contact':'contact','/email-marketing':'emailMarketing','/careers':'careers'};
 function normalizeCustom(v){return Array.isArray(v)?v.slice(0,50).map(x=>({type:String(x?.type||'name').slice(0,20),key:String(x?.key||'').slice(0,120),content:String(x?.content||'').slice(0,500)})).filter(x=>x.key&&x.content):[];}
 function encodeMeta(meta){const m=meta||{};const pages={};for(const [route,key] of Object.entries(PAGE_KEY_MAP))pages[key]={...defaults.meta.pages[route],...(m.pages?.[route]||{}),custom:normalizeCustom(m.pages?.[route]?.custom)};return {...m,global:{...defaults.meta.global,...m.global,custom:normalizeCustom(m.global?.custom)},pages};}
 function decodeMeta(meta){const m=meta||{};const pages={};for(const [route,key] of Object.entries(PAGE_KEY_MAP))pages[route]={...defaults.meta.pages[route],...(m.pages?.[key]||{}),custom:normalizeCustom(m.pages?.[key]?.custom)};return {...m,global:{...defaults.meta.global,...m.global,custom:normalizeCustom(m.global?.custom)},pages};}
