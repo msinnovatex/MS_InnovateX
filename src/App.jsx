@@ -34,11 +34,38 @@ function App() {
     images.forEach((img, index) => {
       img.decoding = 'async';
       if (index > 2 && !img.getAttribute('loading')) img.loading = 'lazy';
+      img.draggable = false;
     });
+
+    const isEditable = (target) => {
+      if (!target) return false;
+      const el = target instanceof Element ? target : target.parentElement;
+      return !!el?.closest('input, textarea, select, [contenteditable="true"]');
+    };
+
+    const blockContextMenu = (event) => event.preventDefault();
+    const blockDrag = (event) => event.preventDefault();
+    const blockCopyKeys = (event) => {
+      if (isEditable(event.target)) return;
+      const key = String(event.key || '').toLowerCase();
+      if ((event.ctrlKey || event.metaKey) && ['c', 'x', 'a', 'u', 's'].includes(key)) {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener('contextmenu', blockContextMenu);
+    document.addEventListener('dragstart', blockDrag);
+    document.addEventListener('keydown', blockCopyKeys);
+
+    return () => {
+      document.removeEventListener('contextmenu', blockContextMenu);
+      document.removeEventListener('dragstart', blockDrag);
+      document.removeEventListener('keydown', blockCopyKeys);
+    };
   }, []);
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-blue-500 selection:text-white transition-colors duration-300 ${
+    <div className={`client-protected min-h-screen font-sans selection:bg-blue-500 selection:text-white transition-colors duration-300 ${
       darkMode ? 'bg-[#031126] text-white dark' : 'bg-white text-slate-900'
     }`}>
       <ScrollToTop />
