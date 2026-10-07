@@ -13,6 +13,7 @@ import Internship from './pages/Internship/Internship';
 import ServicesPage from './pages/Services/ServicesPage';
 import Careers from './pages/Careers/Careers';
 import ContactPage from './pages/Contact/ContactPage';
+import OfferInternship from './pages/OfferInternship/OfferInternship';
 import SeoManager from './components/SeoManager';
 import AdvertisementPopup from './components/AdvertisementPopup';
 
@@ -55,6 +56,7 @@ function App() {
 
         {/* 2. INTERNSHIP & TRAINING (Independent Division) */}
         <Route path="/internship" element={<Internship darkMode={darkMode} />} />
+        <Route path="/offerinternship" element={<OfferInternship darkMode={darkMode} />} />
 
         {/* 3. CLIENT SOLUTIONS DIVISION - Single Unified Services Page */}
         <Route path="/services" element={<ServicesPage darkMode={darkMode} />} />
