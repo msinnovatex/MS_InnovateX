@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import internshipPgImg from '../../assets/internship-pg.png';
 import internshipFormImg from '../../assets/internship-form.png';
+import brochurePdf from '../../assets/MS InnovateX Student Internship Brochure.pdf';
 import './Internship.css';
 import { isValidEmail, isValidPhone, normalizeSubmission } from '../../lib/validation';
 
@@ -255,13 +256,14 @@ const Internship = ({ darkMode }) => {
                 <ArrowRight className="w-4 h-4" />
               </button>
 
-              <button
-                onClick={() => scrollToFormWithSelection()}
+              <a
+                href={brochurePdf}
+                download="MS InnovateX Student Internship Brochure.pdf"
                 className="inline-flex items-center gap-2 px-6 py-2.5 text-xs sm:text-sm font-bold text-white rounded-xl border border-white/40 bg-white/10 hover:bg-white/20 transition-all backdrop-blur-md"
               >
                 <Download className="w-4 h-4" />
                 <span>Download Brochure</span>
-              </button>
+              </a>
             </div>
 
             {/* 4 Compact Feature Badges */}
