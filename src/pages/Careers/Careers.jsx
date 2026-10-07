@@ -305,7 +305,9 @@ const Careers = ({ darkMode }) => {
                 </div>
               );
             })
-          ) : null}
+          ) : (
+            <div className="text-center py-12 text-sm font-bold text-[#536A8A] dark:text-slate-300">No Active Vacancies Right Now</div>
+          )}
         </div>
 
       </section>
