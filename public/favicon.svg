@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+<defs>
+ <linearGradient id="s" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#63e6ff"/><stop offset=".55" stop-color="#1e9fff"/><stop offset="1" stop-color="#0757e8"/></linearGradient>
+ <linearGradient id="m" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#cbd8f5"/></linearGradient>
+ <filter id="g"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="128" height="128" rx="24" fill="#03163b"/>
+<rect x="7" y="7" width="114" height="114" rx="20" fill="none" stroke="#2388ff" stroke-width="2" filter="url(#g)"/>
+<path d="M23 67V34l27 27 12-12v18L50 79 33 62v19z" fill="url(#m)"/>
+<path d="M62 51l12-12h31L91 53H76l17 11c8 5 8 18-1 23H61l12-12h17l-8-5c-8-5-10-13-3-19z" fill="url(#s)"/>
+<text x="64" y="99" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="12" font-weight="800">MS InnovateX</text>
+<text x="64" y="111" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="5" letter-spacing="2.5">PVT. LTD.</text>
+</svg>
