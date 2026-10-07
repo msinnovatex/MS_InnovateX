@@ -10,7 +10,11 @@ export default function AdvertisementPopup() {
 
   useEffect(() => {
     const allowed = pathname === '/' || pathname === '/about' || pathname === '/careers' || pathname === '/services' || pathname.startsWith('/services/');
-    if (!allowed) return undefined;
+    if (!allowed) {
+      setAd(null);
+      setVisible(false);
+      return undefined;
+    }
     let alive = true;
     const timer = setTimeout(() => {
       apiFetch('/api/public/advertisement').then((data) => {
