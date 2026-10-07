@@ -9,7 +9,8 @@ export default function AdvertisementPopup() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (pathname === '/email-marketing' || pathname === '/careers' || pathname.startsWith('/admin')) return undefined;
+    const allowed = pathname === '/' || pathname === '/about' || pathname === '/careers' || pathname === '/services' || pathname.startsWith('/services/');
+    if (!allowed) return undefined;
     let alive = true;
     const timer = setTimeout(() => {
       apiFetch('/api/public/advertisement').then((data) => {
@@ -32,7 +33,7 @@ export default function AdvertisementPopup() {
       <button onClick={close} aria-label="Close advertisement" className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-black/55 text-white flex items-center justify-center hover:bg-black/75">
         <X className="w-4 h-4" />
       </button>
-      {ad.image && <img src={ad.image} alt={ad.title || 'Advertisement'} className="w-full h-36 object-cover" />}
+      {ad.image && <img src={ad.image} alt={ad.title || 'Advertisement'} className="w-full max-h-[420px] object-contain bg-slate-100" />}
       <div className="p-5">
         {ad.title && <h3 className="text-lg font-black leading-tight">{ad.title}</h3>}
         {ad.text && <p className="mt-2 text-sm text-slate-600 leading-relaxed">{ad.text}</p>}
