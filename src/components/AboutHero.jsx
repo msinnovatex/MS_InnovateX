@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MapPin, Award, Users } from 'lucide-react';
 import aboutBg from '../assets/about.jpg';
 
 const AboutHero = ({ onNavigate }) => {
@@ -47,11 +48,11 @@ const AboutHero = ({ onNavigate }) => {
 
           {/* Simple Traditional Details Row */}
           <div className="pt-4 border-t border-white/20 flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm text-slate-300 font-serif">
-            <span>📍 Bhubaneswar, Odisha</span>
+            <span className="inline-flex items-center gap-1.5"><MapPin className="w-4 h-4 text-cyan-400 shrink-0" /> Bhubaneswar, Odisha</span>
             <span className="hidden sm:inline text-slate-400">•</span>
-            <span>🏆 100% Quality Commitment</span>
+            <span className="inline-flex items-center gap-1.5"><Award className="w-4 h-4 text-cyan-400 shrink-0" /> 100% Quality Commitment</span>
             <span className="hidden sm:inline text-slate-400">•</span>
-            <span>👥 Expert Tech Engineers</span>
+            <span className="inline-flex items-center gap-1.5"><Users className="w-4 h-4 text-cyan-400 shrink-0" /> Expert Tech Engineers</span>
           </div>
 
         </div>

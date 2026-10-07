@@ -35,14 +35,14 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex items-center justify-between h-20 gap-3">
           
-          {/* Left: MS InnovateX Logo (Non-clickable, optimized for high visibility over blue theme) */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Left: MS InnovateX Logo (Clickable to Home) */}
+          <Link to="/" className="flex items-center gap-3 shrink-0">
             <img 
               src={logoImg} 
               alt="MS InnovateX Logo" 
               className="h-10 sm:h-11 w-auto object-contain drop-shadow-md shrink-0" 
             />
-          </div>
+          </Link>
 
           {/* Middle: Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-0.5 lg:gap-1 flex-1 justify-center min-w-0">

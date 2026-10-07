@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   GraduationCap, Laptop, Award, Briefcase, CheckCircle2, ArrowRight,
   Code2, Smartphone, Cloud, Cpu, Wrench, Lightbulb, Users,
-  TrendingUp, Calendar, Download, FileCheck, Check, Mail, ChevronRight
+  TrendingUp, Calendar, Download, FileCheck, Check, Mail, ChevronRight, Rocket
 } from 'lucide-react';
 import internshipPgImg from '../../assets/internship-pg.png';
 import internshipFormImg from '../../assets/internship-form.png';
@@ -264,25 +264,25 @@ const Internship = ({ darkMode }) => {
               </button>
             </div>
 
-            {/* 4 Compact Feature Badges with Premium Emojis */}
+            {/* 4 Compact Feature Badges */}
             <div className="pt-3 flex flex-wrap items-center gap-2.5 sm:gap-3 border-t border-white/20">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/15 border border-white/25 text-white font-bold text-xs sm:text-sm backdrop-blur-md shadow-sm">
-                <span className="text-base sm:text-lg">💻</span>
+                <Laptop className="w-4 h-4 text-cyan-300" />
                 <span>Live Projects</span>
               </div>
 
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/15 border border-white/25 text-white font-bold text-xs sm:text-sm backdrop-blur-md shadow-sm">
-                <span className="text-base sm:text-lg">👨‍💻</span>
+                <Users className="w-4 h-4 text-cyan-300" />
                 <span>Expert Mentorship</span>
               </div>
 
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/15 border border-white/25 text-white font-bold text-xs sm:text-sm backdrop-blur-md shadow-sm">
-                <span className="text-base sm:text-lg">📜</span>
+                <Award className="w-4 h-4 text-cyan-300" />
                 <span>Certificate Provided</span>
               </div>
 
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/15 border border-white/25 text-white font-bold text-xs sm:text-sm backdrop-blur-md shadow-sm">
-                <span className="text-base sm:text-lg">🚀</span>
+                <Rocket className="w-4 h-4 text-cyan-300" />
                 <span>Career Guidance</span>
               </div>
             </div>

@@ -4,7 +4,7 @@ import {
   Rocket, Lightbulb, Users, TrendingUp, Gem, Search, Code2, 
   Palette, Cpu, Cloud, GraduationCap, Settings, Heart, FileText, 
   MessageSquare, CheckCircle2, ArrowRight, ChevronRight, X,
-  Briefcase, Mail, ArrowUpRight, Send
+  Briefcase, Mail, ArrowUpRight, Send, MapPin
 } from 'lucide-react';
 import careerPicImg from '../../assets/career-pic.png';
 import smallMediumBusinessImg from '../../assets/small-medium-business.png';
@@ -496,11 +496,11 @@ const Careers = ({ darkMode }) => {
               <span className="px-3 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-800/60">
                 {selectedJob.type}
               </span>
-              <span className="px-3 py-1 rounded-lg bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border border-purple-200/60 dark:border-purple-800/60">
-                📍 {selectedJob.location}
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 border border-purple-200/60 dark:border-purple-800/60">
+                <MapPin className="w-3.5 h-3.5 shrink-0" /> {selectedJob.location}
               </span>
-              <span className="px-3 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/60">
-                💼 Experience: {selectedJob.experience}
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200/60 dark:border-amber-800/60">
+                <Briefcase className="w-3.5 h-3.5 shrink-0" /> Experience: {selectedJob.experience}
               </span>
             </div>
 

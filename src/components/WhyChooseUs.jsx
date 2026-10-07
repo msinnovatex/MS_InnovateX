@@ -90,9 +90,9 @@ const WhyChooseUs = ({ darkMode }) => {
                 <div>
                   {/* Header Row: Emoji Left + Tag/Num Right */}
                   <div className="flex items-center justify-between mb-5">
-                    {/* Left Emoji Badge */}
-                    <div className="relative w-13 h-13 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/15 border border-blue-400/20 flex items-center justify-center shrink-0 shadow-md text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                      <span>{reason.emoji}</span>
+                    {/* Left Icon Badge */}
+                    <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/15 border border-blue-400/20 flex items-center justify-center shrink-0 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                      <reason.icon className="w-6 h-6 text-[#1264FF] dark:text-cyan-400" />
                     </div>
 
                     {/* Right Step Tag */}
