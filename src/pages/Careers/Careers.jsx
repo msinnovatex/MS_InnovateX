@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Rocket, Lightbulb, Users, TrendingUp, Gem, Search, Code2, 
@@ -46,56 +46,36 @@ const Careers = ({ darkMode }) => {
     }
   ];
 
-  const jobsList = [
-    {
-      id: 'full-stack-dev',
-      title: 'Full Stack Developer',
-      category: 'Development',
-      type: 'Full Time',
-      location: 'Bhubaneswar (On-site/Hybrid)',
-      experience: '2-4 Years',
-      icon: Code2,
-      iconBg: 'bg-blue-500/15 text-[#1769FF] dark:text-[#65C7FF]',
-      details: 'We are looking for a skilled Full Stack Developer experienced in React.js, Node.js, and PostgreSQL to design and build high-performance web applications.',
-      applyUrl: ''
-    },
-    {
-      id: 'ui-ux-designer',
-      title: 'UI/UX Designer',
-      category: 'Design',
-      type: 'Full Time',
-      location: 'Bhubaneswar (On-site/Hybrid)',
-      experience: '1-3 Years',
-      icon: Palette,
-      iconBg: 'bg-purple-500/15 text-purple-600 dark:text-purple-400',
-      details: 'Craft user-centered visual designs, interactive wireframes, and responsive prototypes using Figma and Adobe Creative Suite.',
-      applyUrl: ''
-    },
-    {
-      id: 'ai-automation-intern',
-      title: 'AI & Automation Intern',
-      category: 'Internship',
-      type: '1 Month / 3 Months / 6 Months',
-      location: 'Remote/Hybrid',
-      experience: 'Freshers / Students',
-      icon: Cpu,
-      iconBg: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
-      details: 'Work with AI chatbots, process automation tools, Python scripts, and machine learning pipelines under expert tech mentorship.',
-      applyUrl: ''
-    },
-    {
-      id: 'cloud-db-dev',
-      title: 'Cloud & Database Developer',
-      category: 'Cloud',
-      type: 'Full Time',
-      location: 'Bhubaneswar (On-site/Hybrid)',
-      experience: '2+ Years',
-      icon: Cloud,
-      iconBg: 'bg-blue-500/15 text-[#1769FF] dark:text-[#65C7FF]',
-      details: 'Manage AWS/Azure cloud deployments, database optimization, CI/CD pipelines, and server backup infrastructure.',
-      applyUrl: ''
-    }
-  ];
+  const [jobsList, setJobsList] = useState([]);
+  const [jobsLoading, setJobsLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const base = String(import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+        const res = await fetch(base + '/api/public/careers', { headers: { Accept: 'application/json' } });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || 'Unable to load career openings.');
+        if (!cancelled) setJobsList(Array.isArray(data.careers) ? data.careers : []);
+      } catch (error) {
+        console.error('[Careers]', error);
+        if (!cancelled) setJobsList([]);
+      } finally {
+        if (!cancelled) setJobsLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  const iconMap = { Code2, Palette, Cpu, Cloud, Briefcase, Settings, Rocket, GraduationCap };
+  const normalizedJobs = jobsList.map(job => ({
+    ...job,
+    icon: iconMap[job.icon] || Briefcase,
+    iconBg: job.iconBg || 'bg-blue-500/15 text-[#1769FF] dark:text-[#65C7FF]'
+  }));
+
+
 
   const whyWorkUs = [
     {
@@ -137,7 +117,7 @@ const Careers = ({ darkMode }) => {
     { num: '4', title: 'Selection', desc: 'Receive your offer letter and join MS InnovateX.', icon: CheckCircle2 }
   ];
 
-  const filteredJobs = jobsList.filter(job => {
+  const filteredJobs = normalizedJobs.filter(job => {
     const matchesSearch = !searchQuery || 
       job.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
       job.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -275,7 +255,7 @@ const Careers = ({ darkMode }) => {
 
         {/* Openings List or Empty State */}
         <div className="space-y-4">
-          {filteredJobs.length > 0 ? (
+          {jobsLoading ? (<div className="text-center py-12 text-sm font-bold text-[#536A8A] dark:text-slate-300">Loading current openings...</div>) : filteredJobs.length > 0 ? (
             filteredJobs.map((job) => {
               const Icon = job.icon || Briefcase;
               return (
