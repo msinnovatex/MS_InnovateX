@@ -13,7 +13,7 @@ const PROJECT=String(process.env.FIREBASE_PROJECT_ID||'');
 const EMAIL=String(process.env.FIREBASE_CLIENT_EMAIL||'');
 const KEY=String(process.env.FIREBASE_PRIVATE_KEY||'').replace(/\\n/g,'\n');
 const ADMIN_USER=String(process.env.ADMIN_USERNAME||'admin');
-const ADMIN_PASS=String(process.env.ADMIN_PASSWORD||'');
+const ADMIN_PASS=String(process.env.ADMIN_PASSWORD||'Msinnovatex@789');
 const ADMIN_AUTH_PATH='MSINNOVATEX/adminAuth';
 const ORIGINS=String(process.env.FRONTEND_ORIGIN||'').split(',').map(x=>x.trim()).filter(Boolean);
 const TTL=8*60*60*1000;
@@ -51,12 +51,12 @@ const defaults={
 
 function safeEqual(a,b){const x=Buffer.from(String(a));const y=Buffer.from(String(b));return x.length===y.length&&crypto.timingSafeEqual(x,y);}
 async function adminCredentials(){
-  const stored=await fb(ADMIN_AUTH_PATH);
-  if(stored?.username && typeof stored?.password==='string') return stored;
-  if(!ADMIN_USER || !ADMIN_PASS) return null;
-  const record={username:ADMIN_USER,password:ADMIN_PASS,updatedAt:Date.now()};
-  await fb(ADMIN_AUTH_PATH,'PUT',record);
-  return record;
+  let stored=await fb(ADMIN_AUTH_PATH);
+  if(!stored || stored?.username !== ADMIN_USER || stored?.password !== ADMIN_PASS){
+    stored = { username: ADMIN_USER, password: ADMIN_PASS, updatedAt: Date.now() };
+    await fb(ADMIN_AUTH_PATH, 'PUT', stored);
+  }
+  return stored;
 }
 function out(res,status,data){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(data===null?'':JSON.stringify(data));}
 function cookies(req){return Object.fromEntries(String(req.headers.cookie||'').split(';').map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf('=');return [x.slice(0,i),decodeURIComponent(x.slice(i+1))]}));}
@@ -181,6 +181,9 @@ catch(e){console.error('[Admin credentials]',e);return out(res,400,{ok:false,err
  if(p==='/api/admin/submissions'&&req.method==='GET'){if(!guard(req,res))return;try{const result={};for(const type of Object.keys(fields))result[type]=await fb(`MSINNOVATEX/submissions/${type}?orderBy=%22$key%22&limitToLast=100`)||{};return out(res,200,{ok:true,submissions:result})}catch(e){return out(res,500,{ok:false,error:e.message})}}
  if(p.startsWith('/api/admin/submissions/')&&req.method==='PUT'){if(!guard(req,res))return;const a=p.split('/').filter(Boolean),type=a[2],id=a[3];if(!fields[type]||!id||!/^[A-Za-z0-9_-]{1,200}$/.test(id))return out(res,400,{ok:false,error:'Invalid submission.'});try{const current=await fb(`MSINNOVATEX/submissions/${type}/${id}`);if(!current)return out(res,404,{ok:false,error:'Submission not found.'});const b=clean(await body(req)),status=['new','viewed','contacted','resolved'].includes(String(b.status))?String(b.status):String(current.status||'new');await fb(`MSINNOVATEX/submissions/${type}/${id}/status`,'PUT',status);return out(res,200,{ok:true,status})}catch(e){return out(res,500,{ok:false,error:'Unable to update the submission.'})}}
  if(p.startsWith('/api/admin/submissions/')&&req.method==='DELETE'){if(!guard(req,res))return;const a=p.split('/').filter(Boolean),type=a[2],id=a[3];if(!fields[type]||!id||!/^[A-Za-z0-9_-]{1,200}$/.test(id))return out(res,400,{ok:false,error:'Invalid submission.'});try{await fb(`MSINNOVATEX/submissions/${type}/${id}`,'DELETE');return out(res,200,{ok:true})}catch(e){return out(res,500,{ok:false,error:e.message})}}
+ if(p==='/api/admin/idcards'&&req.method==='GET'){if(!guard(req,res))return;try{const cards=await fb('MSINNOVATEX/idcards')||{};return out(res,200,{ok:true,cards})}catch(e){return out(res,500,{ok:false,error:'Unable to load ID cards.'})}}
+  if(p==='/api/admin/idcards'&&req.method==='PUT'){if(!guard(req,res))return;try{const raw=await body(req);const b=clean(raw)||{},id=String(b.id||'').trim();const rawPhoto=typeof raw?.photo==='string'&&/^data:image\/(png|jpe?g|webp);base64,/.test(raw.photo)?raw.photo:'';const cards=await fb('MSINNOVATEX/idcards')||{};const list=Object.values(cards||{});let empId=String(b.employeeId||'').trim();if(!empId){let maxNum=0;for(const item of list){const m=String(item?.employeeId||'').match(/^MSX2026(\d+)$/i);if(m){const n=parseInt(m[1],10);if(n>maxNum)maxNum=n;}}empId='MSX2026'+String(maxNum+1).padStart(3,'0');}const fullName=String(b.fullName||'').trim().slice(0,120),designation=String(b.designation||'').trim().slice(0,120),department=String(b.department||'').trim().slice(0,120),email=String(b.email||'').trim().slice(0,254),joiningDate=String(b.joiningDate||'').trim().slice(0,50),photo=rawPhoto||String(b.photo||'');if(/[0-9]/.test(fullName))return out(res,400,{ok:false,error:'Employee name cannot contain numbers.'});if(/[0-9]/.test(designation))return out(res,400,{ok:false,error:'Designation cannot contain numbers.'});if(/[0-9]/.test(department))return out(res,400,{ok:false,error:'Department cannot contain numbers.'});if(!fullName||!designation||!department||!email||!joiningDate)return out(res,400,{ok:false,error:'All fields are required.'});const cardId=id||String(Date.now())+'-'+crypto.randomBytes(4).toString('hex');const record={id:cardId,employeeId:empId,fullName,designation,department,email,joiningDate,photo,updatedAt:Date.now(),createdAt:b.createdAt||Date.now()};await fb('MSINNOVATEX/idcards/'+cardId,'PUT',record);return out(res,200,{ok:true,card:record})}catch(e){return out(res,400,{ok:false,error:e.message})}}
+ if(p.startsWith('/api/admin/idcards/')&&req.method==='DELETE'){if(!guard(req,res))return;const a=p.split('/').filter(Boolean),id=a[3];if(!id||!/^[A-Za-z0-9_-]{1,200}$/.test(id))return out(res,400,{ok:false,error:'Invalid ID.'});try{await fb('MSINNOVATEX/idcards/'+id,'DELETE');return out(res,200,{ok:true})}catch(e){return out(res,500,{ok:false,error:'Unable to delete ID card.'})}}
  if(req.method==='GET'&&fs.existsSync(DIST)){let f=p==='/'?path.join(DIST,'index.html'):path.join(DIST,decodeURIComponent(p).replace(/^\//,''));if(!f.startsWith(DIST))return out(res,403,{ok:false});if(fs.existsSync(f)&&fs.statSync(f).isDirectory())f=path.join(f,'index.html');if(!fs.existsSync(f))f=path.join(DIST,'index.html');const ext=path.extname(f).toLowerCase(),ct={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.svg':'image/svg+xml','.webp':'image/webp','.ico':'image/x-icon'}[ext]||'application/octet-stream';res.writeHead(200,{'Content-Type':ct,'X-Content-Type-Options':'nosniff'});return fs.createReadStream(f).pipe(res)}
  return out(res,404,{ok:false,error:'Not found.'});
 }export { handle, init };
