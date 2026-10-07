@@ -9,7 +9,7 @@ export default function AdvertisementPopup() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const allowed = pathname === '/' || pathname === '/about' || pathname === '/careers' || pathname === '/services' || pathname.startsWith('/services/');
+    const allowed = pathname === '/' || pathname === '/about' || pathname === '/services' || pathname.startsWith('/services/');
     if (!allowed) {
       setAd(null);
       setVisible(false);
