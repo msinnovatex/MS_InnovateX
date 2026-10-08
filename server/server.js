@@ -199,6 +199,45 @@ catch(e){console.error('[Admin credentials]',e);return out(res,400,{ok:false,err
  if(p==='/api/admin/submissions'&&req.method==='GET'){if(!guard(req,res))return;try{const result={};for(const type of Object.keys(fields))result[type]=await fb(`MSINNOVATEX/submissions/${type}?orderBy=%22$key%22&limitToLast=100`)||{};return out(res,200,{ok:true,submissions:result})}catch(e){return out(res,500,{ok:false,error:e.message})}}
  if(p.startsWith('/api/admin/submissions/')&&req.method==='PUT'){if(!guard(req,res))return;const a=p.split('/').filter(Boolean),type=a[2],id=a[3];if(!fields[type]||!id||!/^[A-Za-z0-9_-]{1,200}$/.test(id))return out(res,400,{ok:false,error:'Invalid submission.'});try{const current=await fb(`MSINNOVATEX/submissions/${type}/${id}`);if(!current)return out(res,404,{ok:false,error:'Submission not found.'});const b=clean(await body(req)),status=['new','viewed','contacted','resolved'].includes(String(b.status))?String(b.status):String(current.status||'new');await fb(`MSINNOVATEX/submissions/${type}/${id}/status`,'PUT',status);return out(res,200,{ok:true,status})}catch(e){return out(res,500,{ok:false,error:'Unable to update the submission.'})}}
  if(p.startsWith('/api/admin/submissions/')&&req.method==='DELETE'){if(!guard(req,res))return;const a=p.split('/').filter(Boolean),type=a[2],id=a[3];if(!fields[type]||!id||!/^[A-Za-z0-9_-]{1,200}$/.test(id))return out(res,400,{ok:false,error:'Invalid submission.'});try{await fb(`MSINNOVATEX/submissions/${type}/${id}`,'DELETE');return out(res,200,{ok:true})}catch(e){return out(res,500,{ok:false,error:e.message})}}
+ if(p==='/api/admin/certificates'&&req.method==='GET'){
+  if(!guard(req,res))return;
+  try{const certificates=await fb('MSINNOVATEX/certificates')||{};return out(res,200,{ok:true,certificates})}
+  catch(e){console.error('[Certificates list]',e);return out(res,500,{ok:false,error:'Unable to load certificates.'})}
+ }
+ if(p==='/api/admin/certificates'&&req.method==='POST'){
+  if(!guard(req,res))return;
+  try{
+   const b=clean(await body(req))||{};
+   const fullName=String(b.fullName||'').trim().slice(0,160);
+   const role=String(b.role||'').trim().slice(0,160);
+   const startDate=String(b.startDate||'').trim().slice(0,50);
+   const endDate=String(b.endDate||'').trim().slice(0,50);
+   const issuerName=String(b.issuerName||'').trim().slice(0,120);
+   const issuerDesignation=String(b.issuerDesignation||'').trim().slice(0,120);
+   const issueDate=String(b.issueDate||'').trim().slice(0,50);
+   const description=String(b.description||'').trim().slice(0,800);
+   if(!fullName||!role||!startDate||!endDate||!issuerName||!issuerDesignation||!issueDate)return out(res,400,{ok:false,error:'All certificate fields are required.'});
+   const existing=await fb('MSINNOVATEX/certificates')||{};
+   let certificateId='',attempt=0;
+   do{
+     const code=String(crypto.randomInt(0,10000)).padStart(4,'0');
+     certificateId='MSX'+new Date().getFullYear()+code;
+     attempt++;
+   }while(Object.values(existing).some(x=>String(x?.certificateId||'')===certificateId)&&attempt<100);
+   if(!certificateId)return out(res,500,{ok:false,error:'Unable to generate a unique certificate ID.'});
+   const id=crypto.randomUUID();
+   const record={id,certificateId,fullName,role,startDate,endDate,issuerName,issuerDesignation,issueDate,description,createdAt:Date.now()};
+   await fb('MSINNOVATEX/certificates/'+id,'PUT',record);
+   return out(res,201,{ok:true,certificate:record});
+  }catch(e){console.error('[Certificate create]',e);return out(res,500,{ok:false,error:'Unable to save the certificate.'})}
+ }
+ if(p.startsWith('/api/admin/certificates/')&&req.method==='DELETE'){
+  if(!guard(req,res))return;
+  const id=p.split('/').filter(Boolean)[2];
+  if(!id||!/^[A-Za-z0-9_-]{1,200}$/.test(id))return out(res,400,{ok:false,error:'Invalid certificate ID.'});
+  try{await fb('MSINNOVATEX/certificates/'+id,'DELETE');return out(res,200,{ok:true})}
+  catch(e){console.error('[Certificate delete]',e);return out(res,500,{ok:false,error:'Unable to delete the certificate.'})}
+ }
  if(p==='/api/admin/idcards'&&req.method==='GET'){if(!guard(req,res))return;try{const cards=await fb('MSINNOVATEX/idcards')||{};return out(res,200,{ok:true,cards})}catch(e){return out(res,500,{ok:false,error:'Unable to load ID cards.'})}}
   if(p==='/api/admin/idcards'&&req.method==='PUT'){if(!guard(req,res))return;try{const raw=await body(req);const b=clean(raw)||{},id=String(b.id||'').trim();const rawPhoto=typeof raw?.photo==='string'&&/^data:image\/(png|jpe?g|webp);base64,/.test(raw.photo)?raw.photo:'';const cards=await fb('MSINNOVATEX/idcards')||{};const list=Object.values(cards||{});let empId=String(b.employeeId||'').trim();if(!empId){let maxNum=0;for(const item of list){const m=String(item?.employeeId||'').match(/^MSX2026(\d+)$/i);if(m){const n=parseInt(m[1],10);if(n>maxNum)maxNum=n;}}empId='MSX2026'+String(maxNum+1).padStart(3,'0');}const fullName=String(b.fullName||'').trim().slice(0,120),designation=String(b.designation||'').trim().slice(0,120),department=String(b.department||'').trim().slice(0,120),email=String(b.email||'').trim().slice(0,254),joiningDate=String(b.joiningDate||'').trim().slice(0,50),photo=rawPhoto||String(b.photo||'');if(/[0-9]/.test(fullName))return out(res,400,{ok:false,error:'Employee name cannot contain numbers.'});if(/[0-9]/.test(designation))return out(res,400,{ok:false,error:'Designation cannot contain numbers.'});if(/[0-9]/.test(department))return out(res,400,{ok:false,error:'Department cannot contain numbers.'});if(!fullName||!designation||!department||!email||!joiningDate)return out(res,400,{ok:false,error:'All fields are required.'});const cardId=id||String(Date.now())+'-'+crypto.randomBytes(4).toString('hex');const record={id:cardId,employeeId:empId,fullName,designation,department,email,joiningDate,photo,updatedAt:Date.now(),createdAt:b.createdAt||Date.now()};await fb('MSINNOVATEX/idcards/'+cardId,'PUT',record);return out(res,200,{ok:true,card:record})}catch(e){return out(res,400,{ok:false,error:e.message})}}
  if(p.startsWith('/api/admin/idcards/')&&req.method==='DELETE'){if(!guard(req,res))return;const a=p.split('/').filter(Boolean),id=a[3];if(!id||!/^[A-Za-z0-9_-]{1,200}$/.test(id))return out(res,400,{ok:false,error:'Invalid ID.'});try{await fb('MSINNOVATEX/idcards/'+id,'DELETE');return out(res,200,{ok:true})}catch(e){return out(res,500,{ok:false,error:'Unable to delete ID card.'})}}
