@@ -13,6 +13,7 @@ import Internship from './pages/Internship/Internship';
 import ServicesPage from './pages/Services/ServicesPage';
 import Careers from './pages/Careers/Careers';
 import ContactPage from './pages/Contact/ContactPage';
+import EmployeeVerification from './pages/EmployeeVerification/EmployeeVerification';
 import OfferInternship from './pages/OfferInternship/OfferInternship';
 import SeoManager from './components/SeoManager';
 import AdvertisementPopup from './components/AdvertisementPopup';
@@ -92,6 +93,7 @@ function App() {
         {/* Careers & Contact */}
         <Route path="/careers" element={<Careers darkMode={darkMode} />} />
         <Route path="/contact" element={<ContactPage darkMode={darkMode} />} />
+        <Route path="/employee" element={<EmployeeVerification darkMode={darkMode} />} />
         <Route path="*" element={
           <div className="min-h-[60vh] flex items-center justify-center px-6 text-center">
             <div>
