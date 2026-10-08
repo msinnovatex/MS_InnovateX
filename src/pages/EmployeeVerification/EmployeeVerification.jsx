@@ -7,7 +7,7 @@ export default function EmployeeVerification({darkMode}){
  const verify=async e=>{
   e.preventDefault();setError('');setEmployee(null);
   const value=id.trim().toUpperCase();
-  if(!/^MSX2026\\d{3,}$/.test(value))return setError('Please enter a valid Employee ID, for example MSX2026001.');
+  if(!/^MSX2026\d{3,}$/.test(value))return setError('Please enter a valid Employee ID, for example MSX2026001.');
   setLoading(true);
   try{const d=await apiFetch('/api/public/employee/'+encodeURIComponent(value));setEmployee(d.employee)}
   catch(e){setError(e.message==='The requested service could not be found.'?'Employee ID not found.':e.message)}
