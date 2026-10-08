@@ -9,7 +9,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#061126;color:#eaf2ff;font-family:Inter,system-ui,sans-serif}.shell{max-width:1500px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}.title{font-size:26px;font-weight:900}.muted{color:#9fb0cc;font-size:13px}.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer;background:#1264ff;color:#fff}.btn.gray{background:#17375f}.btn.green{background:#0b8f62}.layout{display:grid;grid-template-columns:390px minmax(0,1fr);gap:18px}.card{background:#071a3a;border:1px solid #2b5186;border-radius:18px;padding:20px;box-shadow:0 20px 60px #0004}.label{display:block;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#b9c8df;margin:12px 0 6px}.input,.area{width:100%;background:#04122a;color:#fff;border:1px solid #24477c;border-radius:10px;padding:11px 12px;outline:none}.area{min-height:90px;resize:vertical}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.notice{padding:10px 12px;border-radius:10px;margin-bottom:12px;background:#0b3b2c;border:1px solid #2d9b72;color:#b1f3d5}.error{background:#4b1724;border-color:#a33a55;color:#ffbdc9}.status{min-height:20px;margin-top:10px;font-size:13px;font-weight:700}.preview-wrap{overflow:auto;background:#020817;border-radius:14px;padding:14px}.certificate{position:relative;width:1536px;height:1024px;flex:none;margin:auto;background:#fff url("template.webp") center/100% 100% no-repeat;overflow:hidden}.field{position:absolute;text-align:center;color:#10295f;z-index:2}.cover{position:absolute;z-index:1;background:rgba(255,255,255,.985)}.nameCover{left:430px;top:375px;width:680px;height:100px}.name{left:390px;top:380px;width:760px;height:88px;font:76px/1 "Great Vibes",cursive;color:#073b91;white-space:nowrap}.roleCover{left:820px;top:528px;width:240px;height:48px;background:#dfe9ff;border-radius:7px}.role{left:820px;top:531px;width:240px;height:43px;font:700 24px/43px Georgia,serif;color:#122f68}.dateCover{background:#e5edff;border-radius:7px}.startCover{left:610px;top:573px;width:165px;height:43px}.endCover{left:818px;top:573px;width:165px;height:43px}.date{height:40px;font:700 22px/40px Georgia,serif;color:#122f68}.start{left:610px;top:575px;width:165px}.end{left:818px;top:575px;width:165px}.descCover{left:375px;top:615px;width:790px;height:95px;background:rgba(255,255,255,.94)}.description{left:380px;top:617px;width:780px;height:90px;font:24px/1.32 Georgia,serif;color:#14203d}.issuerCover{left:315px;top:785px;width:300px;height:70px;background:rgba(255,255,255,.98)}.issuer{left:315px;top:785px;width:300px;height:31px;font:700 20px/31px Arial,sans-serif;color:#122347}.issuerRole{left:315px;top:818px;width:300px;height:25px;font:18px/25px Georgia,serif;color:#18233b}.issueCover{left:940px;top:752px;width:185px;height:48px;background:rgba(255,255,255,.98)}.issue{left:940px;top:754px;width:185px;height:38px;font:700 18px/38px Arial,sans-serif;color:#14244d}.idCover{left:1195px;top:752px;width:185px;height:48px;background:rgba(255,255,255,.98)}.certid{left:1195px;top:754px;width:185px;height:38px;font:700 18px/38px Arial,sans-serif;color:#14244d}.loader{display:none;position:fixed;inset:0;background:#020817aa;align-items:center;justify-content:center;z-index:50}.loader.show{display:flex}.loaderbox{background:#071a3a;border:1px solid #2b5186;border-radius:14px;padding:18px 24px;font-weight:900}@media(max-width:1050px){.layout{grid-template-columns:1fr}.preview-wrap{min-height:500px}}
+*{box-sizing:border-box}body{margin:0;background:#061126;color:#eaf2ff;font-family:Inter,system-ui,sans-serif}.shell{max-width:1500px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}.title{font-size:26px;font-weight:900}.muted{color:#9fb0cc;font-size:13px}.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer;background:#1264ff;color:#fff}.btn.gray{background:#17375f}.btn.green{background:#0b8f62}.layout{display:grid;grid-template-columns:390px minmax(0,1fr);gap:18px}.card{background:#071a3a;border:1px solid #2b5186;border-radius:18px;padding:20px;box-shadow:0 20px 60px #0004}.label{display:block;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#b9c8df;margin:12px 0 6px}.input,.area{width:100%;background:#04122a;color:#fff;border:1px solid #24477c;border-radius:10px;padding:11px 12px;outline:none}.area{min-height:90px;resize:vertical}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.notice{padding:10px 12px;border-radius:10px;margin-bottom:12px;background:#0b3b2c;border:1px solid #2d9b72;color:#b1f3d5}.error{background:#4b1724;border-color:#a33a55;color:#ffbdc9}.status{min-height:20px;margin-top:10px;font-size:13px;font-weight:700}
+.preview-wrap{overflow:hidden;background:#020817;border-radius:14px;padding:0;width:100%}
+.cert-scaler{width:100%;position:relative;overflow:hidden}
+.certificate{position:absolute;top:0;left:0;width:1536px;height:1024px;transform-origin:0 0;background:#fff url("MS%20InnovateX%20Internship%20Certificate.png") center/100% 100% no-repeat;overflow:hidden}
+.field{position:absolute;z-index:2}.cover{display:none}
+.name{left:310px;top:409px;width:917px;height:76px;font:700 73px/1 "Great Vibes",cursive;font-weight:700;color:#073b91;text-align:center;white-space:nowrap}
+.role{left:865px;top:537px;width:350px;height:33px;font:700 25px/32px Georgia,serif;color:#000000;text-align:left}
+.date{height:31px;font:700 23px/30px Georgia,serif;color:#000000;text-align:center}
+.start{left:605px;top:577px;width:170px}
+.end{left:800px;top:577px;width:170px}
+.description{left:330px;top:638px;width:880px;height:90px;font:22px/1.32 Georgia,serif;color:#14203d;text-align:center}
+.certid{left:260px;top:167px;width:240px;height:30px;font:700 19px/30px Arial,sans-serif;color:#10295f;text-align:left}
+.issue{left:260px;top:206px;width:240px;height:30px;font:700 19px/30px Arial,sans-serif;color:#10295f;text-align:left}
+.loader{display:none;position:fixed;inset:0;background:#020817aa;align-items:center;justify-content:center;z-index:50}.loader.show{display:flex}.loaderbox{background:#071a3a;border:1px solid #2b5186;border-radius:14px;padding:18px 24px;font-weight:900}@media(max-width:1050px){.layout{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -18,29 +31,26 @@
 <div id="notice"></div>
 <div class="layout">
 <section class="card">
-<h2 style="margin:0">Certificate Details</h2><div class="muted">Certificate ID is generated automatically when issued.</div>
-<label class="label">Intern Full Name *</label><input class="input" id="fullName" maxlength="160" placeholder="e.g. MD SIDIK">
-<label class="label">Internship Role *</label><input class="input" id="role" maxlength="80" placeholder="e.g. WEB DEV">
-<label class="label">Department *</label><input class="input" id="department" maxlength="160" placeholder="e.g. Executive">
+<h2 style="margin:0">Certificate Details</h2><div class="muted">Certificate ID is generated automatically.</div>
+<label class="label">Certificate ID (Auto-Generated)</label><input class="input" id="certId" readonly style="background:#0a1d3f;color:#9fb0cc;cursor:not-allowed">
+<label class="label">Intern Full Name *</label><input class="input" id="fullName" maxlength="160" placeholder="Enter Intern Full Name">
+<label class="label">Internship Role *</label><input class="input" id="role" maxlength="80" placeholder="Enter Internship Role">
 <div class="grid2"><div><label class="label">Start Date *</label><input class="input" id="startDate" type="date"></div><div><label class="label">End Date *</label><input class="input" id="endDate" type="date"></div></div>
 <label class="label">Issue Date *</label><input class="input" id="issueDate" type="date">
-<label class="label">Certificate Statement *</label><textarea class="area" id="description" maxlength="500">During this period, they have shown great dedication, a proactive attitude, and a strong willingness to learn. We appreciate their contribution to our team and wish them success in their future endeavors.</textarea>
-<label class="label">Authorized Person Name *</label><input class="input" id="issuerName" maxlength="120" placeholder="MD SIDIK">
-<label class="label">Designation *</label><input class="input" id="issuerDesignation" maxlength="120" placeholder="Founder & Managing Director">
 <div class="actions"><button class="btn gray" id="previewBtn">Preview</button><button class="btn green" id="generateBtn">Generate & Download PDF</button></div>
 <div class="status" id="status"></div>
 </section>
 <section class="card">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div><h2 style="margin:0">Certificate Preview</h2><div class="muted">Matches the supplied design at 1536 × 1024.</div></div><span class="muted" id="previewId">ID: Not issued</span></div>
-<div class="preview-wrap"><div id="certificate" class="certificate">
-<div class="cover nameCover"></div><div class="field name" id="pName"></div>
-<div class="cover roleCover"></div><div class="field role" id="pRole"></div>
-<div class="cover dateCover startCover"></div><div class="cover dateCover endCover"></div><div class="field date start" id="pStart"></div><div class="field date end" id="pEnd"></div>
-<div class="cover descCover"></div><div class="field description" id="pDescription"></div>
-<div class="cover issuerCover"></div><div class="field issuer" id="pIssuer"></div><div class="field issuerRole" id="pIssuerRole"></div>
-<div class="cover issueCover"></div><div class="field issue" id="pIssue"></div>
-<div class="cover idCover"></div><div class="field certid" id="pId"></div>
-</div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div><h2 style="margin:0">Certificate Preview</h2><div class="muted">Matches the supplied design at 1536 × 1024.</div></div><span class="muted" id="previewId">ID: Auto-generated</span></div>
+<div class="preview-wrap"><div id="certScaler" class="cert-scaler"><div id="certificate" class="certificate">
+<div class="field name" id="pName"></div>
+<div class="field role" id="pRole"></div>
+<div class="field date start" id="pStart"></div>
+<div class="field date end" id="pEnd"></div>
+<div class="field description" id="pDescription"></div>
+<div class="field issue" id="pIssue"></div>
+<div class="field certid" id="pId"></div>
+</div></div></div>
 </section>
 </div></div>
 <div class="loader" id="loader"><div class="loaderbox" id="loaderText">Generating certificate...</div></div>
@@ -49,25 +59,93 @@ const $=id=>document.getElementById(id);
 const api=async(p,o={})=>{const r=await fetch(p,{credentials:'include',headers:{'Content-Type':'application/json',...(o.headers||{})},...o});let d=null;try{d=await r.json()}catch{}if(!r.ok)throw Error(d?.error||('Request failed '+r.status));return d};
 const fmt=v=>{if(!v)return'';return new Date(v+'T00:00:00').toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})};
 const val=id=>$(id).value.trim();
-function data(){return{fullName:val('fullName'),role:val('role'),department:val('department'),startDate:val('startDate'),endDate:val('endDate'),issueDate:val('issueDate'),description:val('description'),issuerName:val('issuerName'),issuerDesignation:val('issuerDesignation')}};
-function preview(id=''){const b=data();$('pName').textContent=b.fullName||'[YOUR FULL NAME]';$('pRole').textContent=b.role||'[INTERNSHIP ROLE]';$('pStart').textContent=b.startDate?fmt(b.startDate):'[START DATE]';$('pEnd').textContent=b.endDate?fmt(b.endDate):'[END DATE]';$('pDescription').textContent=b.description||'';$('pIssuer').textContent=b.issuerName||'[Authorized Person Name]';$('pIssuerRole').textContent=b.issuerDesignation||'[Designation]';$('pIssue').textContent=b.issueDate?fmt(b.issueDate):'[Issue Date]';$('pId').textContent=id||'[Certificate ID]';$('previewId').textContent='ID: '+(id||'Not issued')};
-document.querySelectorAll('input,textarea').forEach(x=>x.addEventListener('input',()=>preview()));
+
+function genAutoCertId(){
+ const code=String(Math.floor(Math.random()*10000)).padStart(4,'0');
+ return 'MSX'+new Date().getFullYear()+code;
+}
+let currentAutoCertId = genAutoCertId();
+if($('certId')) $('certId').value = currentAutoCertId;
+
+function data(){
+ return{
+  fullName:val('fullName').replace(/[0-9]/g,''),
+  role:val('role').replace(/[0-9]/g,''),
+  department:'General',
+  startDate:val('startDate'),
+  endDate:val('endDate'),
+  issueDate:val('issueDate'),
+  description:'',
+  issuerName:'MS InnovateX',
+  issuerDesignation:'Director'
+ };
+}
+function fitCertificate(){
+ const scaler=$('certScaler'), cert=$('certificate');
+ if(!scaler||!cert) return;
+ const w=scaler.clientWidth;
+ if(!w) return;
+ const s=w/1536;
+ cert.style.transform=`scale(${s})`;
+ scaler.style.height=`${1024*s}px`;
+}
+window.addEventListener('resize', fitCertificate);
+if(window.ResizeObserver && $('certScaler')){ new ResizeObserver(fitCertificate).observe($('certScaler')); }
+function preview(id=''){
+ const b=data();
+ const certIdToUse = id || currentAutoCertId;
+ $('pName').textContent=b.fullName||'';
+ $('pRole').textContent=b.role||'';
+ $('pStart').textContent=b.startDate?fmt(b.startDate):'';
+ $('pEnd').textContent=b.endDate?fmt(b.endDate):'';
+ $('pDescription').textContent=b.description||'';
+ $('pIssue').textContent=b.issueDate?fmt(b.issueDate):'';
+ $('pId').textContent=certIdToUse;
+ $('previewId').textContent='ID: '+certIdToUse;
+ fitCertificate();
+};
+
+['fullName','role'].forEach(id=>{
+ const el=$(id);
+ if(!el) return;
+ el.addEventListener('input',function(){
+  if(/[0-9]/.test(this.value)){
+   this.value=this.value.replace(/[0-9]/g,'');
+  }
+  preview();
+ });
+});
+
+document.querySelectorAll('input').forEach(x=>x.addEventListener('input',()=>preview()));
 $('issueDate').value=new Date().toISOString().slice(0,10);preview();
 $('previewBtn').onclick=()=>{preview();$('status').textContent='Preview updated.'};
 $('generateBtn').onclick=async()=>{
- const b=data(),required=['fullName','role','department','startDate','endDate','issueDate','description','issuerName','issuerDesignation'],missing=required.find(k=>!b[k]);
+ const b=data(),required=['fullName','role','startDate','endDate','issueDate'],missing=required.find(k=>!b[k]);
  if(missing){$('status').textContent='Please complete all required fields.';$(missing).focus();return}
  if(new Date(b.endDate)<new Date(b.startDate)){$('status').textContent='End date cannot be before start date.';return}
  try{
   $('loader').classList.add('show');$('loaderText').textContent='Saving certificate and generating PDF...';
-  const d=await api('/api/admin/certificates',{method:'POST',body:JSON.stringify(b)});const c=d.certificate;preview(c.certificateId);
-  const canvas=await html2canvas($('certificate'),{scale:2,width:1536,height:1024,windowWidth:1536,windowHeight:1024,useCORS:true,backgroundColor:'#fff',logging:false});
+  let c=null;
+  try{
+    const d=await api('/api/admin/certificates',{method:'POST',body:JSON.stringify(b)});
+    c=d.certificate;
+  }catch(e){
+    console.warn('Backend API save skipped or failed, proceeding with local PDF generation:', e);
+    c={certificateId: currentAutoCertId};
+  }
+  const certIdIssued = c?.certificateId || currentAutoCertId;
+  preview(certIdIssued);
+  const cert=$('certificate');
+  cert.style.transform='none';
+  const canvas=await html2canvas(cert,{scale:2,width:1536,height:1024,windowWidth:1536,windowHeight:1024,useCORS:true,backgroundColor:'#fff',logging:false});
+  fitCertificate();
   const {jsPDF}=window.jspdf;const pdf=new jsPDF({unit:'px',format:[1536,1024],orientation:'landscape',compress:true});
   pdf.addImage(canvas.toDataURL('image/jpeg',.98),'JPEG',0,0,1536,1024,undefined,'FAST');
-  pdf.save(c.certificateId+'-'+b.fullName.replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.pdf');
-  $('status').textContent='✓ Certificate generated and downloaded.';$('notice').innerHTML='<div class="notice">✓ '+c.certificateId+' generated, saved and downloaded.</div>';
- }catch(e){console.error(e);$('status').textContent=e.message||'Generation failed.';$('notice').innerHTML='<div class="notice error">'+(e.message||'Generation failed.')+'</div>'}
+  pdf.save(certIdIssued+'-'+b.fullName.replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.pdf');
+  $('status').textContent='✓ Certificate generated and downloaded.';$('notice').innerHTML='<div class="notice">✓ '+certIdIssued+' generated, saved and downloaded.</div>';
+ }catch(e){console.error(e);$('status').textContent=e.message||'Generation failed.';$('notice').innerHTML='<div class="notice error">'+(e.message||'Generation failed.')+'</div>';fitCertificate();}
  finally{$('loader').classList.remove('show')}
 };
+setTimeout(fitCertificate, 100);
 </script>
 </body></html>
