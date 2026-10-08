@@ -126,6 +126,24 @@ async function handle(req,res){
  const u=new URL(req.url,`http://${req.headers.host||'localhost'}`),p=u.pathname;
  if(p==='/api/health'&&req.method==='GET')return out(res,200,{ok:true,service:'MS InnovateX API'});
  if(p==='/api/public/site-config'&&req.method==='GET'){const c=await config();return out(res,200,{meta:c.meta,stats:c.stats});}
+ if(p.startsWith('/api/public/employee/')&&req.method==='GET'){
+  try{
+   const employeeId=decodeURIComponent(p.slice('/api/public/employee/'.length)).trim();
+   if(!/^MSX2026\\d{3,}$/.test(employeeId)) return out(res,400,{ok:false,error:'Invalid employee ID.'});
+   const cards=await fb('MSINNOVATEX/idcards')||{};
+   const card=Object.values(cards).find(x=>String(x?.employeeId||'').toUpperCase()===employeeId.toUpperCase());
+   if(!card) return out(res,404,{ok:false,error:'Employee ID not found.'});
+   return out(res,200,{ok:true,employee:{
+    employeeId:String(card.employeeId),
+    fullName:String(card.fullName||''),
+    designation:String(card.designation||''),
+    department:String(card.department||''),
+    email:String(card.email||''),
+    joiningDate:String(card.joiningDate||''),
+    photo:typeof card.photo==='string'&&/^data:image\\/(png|jpe?g|webp);base64,/.test(card.photo)?card.photo:''
+   }});
+  }catch(e){console.error('[Public employee verification]',e);return out(res,500,{ok:false,error:'Unable to verify the employee right now.'})}
+ }
  if(p==='/api/public/advertisement'&&req.method==='GET'){const c=await config();return out(res,200,{advertisement:c.advertisement?.active?c.advertisement:{active:false}});}
  if(p==='/api/submissions/offerinternship'&&req.method==='POST'){
   if(!submissionAllowed(ip(req)))return out(res,429,{ok:false,error:'Too many submissions from this network. Please try again later.'});
