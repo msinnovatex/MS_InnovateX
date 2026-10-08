@@ -210,23 +210,25 @@ catch(e){console.error('[Admin credentials]',e);return out(res,400,{ok:false,err
    const b=clean(await body(req))||{};
    const fullName=String(b.fullName||'').trim().slice(0,160);
    const role=String(b.role||'').trim().slice(0,160);
+   const department=String(b.department||'').trim().slice(0,160);
    const startDate=String(b.startDate||'').trim().slice(0,50);
    const endDate=String(b.endDate||'').trim().slice(0,50);
    const issuerName=String(b.issuerName||'').trim().slice(0,120);
    const issuerDesignation=String(b.issuerDesignation||'').trim().slice(0,120);
    const issueDate=String(b.issueDate||'').trim().slice(0,50);
    const description=String(b.description||'').trim().slice(0,800);
-   if(!fullName||!role||!startDate||!endDate||!issuerName||!issuerDesignation||!issueDate)return out(res,400,{ok:false,error:'All certificate fields are required.'});
+   if(!fullName||!role||!department||!startDate||!endDate||!issuerName||!issuerDesignation||!issueDate)return out(res,400,{ok:false,error:'All certificate fields are required.'});
    const existing=await fb('MSINNOVATEX/certificates')||{};
-   let certificateId='',attempt=0;
-   do{
+   const used=new Set(Object.values(existing).map(x=>String(x?.certificateId||'')));
+   let certificateId='';
+   for(let attempt=0;attempt<100;attempt++){
      const code=String(crypto.randomInt(0,10000)).padStart(4,'0');
-     certificateId='MSX'+new Date().getFullYear()+code;
-     attempt++;
-   }while(Object.values(existing).some(x=>String(x?.certificateId||'')===certificateId)&&attempt<100);
+     const candidate='MSX'+new Date().getFullYear()+code;
+     if(!used.has(candidate)){certificateId=candidate;break;}
+   }
    if(!certificateId)return out(res,500,{ok:false,error:'Unable to generate a unique certificate ID.'});
    const id=crypto.randomUUID();
-   const record={id,certificateId,fullName,role,startDate,endDate,issuerName,issuerDesignation,issueDate,description,createdAt:Date.now()};
+   const record={id,certificateId,fullName,role,department,startDate,endDate,issuerName,issuerDesignation,issueDate,description,createdAt:Date.now()};
    await fb('MSINNOVATEX/certificates/'+id,'PUT',record);
    return out(res,201,{ok:true,certificate:record});
   }catch(e){console.error('[Certificate create]',e);return out(res,500,{ok:false,error:'Unable to save the certificate.'})}
