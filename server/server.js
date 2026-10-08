@@ -240,6 +240,16 @@ catch(e){console.error('[Admin credentials]',e);return out(res,400,{ok:false,err
   try{await fb('MSINNOVATEX/certificates/'+id,'DELETE');return out(res,200,{ok:true})}
   catch(e){console.error('[Certificate delete]',e);return out(res,500,{ok:false,error:'Unable to delete the certificate.'})}
  }
+ if(p==='/api/public/idcard'&&req.method==='GET'){
+  try{
+   const employeeId=String(u.searchParams.get('employeeId')||'').trim();
+   if(!employeeId || !/^MSX2026\\d{3,}$/i.test(employeeId))return out(res,400,{ok:false,error:'Enter a valid Employee ID.'});
+   const cards=await fb('MSINNOVATEX/idcards')||{};
+   const card=Object.values(cards).find(x=>String(x?.employeeId||'').toUpperCase()===employeeId.toUpperCase());
+   if(!card)return out(res,404,{ok:false,error:'Employee ID Card not found.'});
+   return out(res,200,{ok:true,card});
+  }catch(e){return out(res,500,{ok:false,error:'Unable to retrieve Employee ID Card.'})}
+ }
  if(p==='/api/admin/idcards'&&req.method==='GET'){if(!guard(req,res))return;try{const cards=await fb('MSINNOVATEX/idcards')||{};return out(res,200,{ok:true,cards})}catch(e){return out(res,500,{ok:false,error:'Unable to load ID cards.'})}}
   if(p==='/api/admin/idcards'&&req.method==='PUT'){if(!guard(req,res))return;try{const raw=await body(req);const b=clean(raw)||{},id=String(b.id||'').trim();const rawPhoto=typeof raw?.photo==='string'&&/^data:image\/(png|jpe?g|webp);base64,/.test(raw.photo)?raw.photo:'';const cards=await fb('MSINNOVATEX/idcards')||{};const list=Object.values(cards||{});let empId=String(b.employeeId||'').trim();if(!empId){let maxNum=0;for(const item of list){const m=String(item?.employeeId||'').match(/^MSX2026(\d+)$/i);if(m){const n=parseInt(m[1],10);if(n>maxNum)maxNum=n;}}empId='MSX2026'+String(maxNum+1).padStart(3,'0');}const fullName=String(b.fullName||'').trim().slice(0,120),designation=String(b.designation||'').trim().slice(0,120),department=String(b.department||'').trim().slice(0,120),email=String(b.email||'').trim().slice(0,254),joiningDate=String(b.joiningDate||'').trim().slice(0,50),photo=rawPhoto||String(b.photo||'');if(/[0-9]/.test(fullName))return out(res,400,{ok:false,error:'Employee name cannot contain numbers.'});if(/[0-9]/.test(designation))return out(res,400,{ok:false,error:'Designation cannot contain numbers.'});if(/[0-9]/.test(department))return out(res,400,{ok:false,error:'Department cannot contain numbers.'});if(!fullName||!designation||!department||!email||!joiningDate)return out(res,400,{ok:false,error:'All fields are required.'});const cardId=id||String(Date.now())+'-'+crypto.randomBytes(4).toString('hex');const record={id:cardId,employeeId:empId,fullName,designation,department,email,joiningDate,photo,updatedAt:Date.now(),createdAt:b.createdAt||Date.now()};await fb('MSINNOVATEX/idcards/'+cardId,'PUT',record);return out(res,200,{ok:true,card:record})}catch(e){return out(res,400,{ok:false,error:e.message})}}
  if(p.startsWith('/api/admin/idcards/')&&req.method==='DELETE'){if(!guard(req,res))return;const a=p.split('/').filter(Boolean),id=a[3];if(!id||!/^[A-Za-z0-9_-]{1,200}$/.test(id))return out(res,400,{ok:false,error:'Invalid ID.'});try{await fb('MSINNOVATEX/idcards/'+id,'DELETE');return out(res,200,{ok:true})}catch(e){return out(res,500,{ok:false,error:'Unable to delete ID card.'})}}
