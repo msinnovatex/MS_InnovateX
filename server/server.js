@@ -13,7 +13,7 @@ const PROJECT=String(process.env.FIREBASE_PROJECT_ID||'');
 const EMAIL=String(process.env.FIREBASE_CLIENT_EMAIL||'');
 const KEY=String(process.env.FIREBASE_PRIVATE_KEY||'').replace(/\\n/g,'\n');
 const ADMIN_USER=String(process.env.ADMIN_USERNAME||'admin');
-const ADMIN_PASS=String(process.env.ADMIN_PASSWORD||'Msinnovatex@789');
+const ADMIN_PASS=String(process.env.ADMIN_PASSWORD||'');
 const ADMIN_AUTH_PATH='MSINNOVATEX/adminAuth';
 const ORIGINS=String(process.env.FRONTEND_ORIGIN||'').split(',').map(x=>x.trim()).filter(Boolean);
 const TTL=8*60*60*1000;
@@ -51,12 +51,12 @@ const defaults={
 
 function safeEqual(a,b){const x=Buffer.from(String(a));const y=Buffer.from(String(b));return x.length===y.length&&crypto.timingSafeEqual(x,y);}
 async function adminCredentials(){
-  let stored=await fb(ADMIN_AUTH_PATH);
-  if(!stored || stored?.username !== ADMIN_USER || stored?.password !== ADMIN_PASS){
-    stored = { username: ADMIN_USER, password: ADMIN_PASS, updatedAt: Date.now() };
-    await fb(ADMIN_AUTH_PATH, 'PUT', stored);
-  }
-  return stored;
+  const stored=await fb(ADMIN_AUTH_PATH);
+  if(stored?.username && typeof stored?.password==='string') return stored;
+  if(!ADMIN_USER || !ADMIN_PASS) return null;
+  const record={username:ADMIN_USER,password:ADMIN_PASS,updatedAt:Date.now()};
+  await fb(ADMIN_AUTH_PATH,'PUT',record);
+  return record;
 }
 function out(res,status,data){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(data===null?'':JSON.stringify(data));}
 function cookies(req){return Object.fromEntries(String(req.headers.cookie||'').split(';').map(x=>x.trim()).filter(Boolean).map(x=>{const i=x.indexOf('=');return [x.slice(0,i),decodeURIComponent(x.slice(i+1))]}));}
