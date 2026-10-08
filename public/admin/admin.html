@@ -130,12 +130,12 @@ window.togglePassVis=function(inputId,eyeId){
 };
 function panel(){
   const initTab = new URLSearchParams(location.search).get('tab') || 'dashboard';
-  root.innerHTML='<div class="wrap"><div class="top"><div><div class="title">MS InnovateX Control Panel</div><div class="muted">Firebase RTDB root: <b>MSINNOVATEX</b></div></div><button class="btn gray" id="lo">Logout</button></div><div class="tabs"><button class="tab '+(initTab==='dashboard'?'active':'')+'" data-x="dashboard">Dashboard</button><button class="tab '+(initTab==='idcards'?'active':'')+'" data-x="idcards">Employee ID Cards</button><button class="tab '+(initTab==='stats'?'active':'')+'" data-x="stats">Stats</button><button class="tab '+(initTab==='meta'?'active':'')+'" data-x="meta">SEO / Meta</button><button class="tab '+(initTab==='ad'?'active':'')+'" data-x="ad">Advertisement</button><button class="tab '+(initTab==='career'?'active':'')+'" data-x="career">Careers</button><button class="tab '+(initTab==='sub'?'active':'')+'" data-x="sub">Submissions</button><button class="tab '+(initTab==='security'?'active':'')+'" data-x="security">Security</button></div><div id="content"></div></div>';
+  root.innerHTML='<div class="wrap"><div class="top"><div><div class="title">MS InnovateX Control Panel</div><div class="muted">Firebase RTDB root: <b>MSINNOVATEX</b></div></div><button class="btn gray" id="lo">Logout</button></div><div class="tabs"><button class="tab '+(initTab==='dashboard'?'active':'')+'" data-x="dashboard">Dashboard</button><button class="tab '+(initTab==='idcards'?'active':'')+'" data-x="idcards">Employee ID Cards</button><button class="tab '+(initTab==='certificates'?'active':'')+'" data-x="certificates">Certificates</button><button class="tab '+(initTab==='stats'?'active':'')+'" data-x="stats">Stats</button><button class="tab '+(initTab==='meta'?'active':'')+'" data-x="meta">SEO / Meta</button><button class="tab '+(initTab==='ad'?'active':'')+'" data-x="ad">Advertisement</button><button class="tab '+(initTab==='career'?'active':'')+'" data-x="career">Careers</button><button class="tab '+(initTab==='sub'?'active':'')+'" data-x="sub">Submissions</button><button class="tab '+(initTab==='security'?'active':'')+'" data-x="security">Security</button></div><div id="content"></div></div>';
   document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.x)});
   lo.onclick=async()=>{await api('/api/admin/logout',{method:'POST'});login()};
   render(initTab);
 }
-function render(x){if(x==='dashboard')dashboard();if(x==='idcards')idcards();if(x==='stats')stats();if(x==='meta')meta();if(x==='ad')ad();if(x==='career')career();if(x==='sub')sub();if(x==='security')security()}
+function render(x){if(x==='dashboard')dashboard();if(x==='idcards')idcards();if(x==='certificates')certificates();if(x==='stats')stats();if(x==='meta')meta();if(x==='ad')ad();if(x==='career')career();if(x==='sub')sub();if(x==='security')security()}
 function idcards(){
   let cards={};
   async function load(){
@@ -180,6 +180,23 @@ window.deleteAdminIdCard=async function(id){
 
 window.previewAdminIdCard=function(id){
   window.open('idcard.html?id=' + encodeURIComponent(id) + '&preview=1', '_blank', 'noopener,noreferrer');
+};
+
+function certificates(){
+ async function load(){
+  try{
+   const d=await api('/api/admin/certificates');
+   const list=Object.values(d.certificates||{}).sort((a,b)=>Number(b.createdAt||0)-Number(a.createdAt||0));
+   content.innerHTML='<div class="card"><div class="top"><div><h2>Internship Certificates</h2><div class="muted">View every generated certificate and delete records when required.</div></div><div><a href="interncertificate" class="btn" style="text-decoration:none">+ Generate Certificate</a> <button class="btn gray" id="certRefresh">Refresh</button></div></div><div class="scroll"><table class="table"><thead><tr><th>Certificate ID</th><th>Intern</th><th>Role</th><th>Internship Period</th><th>Issue Date</th><th>Issuer</th><th style="text-align:right">Action</th></tr></thead><tbody>'+(list.length?list.map(x=>'<tr><td><span class="badge">'+esc(x.certificateId)+'</span></td><td><b>'+esc(x.fullName)+'</b></td><td>'+esc(x.role)+'</td><td>'+esc(x.startDate)+' → '+esc(x.endDate)+'</td><td>'+esc(x.issueDate)+'</td><td>'+esc(x.issuerName)+'<div class="muted">'+esc(x.issuerDesignation)+'</div></td><td style="text-align:right"><button class="btn red" onclick="deleteCertificate(\''+esc(x.id)+'\')">Delete</button></td></tr>').join(''):'<tr><td colspan="7" class="muted">No internship certificates generated yet.</td></tr>')+'</tbody></table></div></div>';
+   document.getElementById('certRefresh').onclick=load;
+  }catch(e){note(e.message||'Unable to load certificates.',true)}
+ }
+ load();
+}
+window.deleteCertificate=async function(id){
+ if(!confirm('Delete this certificate record permanently?'))return;
+ try{await api('/api/admin/certificates/'+encodeURIComponent(id),{method:'DELETE'});note('✓ Certificate deleted successfully.');certificates()}
+ catch(e){note(e.message||'Unable to delete certificate.',true)}
 };
 function dashboard(){
  const types=[['contact','Contact'],['internship','Internship'],['emailMarketing','Email Marketing']];
