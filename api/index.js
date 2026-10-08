@@ -1,12 +1,7 @@
-import { handle, init } from '../server/server.js';
-
-let ready;
+import { handle } from '../server/server.js';
 
 export default async function handler(req, res) {
   try {
-    if (!ready) ready = init();
-    await ready;
-
     const incoming = new URL(req.url || '/', 'http://localhost');
     const routedPath = incoming.searchParams.get('__msix_path');
 
@@ -22,6 +17,7 @@ export default async function handler(req, res) {
     if (!res.headersSent) {
       res.statusCode = 500;
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store');
       res.end(JSON.stringify({ ok: false, error: 'Internal server error.' }));
     }
   }
