@@ -129,7 +129,7 @@ async function handle(req,res){
  if(p.startsWith('/api/public/employee/')&&req.method==='GET'){
   try{
    const employeeId=decodeURIComponent(p.slice('/api/public/employee/'.length)).trim();
-   if(!/^MSX2026\\d{3,}$/.test(employeeId)) return out(res,400,{ok:false,error:'Invalid employee ID.'});
+   if(!/^MSX2026\d{3,}$/.test(employeeId)) return out(res,400,{ok:false,error:'Invalid employee ID.'});
    const cards=await fb('MSINNOVATEX/idcards')||{};
    const card=Object.values(cards).find(x=>String(x?.employeeId||'').toUpperCase()===employeeId.toUpperCase());
    if(!card) return out(res,404,{ok:false,error:'Employee ID not found.'});
@@ -140,7 +140,7 @@ async function handle(req,res){
     department:String(card.department||''),
     email:String(card.email||''),
     joiningDate:String(card.joiningDate||''),
-    photo:typeof card.photo==='string'&&/^data:image\\/(png|jpe?g|webp);base64,/.test(card.photo)?card.photo:''
+    photo:typeof card.photo==='string'&&/^data:image\/(png|jpe?g|webp);base64,/.test(card.photo)?card.photo:''
    }});
   }catch(e){console.error('[Public employee verification]',e);return out(res,500,{ok:false,error:'Unable to verify the employee right now.'})}
  }
