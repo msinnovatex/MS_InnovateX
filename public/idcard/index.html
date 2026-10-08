@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+<title>Employee ID Card Download | MS InnovateX</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,sans-serif;background:linear-gradient(135deg,#020d24,#071a3a 55%,#1264ff);color:#eaf2ff;display:flex;align-items:center;justify-content:center;padding:24px}.box{width:min(520px,100%);background:#071a3af2;border:1px solid #31598e;border-radius:22px;padding:30px;box-shadow:0 25px 80px #0008;text-align:center}.logo{height:48px;width:auto;margin-bottom:18px}.title{font-size:28px;font-weight:900;margin:0}.sub{color:#aebfd8;font-size:14px;line-height:1.6;margin:10px 0 24px}.label{display:block;text-align:left;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#b9c8df;margin:0 0 7px}.input{width:100%;height:50px;border-radius:12px;border:1px solid #31598e;background:#04122a;color:#fff;padding:0 15px;font-size:16px;font-weight:700;text-transform:uppercase;outline:none}.input:focus{border-color:#58a6ff;box-shadow:0 0 0 3px #1264ff33}.btn{width:100%;height:50px;margin-top:14px;border:0;border-radius:12px;background:#1264ff;color:#fff;font-size:14px;font-weight:900;cursor:pointer}.btn:disabled{opacity:.65;cursor:wait}.msg{display:none;margin-top:16px;padding:12px;border-radius:10px;font-size:13px;font-weight:700}.msg.error{display:block;background:#4b1724;border:1px solid #a33a55;color:#ffbdc9}.msg.ok{display:block;background:#0b3b2c;border:1px solid #2d9b72;color:#b1f3d5}.hint{margin-top:18px;color:#8195b3;font-size:11px}.hidden{display:none!important}
+</style>
+</head>
+<body>
+<main class="box">
+<img class="logo" src="/logo.png" alt="MS InnovateX">
+<h1 class="title">Employee ID Card</h1>
+<p class="sub">Enter your Employee ID to download your official two-sided ID card PDF.</p>
+<form id="form">
+<label class="label" for="employeeId">Employee ID</label>
+<input id="employeeId" class="input" autocomplete="off" autocapitalize="characters" placeholder="e.g. MSX2026001" maxlength="30" required>
+<button id="downloadBtn" class="btn" type="submit">Download ID Card PDF</button>
+</form>
+<div id="msg" class="msg"></div>
+<div class="hint">No preview is shown. Your PDF download starts automatically after verification.</div>
+</main>
+<script>
+const API_BASE=location.origin;
+const form=document.getElementById('form'),input=document.getElementById('employeeId'),button=document.getElementById('downloadBtn'),msg=document.getElementById('msg');
+function message(text,error=false){msg.textContent=text;msg.className='msg '+(error?'error':'ok');}
+function loadImage(src){return new Promise(resolve=>{if(!src)return resolve(null);const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>resolve(null);img.src=src;});}
+function safeName(v){return String(v||'Employee').replace(/[^a-z0-9 _-]/gi,'').trim().replace(/\s+/g,'_').slice(0,60)||'Employee';}
+async function createPdf(e){
+ e.preventDefault();
+ const employeeId=input.value.trim().toUpperCase();
+ if(!/^MSX2026\d{3,}$/.test(employeeId)){message('Please enter a valid Employee ID.',true);return;}
+ button.disabled=true;button.textContent='Verifying & preparing PDF...';msg.className='msg';msg.textContent='';
+ try{
+  const response=await fetch(API_BASE+'/api/public/employee/'+encodeURIComponent(employeeId),{headers:{Accept:'application/json'}});
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok||!data.ok||!data.employee)throw new Error(data.error||'Employee ID not found.');
+  const emp=data.employee;
+  const [frontBg,backBg,photo]=await Promise.all([loadImage('/admin/id-card-front.png'),loadImage('/admin/id-card-back.png'),loadImage(emp.photo)]);
+  if(!frontBg||!backBg)throw new Error('ID card template is temporarily unavailable.');
+  const scale=3,cardW=441,cardH=679,gap=40,pad=30,canvasW=cardW*2+gap+pad*2,canvasH=cardH+pad*2;
+  const canvas=document.createElement('canvas');canvas.width=canvasW*scale;canvas.height=canvasH*scale;
+  const ctx=canvas.getContext('2d');ctx.scale(scale,scale);ctx.fillStyle='#fff';ctx.fillRect(0,0,canvasW,canvasH);
+  const fX=pad,fY=pad,bX=fX+cardW+gap,bY=pad;
+  ctx.drawImage(frontBg,fX,fY,cardW,cardH);
+  if(photo){ctx.save();const px=fX+129,py=fY+204,pw=176,ph=169,pr=18;ctx.beginPath();ctx.moveTo(px+pr,py);ctx.arcTo(px+pw,py,px+pw,py+ph,pr);ctx.arcTo(px+pw,py+ph,px,py+ph,pr);ctx.arcTo(px,py+ph,px,py,pr);ctx.arcTo(px,py,px+pw,py,pr);ctx.closePath();ctx.clip();ctx.drawImage(photo,px,py,pw,ph);ctx.restore();}
+  const name=String(emp.fullName||'').toUpperCase(),desig=String(emp.designation||'').toUpperCase();
+  ctx.textAlign='center';ctx.fillStyle='#071a3a';ctx.font='bold 20px Arial,sans-serif';ctx.fillText(name,fX+220.5,fY+411);
+  ctx.fillStyle='#1264ff';ctx.font='bold 13.5px Arial,sans-serif';ctx.fillText(desig,fX+220.5,fY+437);
+  ctx.textAlign='left';ctx.fillStyle='#071a3a';ctx.font='bold 13px Arial,sans-serif';ctx.fillText(String(emp.employeeId||''),fX+182,fY+484.5);
+  ctx.font='bold 12.5px Arial,sans-serif';ctx.fillText(String(emp.department||''),fX+182,fY+519);
+  ctx.font='bold 11.5px Arial,sans-serif';ctx.fillText(String(emp.email||'').toLowerCase(),fX+182,fY+554);
+  ctx.font='bold 12.5px Arial,sans-serif';ctx.fillText(String(emp.joiningDate||''),fX+182,fY+589.5);
+  ctx.drawImage(backBg,bX,bY,cardW,cardH);
+  const imgData=canvas.toDataURL('image/jpeg',.98),element=document.createElement('div');element.style.width=canvasW+'px';element.style.height=canvasH+'px';element.innerHTML='<img src="'+imgData+'" style="display:block;width:'+canvasW+'px;height:'+canvasH+'px">';
+  await html2pdf().set({margin:0,filename:'ID_Card_'+safeName(emp.employeeId)+'_'+safeName(emp.fullName)+'.pdf',image:{type:'jpeg',quality:.98},html2canvas:{scale:1,logging:false,scrollX:0,scrollY:0},jsPDF:{unit:'px',format:[canvasW,canvasH],orientation:'landscape'}}).from(element).save();
+  message('ID card PDF downloaded successfully.');
+ }catch(error){console.error(error);message(error.message||'Unable to download the ID card.',true);}
+ finally{button.disabled=false;button.textContent='Download ID Card PDF';}
+}
+form.addEventListener('submit',createPdf);
+</script>
+</body>
+</html>
