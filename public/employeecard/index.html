@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+<title>Employee ID Card Download | MS InnovateX</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;background:#061126;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px}
+.wrap{width:min(520px,100%);background:#0b1d40;border:1px solid #31558b;border-radius:24px;padding:32px;box-shadow:0 25px 70px #0008}
+.logo{font-weight:900;font-size:25px;text-align:center}.sub{text-align:center;color:#a9bddb;margin:8px 0 26px;font-size:14px}
+label{display:block;font-size:12px;font-weight:800;letter-spacing:.08em;margin:0 0 8px;color:#b9c9df}
+input{width:100%;padding:15px 16px;border-radius:13px;border:1px solid #4b6792;background:#f5f8ff;color:#0b1730;font-size:16px;font-weight:700;outline:none}
+button{width:100%;margin-top:14px;padding:15px;border:0;border-radius:13px;background:#1264ff;color:#fff;font-size:16px;font-weight:900;cursor:pointer}
+button:disabled{opacity:.6;cursor:wait}.msg{margin-top:14px;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:700;display:none}.error{display:block;background:#4a1824;color:#ffc6d0;border:1px solid #9b4054}.success{display:block;background:#123d2b;color:#b9f5d3;border:1px solid #28764f}
+.hint{text-align:center;color:#8298b9;font-size:12px;margin-top:18px}
+#pdf{position:fixed;left:-10000px;top:0;width:856px}
+.card{width:856px;height:540px;position:relative;overflow:hidden;background:#fff;color:#10213d;font-family:Arial,Helvetica,sans-serif}
+.front{border:4px solid #1264ff}.back{border:4px solid #102b55}
+.top{height:105px;background:#08204a;color:#fff;padding:23px 30px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:31px;font-weight:900}.tag{font-size:13px;font-weight:800;letter-spacing:.12em;color:#9fc1ff}
+.body{display:flex;height:431px;padding:30px 34px;gap:32px}.photo{width:190px;height:235px;border-radius:14px;object-fit:cover;border:3px solid #1264ff;background:#e8eef8}.info{flex:1}.name{font-size:34px;font-weight:900;color:#08204a;margin:5px 0 7px}.designation{font-size:19px;font-weight:800;color:#1264ff;margin-bottom:24px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{padding:13px 15px;background:#f1f5fb;border-radius:10px}.label{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#6b7e99}.value{font-size:15px;font-weight:800;margin-top:5px;word-break:break-word}
+.back-inner{padding:48px 55px}.back h2{font-size:30px;margin:0 0 12px;color:#08204a}.back p{font-size:17px;line-height:1.6;color:#455a78}.verify{margin-top:35px;padding:20px;background:#edf5ff;border-left:6px solid #1264ff;font-weight:800;color:#17345e}.footer{position:absolute;bottom:22px;left:55px;right:55px;display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:#6b7e99}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo">MS InnovateX</div>
+  <div class="sub">Employee ID Card — Direct PDF Download</div>
+  <form id="form">
+    <label for="employeeId">EMPLOYEE ID</label>
+    <input id="employeeId" autocomplete="off" spellcheck="false" placeholder="e.g. MSX2026001" required>
+    <button id="download" type="submit">Download ID Card PDF</button>
+  </form>
+  <div id="msg" class="msg"></div>
+  <div class="hint">Enter your official Employee ID. Your two-sided ID card PDF will download automatically.</div>
+</div>
+
+<div id="pdf">
+  <section class="card front" id="front">
+    <div class="top"><div class="brand">MS InnovateX</div><div class="tag">EMPLOYEE ID CARD</div></div>
+    <div class="body">
+      <img id="photo" class="photo" alt="Employee photo">
+      <div class="info">
+        <div id="name" class="name"></div>
+        <div id="designation" class="designation"></div>
+        <div class="grid">
+          <div class="field"><div class="label">Employee ID</div><div id="eid" class="value"></div></div>
+          <div class="field"><div class="label">Department</div><div id="department" class="value"></div></div>
+          <div class="field"><div class="label">Email</div><div id="email" class="value"></div></div>
+          <div class="field"><div class="label">Joining Date</div><div id="joining" class="value"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="card back page-break">
+    <div class="back-inner">
+      <h2>MS InnovateX Pvt. Ltd.</h2>
+      <p>This identification card is issued to the employee named on the front side and remains the property of MS InnovateX Pvt. Ltd.</p>
+      <div class="verify">If found, please return this card to MS InnovateX Pvt. Ltd. Employee records can be verified through the official employee verification service.</div>
+    </div>
+    <div class="footer"><span>Official Employee Identification</span><span id="backId"></span></div>
+  </section>
+</div>
+
+<script>
+const form=document.getElementById('form'),input=document.getElementById('employeeId'),button=document.getElementById('download'),msg=document.getElementById('msg');
+function show(text,type){msg.className='msg '+type;msg.textContent=text}
+function set(id,value){document.getElementById(id).textContent=value||'—'}
+form.addEventListener('submit',async e=>{
+ e.preventDefault(); const id=input.value.trim().toUpperCase();
+ if(!/^MSX2026\d{3,}$/.test(id)){show('Please enter a valid Employee ID, for example MSX2026001.','error');return}
+ button.disabled=true;button.textContent='Verifying and generating PDF...';msg.className='msg';msg.textContent='';
+ try{
+  const r=await fetch('/api/public/employee/'+encodeURIComponent(id),{headers:{Accept:'application/json'}});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok||!d.ok||!d.employee)throw new Error(d.error||'Employee ID not found.');
+  const x=d.employee;
+  set('name',x.fullName);set('designation',x.designation);set('eid',x.employeeId);set('department',x.department);set('email',x.email);set('joining',x.joiningDate);set('backId',x.employeeId);
+  const photo=document.getElementById('photo');
+  photo.src=x.photo||'/assets/logo.png';
+  await new Promise(resolve=>{if(photo.complete)resolve();else{photo.onload=resolve;photo.onerror=resolve}});
+  await new Promise(r=>setTimeout(r,150));
+  const element=document.getElementById('pdf');
+  await html2pdf().set({
+    margin:0,
+    filename:String(x.employeeId)+'.pdf',
+    image:{type:'jpeg',quality:.96},
+    html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},
+    jsPDF:{unit:'px',format:[856,540],orientation:'landscape',compress:true},
+    pagebreak:{mode:['css','legacy']}
+  }).from(element).save();
+  show('ID card PDF downloaded successfully.','success');
+ }catch(err){console.error(err);show(err.message||'Unable to generate the ID card PDF.','error')}
+ finally{button.disabled=false;button.textContent='Download ID Card PDF'}
+});
+</script>
+</body>
+</html>
