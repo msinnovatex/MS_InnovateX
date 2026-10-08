@@ -181,6 +181,46 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}.preview-only body{}
+body.preview-only {
+  background: #f8fafc;
+  min-height: 100vh;
+}
+body.preview-only .preview-nav-hidden,
+body.preview-only #mainHeader,
+body.preview-only footer,
+body.preview-only > .max-w-\[1400px\] > .mb-6,
+body.preview-only #noticeBox,
+body.preview-only .id-card-form-hidden {
+  display: none !important;
+}
+.preview-only-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 24px;
+}
+.preview-only-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.preview-only-actions .btn-action {
+  min-width: 190px;
+  justify-content: center;
+}
+@media(max-width: 560px) {
+  .preview-only-wrap { padding: 14px; }
+  .preview-only-wrap .id-card-stage {
+    transform-origin: top center;
+    transform: scale(calc((100vw - 28px) / 441));
+    margin-bottom: calc(-679px + ((100vw - 28px) / 441) * 679px);
+  }
 }
 .id-card-stage {
   width: 441px;
@@ -410,7 +450,7 @@ body {
 
   <div id="noticeBox"></div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-[1fr_500px] gap-7 items-start">
+  <div id="idCardWorkspace" class="grid grid-cols-1 lg:grid-cols-[1fr_500px] gap-7 items-start">
     <!-- Form Box -->
     <div class="card-box">
       <h3 class="mt-0 mb-5 text-lg font-black">Employee Information Form</h3>
@@ -508,6 +548,34 @@ body {
         📥 Download 2-Side PDF
       </button>
     </div>
+  </div>
+</div>
+
+<div id="previewOnly" class="preview-only-wrap" style="display:none">
+  <div class="preview-header" style="max-width:441px">
+    <div class="preview-title-wrap">
+      <span class="preview-title">Employee ID Card Preview</span>
+      <span class="preview-subtitle">Review the official badge before downloading</span>
+    </div>
+  </div>
+  <div class="id-card-stage" id="previewCardStage">
+    <img id="previewCardBg" src="id-card-front.png" class="card-bg-img" alt="ID Card Background">
+    <div id="previewFrontOverlays">
+      <div class="card-photo-box">
+        <span class="photo-empty" id="previewPhotoEmpty">No Photo</span>
+        <img id="previewPhotoImg" src="" alt="Employee Photo" style="display:none">
+      </div>
+      <div class="card-emp-name" id="previewNameVal">EMPLOYEE NAME</div>
+      <div class="card-emp-desig" id="previewDesigVal">DESIGNATION</div>
+      <div class="card-val-empid" id="previewEmpIdVal">MSX2026001</div>
+      <div class="card-val-dept" id="previewDeptVal">DEPARTMENT</div>
+      <div class="card-val-email" id="previewEmailVal">EMAIL@DOMAIN.COM</div>
+      <div class="card-val-date" id="previewDateVal">YYYY-MM-DD</div>
+    </div>
+  </div>
+  <div class="preview-only-actions">
+    <button type="button" class="btn-action gray" onclick="togglePreviewSide()">↔ View Back Side</button>
+    <button type="button" class="btn-action" onclick="downloadIDCardPDF()">📥 Download 2-Side PDF</button>
   </div>
 </div>
 
@@ -1020,9 +1088,53 @@ function resetForm() {
   initPage();
 }
 
-window.onload = function() {
+function setupPreviewMode() {
+  const params = new URLSearchParams(location.search);
+  if (params.get('preview') !== '1') return;
+
+  document.body.classList.add('preview-only');
+  const workspace = document.getElementById('idCardWorkspace');
+  const preview = document.getElementById('previewOnly');
+  if (workspace) workspace.style.display = 'none';
+  if (preview) preview.style.display = 'flex';
+
+  const copy = (from, to) => {
+    const source = document.getElementById(from);
+    const target = document.getElementById(to);
+    if (source && target) target.textContent = source.textContent;
+  };
+  copy('cardNameVal', 'previewNameVal');
+  copy('cardDesigVal', 'previewDesigVal');
+  copy('cardEmpIdVal', 'previewEmpIdVal');
+  copy('cardDeptVal', 'previewDeptVal');
+  copy('cardEmailVal', 'previewEmailVal');
+  copy('cardDateVal', 'previewDateVal');
+
+  if (photoDataBase64) {
+    const img = document.getElementById('previewPhotoImg');
+    const empty = document.getElementById('previewPhotoEmpty');
+    if (img) {
+      img.src = photoDataBase64;
+      img.style.display = 'block';
+    }
+    if (empty) empty.style.display = 'none';
+  }
+}
+function togglePreviewSide() {
+  const bg = document.getElementById('previewCardBg');
+  const overlays = document.getElementById('previewFrontOverlays');
+  const btn = event && event.currentTarget;
+  if (!bg || !overlays) return;
+  const back = bg.src.includes('id-card-back.png');
+  bg.src = back ? 'id-card-front.png' : 'id-card-back.png';
+  overlays.style.display = back ? 'block' : 'none';
+  if (btn) btn.textContent = back ? '↔ View Back Side' : '↔ View Front Side';
+}
+
+window.onload = async function() {
   applyTheme();
-  initPage();
+  await initPage();
+  setupPreviewMode();
 };
 </script>
 </body>
