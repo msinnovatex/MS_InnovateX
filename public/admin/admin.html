@@ -75,7 +75,7 @@
 }
 .table-wrap-idcard {
   padding-bottom: 95px;
-}</style>
+}.cert-actions{display:flex;gap:5px;justify-content:flex-end;align-items:center;flex-wrap:wrap}.cert-action{border:1px solid #315582;background:#12294b;color:#eaf2ff;border-radius:8px;padding:7px 9px;font-weight:800;cursor:pointer;font-size:12px;text-decoration:none;display:inline-flex;align-items:center;gap:4px}.cert-action.primary{background:#2459d6;border-color:#3269ed}.cert-action.danger{background:#8e263c;border-color:#a63a50}.cert-menu{position:relative;display:inline-block}.cert-menu summary{list-style:none}.cert-menu summary::-webkit-details-marker{display:none}.cert-menu[open] .cert-menu-list{display:grid}.cert-menu-list{display:none;position:absolute;right:0;top:35px;min-width:150px;z-index:30;padding:6px;background:#081a36;border:1px solid #315582;border-radius:10px;box-shadow:0 12px 30px #0008;gap:4px}.cert-menu-list button{width:100%;text-align:left;justify-content:flex-start}.cert-action:hover{filter:brightness(1.15)}</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body><div id="root"></div>
@@ -187,12 +187,28 @@ function certificates(){
   try{
    const d=await api('/api/admin/certificates');
    const list=Object.values(d.certificates||{}).sort((a,b)=>Number(b.createdAt||0)-Number(a.createdAt||0));
-   content.innerHTML='<div class="card"><div class="top"><div><h2>Internship Certificates</h2><div class="muted">View every generated certificate and delete records when required.</div></div><div><a href="interncertificate" class="btn" style="text-decoration:none">+ Generate Certificate</a> <button class="btn gray" id="certRefresh">Refresh</button></div></div><div class="scroll"><table class="table"><thead><tr><th>Certificate ID</th><th>Intern</th><th>Role</th><th>Internship Period</th><th>Issue Date</th><th>Issuer</th><th style="text-align:right">Action</th></tr></thead><tbody>'+(list.length?list.map(x=>'<tr><td><span class="badge">'+esc(x.certificateId)+'</span></td><td><b>'+esc(x.fullName)+'</b></td><td>'+esc(x.role)+'</td><td>'+esc(x.startDate)+' → '+esc(x.endDate)+'</td><td>'+esc(x.issueDate)+'</td><td>'+esc(x.issuerName)+'<div class="muted">'+esc(x.issuerDesignation)+'</div></td><td style="text-align:right"><button class="btn red" onclick="deleteCertificate(\''+esc(x.id)+'\')">Delete</button></td></tr>').join(''):'<tr><td colspan="7" class="muted">No internship certificates generated yet.</td></tr>')+'</tbody></table></div></div>';
+   content.innerHTML='<div class="card"><div class="top"><div><h2>Internship Certificates</h2><div class="muted">View every generated certificate and delete records when required.</div></div><div><a href="interncertificate" class="btn" style="text-decoration:none">+ Generate Certificate</a> <button class="btn gray" id="certRefresh">Refresh</button></div></div><div class="scroll"><table class="table"><thead><tr><th>Certificate ID</th><th>Intern</th><th>Role</th><th>Internship Period</th><th>Issue Date</th><th>Issuer</th><th style="text-align:right">Action</th></tr></thead><tbody>'+(list.length?list.map(x=>'<tr><td><span class="badge">'+esc(x.certificateId)+'</span></td><td><b>'+esc(x.fullName)+'</b></td><td>'+esc(x.role)+'</td><td>'+esc(x.startDate)+' → '+esc(x.endDate)+'</td><td>'+esc(x.issueDate)+'</td><td>'+esc(x.issuerName)+'<div class="muted">'+esc(x.issuerDesignation)+'</div></td><td><div class="cert-actions"><button class="cert-action" onclick="previewCertificate(\''+esc(x.id)+'\')">Preview certificate</button><button class="cert-action primary" onclick="downloadCertificate(\''+esc(x.id)+'\')">Download</button><button class="cert-action" onclick="editCertificate(\''+esc(x.id)+'\')">Edit</button><details class="cert-menu"><summary class="cert-action" aria-label="More actions">⋯</summary><div class="cert-menu-list"><button class="cert-action danger" onclick="deleteCertificate(\''+esc(x.id)+'\')">Delete certificate</button></div></details></div></td></tr>').join(''):'<tr><td colspan="7" class="muted">No internship certificates generated yet.</td></tr>')+'</tbody></table></div></div>';
    document.getElementById('certRefresh').onclick=load;
   }catch(e){note(e.message||'Unable to load certificates.',true)}
  }
  load();
 }
+window.previewCertificate=function(id){window.open('interncertificate/?id='+encodeURIComponent(id)+'&mode=preview','_blank','noopener')};
+window.downloadCertificate=function(id){window.open('interncertificate/?id='+encodeURIComponent(id)+'&mode=download','_blank','noopener')};
+window.editCertificate=async function(id){
+ try{
+  const d=await api('/api/admin/certificates');const x=(d.certificates||{})[id];if(!x)throw Error('Certificate record not found.');
+  const fullName=prompt('Intern full name:',x.fullName||'');if(fullName===null)return;
+  const role=prompt('Internship role:',x.role||'');if(role===null)return;
+  const startDate=prompt('Start date (YYYY-MM-DD):',x.startDate||'');if(startDate===null)return;
+  const endDate=prompt('End date (YYYY-MM-DD):',x.endDate||'');if(endDate===null)return;
+  const issueDate=prompt('Issue date (YYYY-MM-DD):',x.issueDate||'');if(issueDate===null)return;
+  const issuerName=prompt('Issuer name:',x.issuerName||'MS InnovateX');if(issuerName===null)return;
+  const issuerDesignation=prompt('Issuer designation:',x.issuerDesignation||'Director');if(issuerDesignation===null)return;
+  await api('/api/admin/certificates/'+encodeURIComponent(id),{method:'PUT',body:JSON.stringify({fullName,role,startDate,endDate,issueDate,issuerName,issuerDesignation,department:x.department||'General',description:x.description||''})});
+  note('Certificate details updated.');certificates();
+ }catch(e){note(e.message||'Unable to edit certificate.',true)}
+};
 window.deleteCertificate=async function(id){
  if(!confirm('Delete this certificate record permanently?'))return;
  try{await api('/api/admin/certificates/'+encodeURIComponent(id),{method:'DELETE'});note('✓ Certificate deleted successfully.');certificates()}
