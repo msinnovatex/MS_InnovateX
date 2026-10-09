@@ -258,7 +258,7 @@ catch(e){console.error('[Admin credentials]',e);return out(res,400,{ok:false,err
  if(p.startsWith('/api/public/certificate/')&&req.method==='GET'){
   try{
    const certificateId=decodeURIComponent(p.split('/').filter(Boolean)[3]||'').trim().toUpperCase();
-   if(!/^MSX\\d{8}$/.test(certificateId))return out(res,400,{ok:false,error:'Enter a valid Certificate ID.'});
+   if(!/^MSX\d{8}$/.test(certificateId))return out(res,400,{ok:false,error:'Enter a valid Certificate ID.'});
    const certificates=await fb('MSINNOVATEX/certificates')||{};
    const certificate=Object.values(certificates).find(x=>String(x?.certificateId||'').toUpperCase()===certificateId);
    if(!certificate)return out(res,404,{ok:false,error:'Certificate not found in the MS InnovateX registry.'});
