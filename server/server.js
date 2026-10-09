@@ -233,6 +233,21 @@ catch(e){console.error('[Admin credentials]',e);return out(res,400,{ok:false,err
    return out(res,201,{ok:true,certificate:record});
   }catch(e){console.error('[Certificate create]',e);return out(res,500,{ok:false,error:'Unable to save the certificate.'})}
  }
+ if(p.startsWith('/api/admin/certificates/')&&req.method==='PUT'){
+  if(!guard(req,res))return;
+  const id=p.split('/').filter(Boolean)[3];
+  if(!id||!/^[A-Za-z0-9_-]{1,200}$/.test(id))return out(res,400,{ok:false,error:'Invalid certificate ID.'});
+  try{
+   const current=await fb('MSINNOVATEX/certificates/'+id);
+   if(!current)return out(res,404,{ok:false,error:'Certificate not found.'});
+   const b=clean(await body(req))||{};
+   const record={...current,fullName:String(b.fullName||'').trim().slice(0,160),role:String(b.role||'').trim().slice(0,160),department:String(b.department||current.department||'General').trim().slice(0,160),startDate:String(b.startDate||'').trim().slice(0,50),endDate:String(b.endDate||'').trim().slice(0,50),issueDate:String(b.issueDate||'').trim().slice(0,50),issuerName:String(b.issuerName||'').trim().slice(0,120),issuerDesignation:String(b.issuerDesignation||'').trim().slice(0,120),description:String(b.description||'').trim().slice(0,800),updatedAt:Date.now()};
+   if(!record.fullName||!record.role||!record.startDate||!record.endDate||!record.issueDate||!record.issuerName||!record.issuerDesignation)return out(res,400,{ok:false,error:'All certificate fields are required.'});
+   if(record.endDate<record.startDate)return out(res,400,{ok:false,error:'End date cannot be before start date.'});
+   await fb('MSINNOVATEX/certificates/'+id,'PUT',record);
+   return out(res,200,{ok:true,certificate:record});
+  }catch(e){console.error('[Certificate update]',e);return out(res,500,{ok:false,error:'Unable to update the certificate.'})}
+ }
  if(p.startsWith('/api/admin/certificates/')&&req.method==='DELETE'){
   if(!guard(req,res))return;
   const id=p.split('/').filter(Boolean)[2];
