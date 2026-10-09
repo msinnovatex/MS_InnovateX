@@ -255,6 +255,16 @@ catch(e){console.error('[Admin credentials]',e);return out(res,400,{ok:false,err
   try{await fb('MSINNOVATEX/certificates/'+id,'DELETE');return out(res,200,{ok:true})}
   catch(e){console.error('[Certificate delete]',e);return out(res,500,{ok:false,error:'Unable to delete the certificate.'})}
  }
+ if(p.startsWith('/api/public/certificate/')&&req.method==='GET'){
+  try{
+   const certificateId=decodeURIComponent(p.split('/').filter(Boolean)[3]||'').trim().toUpperCase();
+   if(!/^MSX\\d{8}$/.test(certificateId))return out(res,400,{ok:false,error:'Enter a valid Certificate ID.'});
+   const certificates=await fb('MSINNOVATEX/certificates')||{};
+   const certificate=Object.values(certificates).find(x=>String(x?.certificateId||'').toUpperCase()===certificateId);
+   if(!certificate)return out(res,404,{ok:false,error:'Certificate not found in the MS InnovateX registry.'});
+   return out(res,200,{ok:true,certificate:{certificateId:certificate.certificateId,fullName:certificate.fullName,role:certificate.role,startDate:certificate.startDate,endDate:certificate.endDate,issueDate:certificate.issueDate,issuerName:certificate.issuerName,issuerDesignation:certificate.issuerDesignation}});
+  }catch(e){console.error('[Public certificate verification]',e);return out(res,500,{ok:false,error:'Unable to verify certificate right now.'})}
+ }
  if(p==='/api/public/idcard'&&req.method==='GET'){
   try{
    const employeeId=String(u.searchParams.get('employeeId')||'').trim();
