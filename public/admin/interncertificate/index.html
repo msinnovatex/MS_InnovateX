@@ -12,7 +12,7 @@
 *{box-sizing:border-box}body{margin:0;background:#061126;color:#eaf2ff;font-family:Inter,system-ui,sans-serif}.shell{max-width:1500px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}.title{font-size:26px;font-weight:900}.muted{color:#9fb0cc;font-size:13px}.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer;background:#1264ff;color:#fff}.btn.gray{background:#17375f}.btn.green{background:#0b8f62}.layout{display:grid;grid-template-columns:390px minmax(0,1fr);gap:18px}.card{background:#071a3a;border:1px solid #2b5186;border-radius:18px;padding:20px;box-shadow:0 20px 60px #0004}.label{display:block;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:#b9c8df;margin:12px 0 6px}.input,.area{width:100%;background:#04122a;color:#fff;border:1px solid #24477c;border-radius:10px;padding:11px 12px;outline:none}.area{min-height:90px;resize:vertical}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.notice{padding:10px 12px;border-radius:10px;margin-bottom:12px;background:#0b3b2c;border:1px solid #2d9b72;color:#b1f3d5}.error{background:#4b1724;border-color:#a33a55;color:#ffbdc9}.status{min-height:20px;margin-top:10px;font-size:13px;font-weight:700}
 .preview-wrap{overflow:hidden;background:#020817;border-radius:14px;padding:0;width:100%}
 .cert-scaler{width:100%;position:relative;overflow:hidden}
-.certificate{position:absolute;top:0;left:0;width:1536px;height:1024px;transform-origin:0 0;background:#fff url("MS%20InnovateX%20Internship%20Certificate.png") center/100% 100% no-repeat;overflow:hidden}
+.certificate{position:absolute;top:0;left:0;width:1536px;height:1024px;transform-origin:0 0;background:#fff url("/admin/interncertificate/MS%20InnovateX%20Internship%20Certificate.png") center/100% 100% no-repeat;overflow:hidden}
 .field{position:absolute;z-index:2}.cover{display:none}
 .name{left:310px;top:409px;width:917px;height:76px;font:700 73px/1 "Great Vibes",cursive;font-weight:700;color:#073b91;text-align:center;white-space:nowrap}
 .role{left:865px;top:537px;width:350px;height:33px;font:700 25px/32px Georgia,serif;color:#000000;text-align:left}
@@ -137,7 +137,17 @@ $('generateBtn').onclick=async()=>{
   preview(certIdIssued);
   const cert=$('certificate');
   cert.style.transform='none';
-  const canvas=await html2canvas(cert,{scale:2,width:1536,height:1024,windowWidth:1536,windowHeight:1024,useCORS:true,backgroundColor:'#fff',logging:false});
+  const templateUrl='/admin/interncertificate/MS%20InnovateX%20Internship%20Certificate.png';
+  const templateImage=new Image();
+  templateImage.src=templateUrl;
+  await new Promise((resolve,reject)=>{
+   if(templateImage.complete&&templateImage.naturalWidth>0)return resolve();
+   templateImage.onload=resolve;
+   templateImage.onerror=()=>reject(new Error('Certificate template PNG could not be loaded. Check that the PNG exists at '+templateUrl));
+  });
+  if(!templateImage.naturalWidth)throw new Error('Certificate template PNG is missing or could not be decoded.');
+  await document.fonts.ready;
+  const canvas=await html2canvas(cert,{scale:2,width:1536,height:1024,windowWidth:1536,windowHeight:1024,useCORS:true,allowTaint:false,backgroundColor:'#fff',logging:false});
   fitCertificate();
   const {jsPDF}=window.jspdf;const pdf=new jsPDF({unit:'px',format:[1536,1024],orientation:'landscape',compress:true});
   pdf.addImage(canvas.toDataURL('image/jpeg',.98),'JPEG',0,0,1536,1024,undefined,'FAST');
